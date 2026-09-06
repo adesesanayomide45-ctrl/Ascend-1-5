@@ -376,7 +376,7 @@ if (!user) {
           </Text>
         </TouchableOpacity>
         <Text style={{ color: subtext, textAlign: 'center', marginTop: 30, fontSize: 12 }}>
-          This is a demo login — it doesn't save real accounts yet.
+          Email sign-up creates a real account. Phone sign-in is coming soon.
         </Text>
         <Text style={{ color: subtext, textAlign: 'center', marginTop: 40, fontSize: 12, fontWeight: '700' }}>Ascend from MIDEON</Text>
       </ScrollView>
