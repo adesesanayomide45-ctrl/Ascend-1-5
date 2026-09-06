@@ -95,6 +95,10 @@ function getBotReply(q) {
   const [nameInput, setNameInput] = useState('');
   const [ageInput, setAgeInput] = useState('');
   const [locationInput, setLocationInput] = useState('');
+  const [genderInput, setGenderInput] = useState('');
+  const [friendInput, setFriendInput] = useState('');
+  const [bio, setBio] = useState('');
+  const [editingBio, setEditingBio] = useState(false);
   const [emailInput, setEmailInput] = useState('');
   const [passInput, setPassInput] = useState('');
   const [signupPhoto, setSignupPhoto] = useState(null);
