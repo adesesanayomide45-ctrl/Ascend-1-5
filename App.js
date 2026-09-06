@@ -245,11 +245,20 @@ function getBotReply(q) {
       ? { ...c, messages: [...c.messages, { id: msgId, from: 'me', text: chatDraft, read: false }] }
       : c));
     setChatDraft('');
-    setTimeout(() => {
-      setChats((prev) => prev.map((c) => c.id === activeChatId
-        ? { ...c, messages: c.messages.map((m) => m.id === msgId ? { ...m, read: true } : m) }
-        : c));
-    }, 1500);
+    const sendGroupMessage = async () => {
+    if (!groupDraft.trim()) return;
+    try {
+      await addDoc(collection(db, 'familyChat'), {
+        text: groupDraft,
+        sender: user.name,
+        senderEmail: user.email,
+        timestamp: serverTimestamp(),
+      });
+      setGroupDraft('');
+    } catch (error) {
+      Alert.alert('Message failed', error.message);
+    }
+  };
   };
 
   const sendVoiceNote = () => {
