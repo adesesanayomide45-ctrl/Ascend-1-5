@@ -533,7 +533,29 @@ if (!user) {
           ))}
         </ScrollView>
       )}
-
+{screen === 'chat' && groupChatOpen && (
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity onPress={() => setGroupChatOpen(false)} style={{ marginBottom: 10 }}>
+            <Text style={{ color: accent, fontWeight: '700' }}>← Back</Text>
+          </TouchableOpacity>
+          <ScrollView style={{ flex: 1, marginBottom: 8 }}>
+            {groupMessages.map((m) => (
+              <View key={m.id} style={{ alignItems: m.senderEmail === user.email ? 'flex-end' : 'flex-start', marginBottom: 6 }}>
+                {m.senderEmail !== user.email && <Text style={{ color: subtext, fontSize: 11, marginBottom: 2 }}>{m.sender}</Text>}
+                <View style={{ backgroundColor: m.senderEmail === user.email ? accent : cardBg, borderRadius: 14, paddingVertical: 8, paddingHorizontal: 12, maxWidth: '75%' }}>
+                  <Text style={{ color: m.senderEmail === user.email ? '#fff' : text }}>{m.text}</Text>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, flex: 1, marginBottom: 0 }]} placeholder="Message everyone..." placeholderTextColor={subtext} value={groupDraft} onChangeText={setGroupDraft} />
+            <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 10, paddingHorizontal: 16, justifyContent: 'center' }} onPress={sendGroupMessage}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Send</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
       {screen === 'chat' && activeChat && (
         <View style={{ flex: 1 }}>
           <TouchableOpacity onPress={() => setActiveChatId(null)} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
