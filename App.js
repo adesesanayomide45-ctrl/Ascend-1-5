@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Switch, Image, Alert, Modal } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker';import { auth } from './firebaseConfig';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const buildLevels = () => {
   const stages = [
@@ -311,7 +312,24 @@ function getBotReply(q) {
         <Text style={{ color: subtext, marginTop: 10, fontSize: 16, fontWeight: '700' }}>{loadingDots}</Text>
       </View>
     );
-}if (!user) {
+}const handleSignup = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, emailInput, passInput);
+      setUser({ name: nameInput || 'You', email: emailInput });
+    } catch (error) {
+      Alert.alert('Sign up failed', error.message);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, emailInput, passInput);
+      setUser({ name: 'You', email: emailInput });
+    } catch (error) {
+      Alert.alert('Log in failed', error.message);
+    }
+  };
+if (!user) {
     return (
       <ScrollView contentContainerStyle={[styles.app, { backgroundColor: bg, flexGrow: 1, justifyContent: 'center' }]}>
         <Text style={[styles.title, { color: accent, textAlign: 'center', marginBottom: 24 }]}>Ascend</Text>
