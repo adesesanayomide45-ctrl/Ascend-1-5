@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Switch, Image, Alert, Modal } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -141,7 +141,16 @@ function getBotReply(q) {
   const text = darkMode ? '#f0f0f0' : '#161b15';
   const subtext = darkMode ? '#9aa393' : '#657160';
   const accent = '#1E8449';
-  const border = darkMode ? '#2a3020' : '#e1e8dc';
+  const border = darkMode ? '#2a3020' : '#e1e8dc';const [appReady, setAppReady] = useState(false);
+  const [loadingDots, setLoadingDots] = useState('.');
+
+  useEffect(() => {
+    const dotTimer = setInterval(() => {
+      setLoadingDots((d) => (d.length >= 3 ? '.' : d + '.'));
+    }, 400);
+    const readyTimer = setTimeout(() => setAppReady(true), 1800);
+    return () => { clearInterval(dotTimer); clearTimeout(readyTimer); };
+  }, []);
 
   const rank = getRank(points);
   const idx = LEVELS.findIndex((l) => l === rank);
@@ -294,7 +303,15 @@ function getBotReply(q) {
     Alert.alert('Success', 'Your password has been reset.');
     setResetVisible(false);
     setResetInput('');
-  };if (!user) {
+  };
+  if (!appReady) {
+    return (
+      <View style={[styles.app, { backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }]}>
+        <Text style={[styles.title, { color: accent, fontSize: 30 }]}>Ascend</Text>
+        <Text style={{ color: subtext, marginTop: 10, fontSize: 16, fontWeight: '700' }}>{loadingDots}</Text>
+      </View>
+    );
+}if (!user) {
     return (
       <ScrollView contentContainerStyle={[styles.app, { backgroundColor: bg, flexGrow: 1, justifyContent: 'center' }]}>
         <Text style={[styles.title, { color: accent, textAlign: 'center', marginBottom: 24 }]}>Ascend</Text>
