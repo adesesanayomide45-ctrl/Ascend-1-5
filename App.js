@@ -91,7 +91,7 @@ function getBotReply(q) {
 }export default function App() {
   const [user, setUser] = useState(null);
   const [authMode, setAuthMode] = useState('login');
-  const [signupStage, setSignupStage] = useState('form');
+  const [signupStage, setSignupStage] = useState('name');
   const [nameInput, setNameInput] = useState('');
   const [ageInput, setAgeInput] = useState('');
   const [locationInput, setLocationInput] = useState('');
