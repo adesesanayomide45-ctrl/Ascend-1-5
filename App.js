@@ -288,7 +288,7 @@ const requestSignupCode = () => {
       Alert.alert('Incorrect code', 'That code doesn\'t match. Please try again.');
       return;
     }
-    setUser({ name: nameInput, age: ageInput, location: locationInput, email: emailInput, photo: signupPhoto });
+    setUser({ name: nameInput, gender: genderInput, age: ageInput, email: emailInput, location: '', photo: null, profileComplete: false });
   };
 
   const requestResetCode = () => {
