@@ -392,7 +392,7 @@ if (!user) {
           </>
         )}
 
-        <TouchableOpacity onPress={() => { setAuthMode(authMode === 'signup' ? 'login' : 'signup'); setSignupStage('form'); }}>
+        <TouchableOpacity onPress={() => { setAuthMode(authMode === 'signup' ? 'login' : 'signup'); setSignupStage('name'); }}>
           <Text style={{ color: accent, textAlign: 'center', marginTop: 14 }}>
             {authMode === 'signup' ? 'Already have an account? Log in' : "New here? Create an account"}
           </Text>
