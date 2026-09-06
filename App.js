@@ -316,9 +316,13 @@ const requestSignupCode = () => {
       </View>
     );
 }const handleSignup = async () => {
+    if (!genderInput.trim() || !ageInput.trim() || !emailInput.trim() || !passInput.trim()) {
+      Alert.alert('Missing info', 'Please fill in your gender, age, email, and password first.');
+      return;
+    }
     try {
       await createUserWithEmailAndPassword(auth, emailInput, passInput);
-      setUser({ name: nameInput || 'You', email: emailInput });
+      setUser({ name: nameInput, gender: genderInput, age: ageInput, email: emailInput, location: '', photo: null, profileComplete: false });
     } catch (error) {
       Alert.alert('Sign up failed', error.message);
     }
