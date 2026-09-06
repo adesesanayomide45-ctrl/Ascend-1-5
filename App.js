@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Switch
 import * as ImagePicker from 'expo-image-picker';import { auth, db } from './firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
+
 const buildLevels = () => {
   const stages = [
     { name: "Rookie", sub: ["I","II","III","IV"], cost: () => 100 },
@@ -153,12 +154,13 @@ function getBotReply(q) {
   const [loadingDots, setLoadingDots] = useState('.');
 
   useEffect(() => {
-    const dotTimer = setInterval(() => {
-      setLoadingDots((d) => (d.length >= 3 ? '.' : d + '.'));
-    }, 400);
-    const readyTimer = setTimeout(() => setAppReady(true), 1800);
-    return () => { clearInterval(dotTimer); clearTimeout(readyTimer); };
-  }, []);
+    if (!user) return;
+    const q = query(collection(db, 'familyChat'), orderBy('timestamp', 'asc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setGroupMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    });
+    return () => unsubscribe();
+  }, [user]);
 
   const rank = getRank(points);
   const idx = LEVELS.findIndex((l) => l === rank);
