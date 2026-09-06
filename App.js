@@ -337,18 +337,33 @@ if (!user) {
       <ScrollView contentContainerStyle={[styles.app, { backgroundColor: bg, flexGrow: 1, justifyContent: 'center' }]}>
         <Text style={[styles.title, { color: accent, textAlign: 'center', marginBottom: 24 }]}>Ascend</Text>
 
-        {authMode === 'signup' && signupStage === 'form' && (
+        {authMode === 'signup' && signupStage === 'name' && (
           <>
             <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Full name" placeholderTextColor={subtext} value={nameInput} onChangeText={setNameInput} />
-            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Age" placeholderTextColor={subtext} keyboardType="number-pad" value={ageInput} onChangeText={setAgeInput} />
-            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Where are you from?" placeholderTextColor={subtext} value={locationInput} onChangeText={setLocationInput} />
-            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Email or phone number" placeholderTextColor={subtext} value={emailInput} onChangeText={setEmailInput} />
-            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Password" placeholderTextColor={subtext} secureTextEntry value={passInput} onChangeText={setPassInput} />
-            <TouchableOpacity style={[styles.smallButton, { backgroundColor: cardBg, borderWidth: 1, borderColor: border, marginBottom: 12 }]} onPress={pickSignupPhoto}>
-              <Text style={{ color: text, fontWeight: 'bold' }}>{signupPhoto ? '✅ Profile picture added' : '📷 Add profile picture'}</Text>
+            <TouchableOpacity style={[styles.button, { backgroundColor: accent }]} onPress={() => { if (!nameInput.trim()) { Alert.alert('Name needed', 'Please enter your full name.'); return; } setSignupStage('details'); }}>
+              <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
+          </>
+        )}
+
+        {authMode === 'signup' && signupStage === 'details' && (
+          <>
+            <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>Gender</Text>
+            <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
+              {['Male', 'Female', 'Other'].map((g) => (
+                <TouchableOpacity key={g} style={[styles.smallButton, { flex: 1, backgroundColor: genderInput === g ? accent : cardBg, borderWidth: 1, borderColor: border }]} onPress={() => setGenderInput(g)}>
+                  <Text style={{ color: genderInput === g ? '#fff' : text, fontWeight: 'bold' }}>{g}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Age" placeholderTextColor={subtext} keyboardType="number-pad" value={ageInput} onChangeText={setAgeInput} />
+            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Email address" placeholderTextColor={subtext} value={emailInput} onChangeText={setEmailInput} />
+            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Password" placeholderTextColor={subtext} secureTextEntry value={passInput} onChangeText={setPassInput} />
             <TouchableOpacity style={[styles.button, { backgroundColor: accent }]} onPress={requestSignupCode}>
               <Text style={styles.buttonText}>Send verification code</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSignupStage('name')}>
+              <Text style={{ color: accent, textAlign: 'center', marginTop: 4 }}>← Back</Text>
             </TouchableOpacity>
           </>
         )}
