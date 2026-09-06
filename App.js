@@ -131,6 +131,9 @@ function getBotReply(q) {
   ]);
   const [activeChatId, setActiveChatId] = useState(null);
   const [chatDraft, setChatDraft] = useState('');
+  const [groupMessages, setGroupMessages] = useState([]);
+  const [groupDraft, setGroupDraft] = useState('');
+  const [groupChatOpen, setGroupChatOpen] = useState(false);
 
   const [aiMessages, setAiMessages] = useState([
     { id: 1, from: 'bot', text: "Hey! I'm the Ascend Help Bot. Ask me about points, ranks, posting, reels, friends, rules, your account, or how anything in the app works." },
