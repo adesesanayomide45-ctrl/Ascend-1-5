@@ -321,7 +321,9 @@ const requestSignupCode = () => {
       return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, emailInput, passInput);
+      const result = await createUserWithEmailAndPassword(auth, emailInput, passInput);
+      await sendEmailVerification(result.user);
+      Alert.alert('Check your email', 'We sent a verification link to ' + emailInput + '. Tap it to confirm your account.');
       setUser({ name: nameInput, gender: genderInput, age: ageInput, email: emailInput, location: '', photo: null, profileComplete: false });
     } catch (error) {
       Alert.alert('Sign up failed', error.message);
