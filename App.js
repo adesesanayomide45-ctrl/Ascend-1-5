@@ -114,7 +114,7 @@ function getBotReply(q) {
   ]);
   const [draft, setDraft] = useState('');
   const [draftMedia, setDraftMedia] = useState(null);
-  const [friends] = useState(['Ada', 'Marco', 'Zainab']);
+  const [friends, setFriends] = useState(['Ada', 'Marco', 'Zainab']);
   const [blockedUsers, setBlockedUsers] = useState([]);
   const [profileMenuFor, setProfileMenuFor] = useState(null);
   const [viewProfileFor, setViewProfileFor] = useState(null);
