@@ -26,6 +26,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Social Media app"
+    "description": "Social Media app",
+"platforms": ["ios", "android"],
+"extra": {
+  "eas": {
+    "projectId": "ec6f3830-f62b-4584-a560-ce6a0f54b19e"
   }
 }
+  }
