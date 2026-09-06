@@ -510,8 +510,12 @@ if (!user) {
             </View>
           ))}
         </ScrollView>
-      )}{screen === 'chat' && !activeChatId && (
+      )}{screen === 'chat' && !activeChatId && !groupChatOpen && (
         <ScrollView style={{ flex: 1 }}>
+          <TouchableOpacity style={[styles.card, { backgroundColor: cardBg, borderColor: accent, borderWidth: 1.5 }]} onPress={() => setGroupChatOpen(true)}>
+            <Text style={{ color: text, fontWeight: '700' }}>🌐 Family & Friends (real chat)</Text>
+            <Text style={{ color: subtext, fontSize: 12 }}>Everyone with the app can message here for real</Text>
+          </TouchableOpacity>
           {chats.map((c) => (
             <TouchableOpacity key={c.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border, flexDirection: 'row', alignItems: 'center' }]} onPress={() => setActiveChatId(c.id)}>
               <View style={{ marginRight: 10 }}>
