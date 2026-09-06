@@ -271,10 +271,9 @@ function getBotReply(q) {
   };
 
   const generateCode = () => String(Math.floor(1000 + Math.random() * 9000));
-
-  const requestSignupCode = () => {
-    if (!nameInput.trim() || !ageInput.trim() || !locationInput.trim() || !emailInput.trim() || !passInput.trim()) {
-      Alert.alert('Missing info', 'Please fill in your name, age, location, email/phone, and password first.');
+const requestSignupCode = () => {
+    if (!genderInput.trim() || !ageInput.trim() || !emailInput.trim() || !passInput.trim()) {
+      Alert.alert('Missing info', 'Please fill in your gender, age, email, and password first.');
       return;
     }
     Alert.alert('Verify your account', 'How should we send your verification code?', [
