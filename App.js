@@ -246,12 +246,21 @@ function getBotReply(q) {
       return;
     }
     try {
+      let mediaUrl = null;
+      if (draftMedia && draftMedia.type !== 'video') {
+        const response = await fetch(draftMedia.uri);
+        const blob = await response.blob();
+        const fileRef = ref(storage, `posts/${user.uid}_${Date.now()}`);
+        await uploadBytes(fileRef, blob);
+        mediaUrl = await getDownloadURL(fileRef);
+      }
       await addDoc(collection(db, 'posts'), {
         author: user.name,
         authorUid: user.uid || null,
         text: draft,
         hasMedia: !!draftMedia,
         mediaType: draftMedia ? draftMedia.type : null,
+        mediaUrl: mediaUrl,
         timestamp: serverTimestamp(),
       });
       setPoints(points + 2);
