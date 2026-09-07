@@ -165,6 +165,39 @@ function getBotReply(q) {
     setNotifications([{ id: 1, from: 'Ascend', text: `Welcome to Ascend, ${user.name}! We're glad you're here. 🎉`, read: false }]);
   }, [user?.email]);
   useEffect(() => {
+    if (!user || !user.uid) return;
+    const q = query(collection(db, 'friendRequests'), where('toUid', '==', user.uid), where('status', '==', 'pending'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const reqs = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      setIncomingRequests(reqs);
+    });
+    return () => unsubscribe();
+  }, [user?.uid]);
+
+  useEffect(() => {
+    if (!user || !user.uid) return;
+    const q = query(collection(db, 'privateChats'), where('members', 'array-contains', user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const list = snapshot.docs.map((d) => {
+        const data = d.data();
+        const otherUid = data.members.find((m) => m !== user.uid);
+        return { chatId: d.id, uid: otherUid, name: data.memberNames[otherUid] };
+      });
+      setRealFriends(list);
+    });
+    return () => unsubscribe();
+  }, [user?.uid]);
+
+  useEffect(() => {
+    if (!user || !activePrivateFriend) return;
+    const chatId = [user.uid, activePrivateFriend.uid].sort().join('_');
+    const q = query(collection(db, 'privateChats', chatId, 'messages'), orderBy('timestamp', 'asc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setPrivateMessages(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsubscribe();
+  }, [activePrivateFriend, user?.uid]);
+  useEffect(() => {
     if (!user) return;
     const q = query(collection(db, 'familyChat'), orderBy('timestamp', 'asc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
