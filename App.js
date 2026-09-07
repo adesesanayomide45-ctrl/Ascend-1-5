@@ -626,9 +626,41 @@ if (!user) {
             </View>
           ))}
         </ScrollView>
-      )}{screen === 'chat' && !activeChatId && !groupChatOpen && (
+      )}{screen === 'chat' && !activeChatId && !groupChatOpen && !activePrivateFriend && (
         <ScrollView style={{ flex: 1 }}>
-          <TouchableOpacity style={[styles.card, { backgroundColor: cardBg, borderColor: accent, borderWidth: 1.5 }]} onPress={() => setGroupChatOpen(true)}>
+          <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
+            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, flex: 1, marginBottom: 0 }]} placeholder="🔍 Search people by name..." placeholderTextColor={subtext} value={searchQuery} onChangeText={setSearchQuery} />
+            <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 10, paddingHorizontal: 16, justifyContent: 'center' }} onPress={searchUsers}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Go</Text>
+            </TouchableOpacity>
+          </View>
+          {searchResults.map((r) => (
+            <View key={r.uid} style={[styles.card, { backgroundColor: cardBg, borderColor: border, flexDirection: 'row', alignItems: 'center' }]}>
+              <Text style={{ color: text, flex: 1 }}>{r.name}</Text>
+              <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 6 }} onPress={() => sendFriendRequest(r)}>
+                <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>Add</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+
+          {incomingRequests.length > 0 && <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friend Requests</Text>}
+          {incomingRequests.map((req) => (
+            <View key={req.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border, flexDirection: 'row', alignItems: 'center' }]}>
+              <Text style={{ color: text, flex: 1 }}>{req.fromName}</Text>
+              <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 6 }} onPress={() => acceptFriendRequest(req)}>
+                <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>Accept</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+
+          <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friends</Text>
+          {realFriends.map((f) => (
+            <TouchableOpacity key={f.uid} style={[styles.card, { backgroundColor: cardBg, borderColor: border }]} onPress={() => openPrivateChat(f)}>
+              <Text style={{ color: text, fontWeight: '700' }}>{f.name}</Text>
+            </TouchableOpacity>
+          ))}
+
+          <TouchableOpacity style={[styles.card, { backgroundColor: cardBg, borderColor: accent, borderWidth: 1.5, marginTop: 10 }]} onPress={() => setGroupChatOpen(true)}>
             <Text style={{ color: text, fontWeight: '700' }}>🌐 Family & Friends (real chat)</Text>
             <Text style={{ color: subtext, fontSize: 12 }}>Everyone with the app can message here for real</Text>
           </TouchableOpacity>
