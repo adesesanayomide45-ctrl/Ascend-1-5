@@ -128,16 +128,7 @@ function getBotReply(q) {
   const [notifOpen, setNotifOpen] = useState(false);
   const [viewProfileFor, setViewProfileFor] = useState(null);
 
-  const [chats, setChats] = useState([
-    { id: 1, name: 'Ada', online: true, messages: [
-      { id: 1, from: 'them', text: 'Hey! You around later?', read: true },
-      { id: 2, from: 'me', text: 'Yeah, free after 5', read: true },
-      { id: 3, from: 'them', text: 'See you at 6?', read: false },
-    ]},
-    { id: 2, name: 'Marco', online: false, messages: [
-      { id: 1, from: 'them', text: 'Sent the files', read: true },
-    ]},
-  ]);
+  const [chats, setChats] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
   const [chatDraft, setChatDraft] = useState('');
   const [groupMessages, setGroupMessages] = useState([]);
