@@ -386,7 +386,43 @@ function getBotReply(q) {
     setActivePrivateFriend(friend);
     setScreen('chat');
   };
+const toggleGroupSelect = (uid) => {
+    setSelectedForGroup((prev) => prev.includes(uid) ? prev.filter((x) => x !== uid) : [...prev, uid]);
+  };
 
+  const createGroup = async () => {
+    if (!newGroupName.trim() || selectedForGroup.length === 0) {
+      Alert.alert('Missing info', 'Give your group a name and pick at least one friend.');
+      return;
+    }
+    try {
+      const memberNames = { [user.uid]: user.name };
+      realFriends.forEach((f) => { if (selectedForGroup.includes(f.uid)) memberNames[f.uid] = f.name; });
+      await addDoc(collection(db, 'groups'), {
+        name: newGroupName,
+        members: [user.uid, ...selectedForGroup],
+        memberNames,
+        createdBy: user.uid,
+      });
+      setCreatingGroup(false);
+      setNewGroupName('');
+      setSelectedForGroup([]);
+    } catch (error) {
+      Alert.alert('Failed to create group', error.message);
+    }
+  };
+
+  const sendGroupChatMessage = async () => {
+    if (!groupMsgDraft.trim() || !activeGroup) return;
+    try {
+      await addDoc(collection(db, 'groups', activeGroup.id, 'messages'), {
+        text: groupMsgDraft, senderUid: user.uid, senderName: user.name, timestamp: serverTimestamp(),
+      });
+      setGroupMsgDraft('');
+    } catch (error) {
+      Alert.alert('Message failed', error.message);
+    }
+  };
   const sendPrivateMessage = async () => {
     if (!privateDraft.trim() || !activePrivateFriend) return;
     const chatId = [user.uid, activePrivateFriend.uid].sort().join('_');
