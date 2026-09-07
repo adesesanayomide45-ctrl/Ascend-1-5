@@ -156,7 +156,10 @@ function getBotReply(q) {
   const accent = '#1E8449';
   const border = darkMode ? '#2a3020' : '#e1e8dc';const [appReady, setAppReady] = useState(false);
   const [loadingDots, setLoadingDots] = useState('.');
-
+  useEffect(() => {
+    if (!user) return;
+    setNotifications([{ id: 1, from: 'Ascend', text: `Welcome to Ascend, ${user.name}! We're glad you're here. 🎉`, read: false }]);
+  }, [user?.email]);
   useEffect(() => {
     if (!user) return;
     const q = query(collection(db, 'familyChat'), orderBy('timestamp', 'asc'));
