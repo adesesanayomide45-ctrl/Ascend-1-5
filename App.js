@@ -200,6 +200,14 @@ function getBotReply(q) {
   }, [activePrivateFriend, user?.uid]);
   useEffect(() => {
     if (!user) return;
+    const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setUserPosts(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsubscribe();
+  }, [user?.uid]);
+  useEffect(() => {
+    if (!user) return;
     const q = query(collection(db, 'familyChat'), orderBy('timestamp', 'asc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setGroupMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
