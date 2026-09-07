@@ -92,6 +92,13 @@ function getBotReply(q) {
   return "I'm still learning! Try asking about points, ranks, posting rules, Legendary ranks, reels, voice notes, account settings, or how OTP verification works.";
 }export default function App() {
   const [user, setUser] = useState(null);
+  const [groups, setGroups] = useState([]);
+  const [activeGroup, setActiveGroup] = useState(null);
+  const [groupMsgs, setGroupMsgs] = useState([]);
+  const [groupMsgDraft, setGroupMsgDraft] = useState('');
+  const [creatingGroup, setCreatingGroup] = useState(false);
+  const [newGroupName, setNewGroupName] = useState('');
+  const [selectedForGroup, setSelectedForGroup] = useState([]);
   const [authMode, setAuthMode] = useState('login');
   const [signupStage, setSignupStage] = useState('name');
   const [nameInput, setNameInput] = useState('');
