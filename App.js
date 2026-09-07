@@ -445,7 +445,15 @@ if (!user) {
     <View style={[styles.app, { backgroundColor: bg }]}>
       <View style={styles.header}>
         <Text style={[styles.title, { color: accent }]}>Ascend</Text>
-        <Text style={{ color: text, fontWeight: '700' }}>{points} pts · {rank.stage} {rank.label}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+          <TouchableOpacity onPress={() => setNotifOpen(true)} style={{ position: 'relative' }}>
+            <Text style={{ fontSize: 20 }}>🔔</Text>
+            {notifications.some((n) => !n.read) && (
+              <View style={{ position: 'absolute', top: -2, right: -2, width: 9, height: 9, borderRadius: 5, backgroundColor: '#C2403F' }} />
+            )}
+          </TouchableOpacity>
+          <Text style={{ color: text, fontWeight: '700' }}>{points} pts · {rank.stage} {rank.label}</Text>
+        </View>
       </View>
 
       {screen === 'feed' && (
