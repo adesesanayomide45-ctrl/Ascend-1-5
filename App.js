@@ -237,18 +237,28 @@ function getBotReply(q) {
     if (!result.canceled) setSignupPhoto(result.assets[0].uri);
   };
 
-  const addPost = () => {
+  const addPost = async () => {
     if (!draft.trim() && !draftMedia) return;
     if (BLOCKED_WORDS.some((w) => draft.toLowerCase().includes(w))) {
       Alert.alert('Post blocked', 'Your post contains language that violates our content policy. Please edit it before posting.');
       return;
     }
-    setPosts([{ id: Date.now(), author: user.name, text: draft, media: draftMedia }, ...posts]);
-    setPoints(points + 2);
-    setDraft('');
-    setDraftMedia(null);
+    try {
+      await addDoc(collection(db, 'posts'), {
+        author: user.name,
+        authorUid: user.uid || null,
+        text: draft,
+        hasMedia: !!draftMedia,
+        mediaType: draftMedia ? draftMedia.type : null,
+        timestamp: serverTimestamp(),
+      });
+      setPoints(points + 2);
+      setDraft('');
+      setDraftMedia(null);
+    } catch (error) {
+      Alert.alert('Post failed', error.message);
+    }
   };
-
   const addFeeling = () => setDraft((d) => (d ? d + ' 😊' : 'Feeling good 😊'));
 
   const reportPerson = (name) => {
