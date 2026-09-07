@@ -366,8 +366,8 @@ const requestSignupCode = () => {
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, emailInput, passInput);
-      setUser({ name: 'You', email: emailInput });
+      const result = await signInWithEmailAndPassword(auth, emailInput, passInput);
+      setUser({ name: 'You', email: emailInput, uid: result.user.uid });
     } catch (error) {
       Alert.alert('Log in failed', error.message);
     }
