@@ -256,7 +256,62 @@ function getBotReply(q) {
       ? { ...c, messages: [...c.messages, { id: msgId, from: 'me', text: chatDraft, read: false }] }
       : c));
     setChatDraft('');
-    const sendGroupMessage = async () => {
+    const searchUsers = async () => {
+    if (!searchQuery.trim()) return;
+    try {
+      const snapshot = await getDocs(collection(db, 'users'));
+      const results = snapshot.docs
+        .map((d) => ({ uid: d.id, ...d.data() }))
+        .filter((u) => u.uid !== user.uid && u.name.toLowerCase().includes(searchQuery.toLowerCase()));
+      setSearchResults(results);
+    } catch (error) {
+      Alert.alert('Search failed', error.message);
+    }
+  };
+
+  const sendFriendRequest = async (targetUser) => {
+    try {
+      await setDoc(doc(db, 'friendRequests', `${user.uid}_${targetUser.uid}`), {
+        fromUid: user.uid, fromName: user.name,
+        toUid: targetUser.uid, toName: targetUser.name,
+        status: 'pending',
+      });
+      Alert.alert('Request sent', `Friend request sent to ${targetUser.name}.`);
+    } catch (error) {
+      Alert.alert('Failed', error.message);
+    }
+  };
+
+  const acceptFriendRequest = async (req) => {
+    try {
+      await updateDoc(doc(db, 'friendRequests', req.id), { status: 'accepted' });
+      const chatId = [user.uid, req.fromUid].sort().join('_');
+      await setDoc(doc(db, 'privateChats', chatId), {
+        members: [user.uid, req.fromUid],
+        memberNames: { [user.uid]: user.name, [req.fromUid]: req.fromName },
+      });
+    } catch (error) {
+      Alert.alert('Failed', error.message);
+    }
+  };
+
+  const openPrivateChat = (friend) => {
+    setActivePrivateFriend(friend);
+    setScreen('chat');
+  };
+
+  const sendPrivateMessage = async () => {
+    if (!privateDraft.trim() || !activePrivateFriend) return;
+    const chatId = [user.uid, activePrivateFriend.uid].sort().join('_');
+    try {
+      await addDoc(collection(db, 'privateChats', chatId, 'messages'), {
+        text: privateDraft, senderUid: user.uid, senderName: user.name, timestamp: serverTimestamp(),
+      });
+      setPrivateDraft('');
+    } catch (error) {
+      Alert.alert('Message failed', error.message);
+    }
+  };const sendGroupMessage = async () => {
     if (!groupDraft.trim()) return;
     try {
       await addDoc(collection(db, 'familyChat'), {
