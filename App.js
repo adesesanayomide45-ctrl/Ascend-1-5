@@ -681,6 +681,29 @@ if (!user) {
           ))}
         </ScrollView>
       )}
+{screen === 'chat' && activePrivateFriend && (
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity onPress={() => setActivePrivateFriend(null)} style={{ marginBottom: 10 }}>
+            <Text style={{ color: accent, fontWeight: '700' }}>← Back</Text>
+          </TouchableOpacity>
+          <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>{activePrivateFriend.name}</Text>
+          <ScrollView style={{ flex: 1, marginBottom: 8 }}>
+            {privateMessages.map((m) => (
+              <View key={m.id} style={{ alignItems: m.senderUid === user.uid ? 'flex-end' : 'flex-start', marginBottom: 6 }}>
+                <View style={{ backgroundColor: m.senderUid === user.uid ? accent : cardBg, borderRadius: 14, paddingVertical: 8, paddingHorizontal: 12, maxWidth: '75%' }}>
+                  <Text style={{ color: m.senderUid === user.uid ? '#fff' : text }}>{m.text}</Text>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, flex: 1, marginBottom: 0 }]} placeholder="Message..." placeholderTextColor={subtext} value={privateDraft} onChangeText={setPrivateDraft} />
+            <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 10, paddingHorizontal: 16, justifyContent: 'center' }} onPress={sendPrivateMessage}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Send</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
 {screen === 'chat' && groupChatOpen && (
         <View style={{ flex: 1 }}>
           <TouchableOpacity onPress={() => setGroupChatOpen(false)} style={{ marginBottom: 10 }}>
