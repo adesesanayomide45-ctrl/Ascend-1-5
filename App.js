@@ -827,7 +827,7 @@ if (!user) {
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20, borderTopWidth: 1, borderBottomWidth: 1, borderColor: border, paddingVertical: 14 }}>
             <View style={{ alignItems: 'center' }}>
-              <Text style={{ color: text, fontWeight: '700', fontSize: 16 }}>{posts.filter(p => p.author === user.name).length}</Text>
+              <Text style={{ color: text, fontWeight: '700', fontSize: 16 }}>{combinedPosts.filter(p => p.author === user.name).length}</Text>
               <Text style={{ color: subtext, fontSize: 12 }}>Posts</Text>
             </View>
             <View style={{ alignItems: 'center' }}>
