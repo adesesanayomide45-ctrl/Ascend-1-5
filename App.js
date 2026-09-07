@@ -497,7 +497,7 @@ if (!user) {
                     <View style={{ width: 34, height: 34, borderRadius: 17, backgroundColor: bg, alignItems: 'center', justifyContent: 'center', marginRight: 8 }}>
                       <Text style={{ color: accent, fontWeight: '700', fontSize: 13 }}>{p.author.charAt(0).toUpperCase()}</Text>
                     </View>
-                    <Text style={{ color: text, fontWeight: '700' }}>{p.author}</Text>
+                    <Text style={{ color: text, fontWeight: '700', flex: 1 }}>{p.author}{p.author === 'Ascend' ? ' ✅' : ''}</Text>
                   </TouchableOpacity>
                   {p.author !== user.name && (
                     <TouchableOpacity onPress={() => setProfileMenuFor(p.author)} style={{ padding: 4 }}>
