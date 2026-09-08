@@ -150,6 +150,8 @@ function getBotReply(q) {
   const [privateMessages, setPrivateMessages] = useState([]);
   const [privateDraft, setPrivateDraft] = useState('');
   const [userPosts, setUserPosts] = useState([]);
+  const [commentDraft, setCommentDraft] = useState('');
+  const [commentingPostId, setCommentingPostId] = useState(null);
   const [groupMessages, setGroupMessages] = useState([]);
   const [groupDraft, setGroupDraft] = useState('');
   const [groupChatOpen, setGroupChatOpen] = useState(false);
