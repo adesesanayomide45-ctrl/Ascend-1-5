@@ -468,18 +468,7 @@ const toggleGroupSelect = (uid) => {
       Alert.alert('Message failed', error.message);
     }
   };
-
-  const sendGroupChatMessage = async () => {
-    if (!groupMsgDraft.trim() || !activeGroup) return;
-    try {
-      await addDoc(collection(db, 'groups', activeGroup.id, 'messages'), {
-        text: groupMsgDraft, senderUid: user.uid, senderName: user.name, timestamp: serverTimestamp(),
-      });
-      setGroupMsgDraft('');
-    } catch (error) {
-      Alert.alert('Message failed', error.message);
-    }
-  };
+    
     const sendPrivateMessage = async () => {
     if (!privateDraft.trim() || !activePrivateFriend) return;
     const chatId = [user.uid, activePrivateFriend.uid].sort().join('_');
