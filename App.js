@@ -779,6 +779,28 @@ if (!user) {
                     ? <View style={{ height: 160, borderRadius: 10, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontSize: 26 }}>🎥</Text></View>
                     : <Image source={{ uri: p.media.uri }} style={{ width: '100%', height: 180, borderRadius: 10 }} />
                 )}
+      <View style={{ flexDirection: 'row', gap: 20, marginTop: 10 }}>
+                  <TouchableOpacity onPress={() => toggleLike(p)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                    <Text style={{ fontSize: 16 }}>{(p.likes || []).includes(user.uid) ? '❤️' : '🤍'}</Text>
+                    <Text style={{ color: subtext, fontSize: 12 }}>{(p.likes || []).length}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setCommentingPostId(commentingPostId === p.id ? null : p.id)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                    <Text style={{ fontSize: 16 }}>💬</Text>
+                    <Text style={{ color: subtext, fontSize: 12 }}>{p.commentCount || 0}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => sharePost(p)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                    <Text style={{ fontSize: 16 }}>↗️</Text>
+                    <Text style={{ color: subtext, fontSize: 12 }}>{p.shareCount || 0}</Text>
+                  </TouchableOpacity>
+                </View>
+                {commentingPostId === p.id && (
+                  <View style={{ flexDirection: 'row', gap: 6, marginTop: 8 }}>
+                    <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: bg, flex: 1, marginBottom: 0 }]} placeholder="Write a comment..." placeholderTextColor={subtext} value={commentDraft} onChangeText={setCommentDraft} />
+                    <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 10, paddingHorizontal: 14, justifyContent: 'center' }} onPress={() => submitComment(p)}>
+                      <Text style={{ color: '#fff', fontWeight: 'bold' }}>Post</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
             ))}
           </ScrollView>
