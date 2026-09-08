@@ -518,29 +518,6 @@ const sendChatMessage = () => {
   setChatDraft('');
 };
 
-const searchUsers = async () => {
-  if (!searchQuery.trim()) return;
-
-  try {
-    const snapshot = await getDocs(collection(db, 'users'));
-
-    const results = snapshot.docs
-      .map((d) => ({
-        uid: d.id,
-        ...d.data(),
-      }))
-      .filter(
-        (u) =>
-          u.uid !== user.uid &&
-          u.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-    setSearchResults(results);
-  } catch (error) {
-    Alert.alert('Search failed', error.message);
-  }
-};
-
 const sendFriendRequest = async (targetUser) => {
   try {
     await setDoc(
