@@ -494,8 +494,7 @@ const toggleGroupSelect = (uid) => {
       Alert.alert('Message failed', error.message);
     }
   };
-  };
-
+  
   const sendVoiceNote = () => {
     if (!activeChatId) return;
     const msgId = Date.now();
