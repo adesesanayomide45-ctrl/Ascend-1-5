@@ -402,17 +402,26 @@ function getBotReply(q) {
   };
 
   const sendFriendRequest = async (targetUser) => {
-    try {
-      await setDoc(doc(db, 'friendRequests', `${user.uid}_${targetUser.uid}`), {
-        fromUid: user.uid, fromName: user.name,
-        toUid: targetUser.uid, toName: targetUser.name,
+  try {
+    await setDoc(
+      doc(db, 'friendRequests', `${user.uid}_${targetUser.uid}`),
+      {
+        fromUid: user.uid,
+        fromName: user.name,
+        toUid: targetUser.uid,
+        toName: targetUser.name,
         status: 'pending',
-      });
-      Alert.alert('Request sent', `Friend request sent to ${targetUser.name}.`);
-    } catch (error) {
-      Alert.alert('Failed', error.message);
-    }
-  };
+      }
+    );
+
+    Alert.alert(
+      'Friend request sent',
+      `Friend request sent to ${targetUser.name}`
+    );
+  } catch (error) {
+    Alert.alert('Failed', error.message);
+  }
+};
 
   const acceptFriendRequest = async (req) => {
     try {
