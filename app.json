@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ascend1-5",
-    "icon": "./assets/icon.png",
+    "icon": "./icon.png",
     "slug": "ascend-15",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,7 +12,7 @@
     "android": {
   "package": "com.adesesanayomide.ascend15",
   "adaptiveIcon": {
-    "foregroundImage": "./assets/icon.png",
+    "foregroundImage": "./icon.png",
         "backgroundColor": "#E6F4FE",
       }
     },
