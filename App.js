@@ -527,15 +527,6 @@ const sendChatMessage = () => {
   setChatDraft('');
 };
 
-    Alert.alert(
-      'Request sent',
-      `Friend request sent to ${targetUser.name}.`
-    );
-  } catch (error) {
-    Alert.alert('Failed', error.message);
-  }
-};
-
 const acceptFriendRequest = async (req) => {
   try {
     await updateDoc(
