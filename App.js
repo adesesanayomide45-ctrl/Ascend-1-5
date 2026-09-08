@@ -518,19 +518,6 @@ const sendChatMessage = () => {
   setChatDraft('');
 };
 
-const sendFriendRequest = async (targetUser) => {
-  try {
-    await setDoc(
-      doc(db, 'friendRequests', `${user.uid}_${targetUser.uid}`),
-      {
-        fromUid: user.uid,
-        fromName: user.name,
-        toUid: targetUser.uid,
-        toName: targetUser.name,
-        status: 'pending',
-      }
-    );
-
     Alert.alert(
       'Request sent',
       `Friend request sent to ${targetUser.name}.`
