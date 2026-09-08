@@ -476,57 +476,300 @@ const toggleGroupSelect = (uid) => {
       await addDoc(collection(db, 'privateChats', chatId, 'messages'), {
         text: privateDraft, senderUid: user.uid, senderName: user.name, timestamp: serverTimestamp(),
       });
-      setPrivateDraft('');
-    } catch (error) {
-      Alert.alert('Message failed', error.message);
-    }
-  };const sendGroupMessage = async () => {
-    if (!groupDraft.trim()) return;
-    try {
-      await addDoc(collection(db, 'familyChat'), {
+const openProfile = (name) => {
+  setProfileMenuFor(null);
+  setViewProfileFor(name);
+};
+
+const sendChatMessage = () => {
+  if (!chatDraft.trim() || !activeChatId) return;
+
+  const msgId = Date.now();
+
+  setChats((prev) =>
+    prev.map((c) =>
+      c.id === activeChatId
+        ? {
+            ...c,
+            messages: [
+              ...c.messages,
+              {
+                id: msgId,
+                from: 'me',
+                text: chatDraft,
+                read: false,
+              },
+            ],
+          }
+        : c
+    )
+  );
+
+  setChatDraft('');
+};
+
+const searchUsers = async () => {
+  if (!searchQuery.trim()) return;
+
+  try {
+    const snapshot = await getDocs(collection(db, 'users'));
+
+    const results = snapshot.docs
+      .map((d) => ({
+        uid: d.id,
+        ...d.data(),
+      }))
+      .filter(
+        (u) =>
+          u.uid !== user.uid &&
+          u.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+    setSearchResults(results);
+  } catch (error) {
+    Alert.alert('Search failed', error.message);
+  }
+};
+
+const sendFriendRequest = async (targetUser) => {
+  try {
+    await setDoc(
+      doc(db, 'friendRequests', `${user.uid}_${targetUser.uid}`),
+      {
+        fromUid: user.uid,
+        fromName: user.name,
+        toUid: targetUser.uid,
+        toName: targetUser.name,
+        status: 'pending',
+      }
+    );
+
+    Alert.alert(
+      'Request sent',
+      `Friend request sent to ${targetUser.name}.`
+    );
+  } catch (error) {
+    Alert.alert('Failed', error.message);
+  }
+};
+
+const acceptFriendRequest = async (req) => {
+  try {
+    await updateDoc(
+      doc(db, 'friendRequests', req.id),
+      {
+        status: 'accepted',
+      }
+    );
+
+    const chatId = [user.uid, req.fromUid]
+      .sort()
+      .join('_');
+
+    await setDoc(
+      doc(db, 'privateChats', chatId),
+      {
+        members: [user.uid, req.fromUid],
+        memberNames: {
+          [user.uid]: user.name,
+          [req.fromUid]: req.fromName,
+        },
+      }
+    );
+  } catch (error) {
+    Alert.alert('Failed', error.message);
+  }
+};
+
+const openPrivateChat = (friend) => {
+  setActivePrivateFriend(friend);
+  setScreen('chat');
+};
+
+const toggleGroupSelect = (uid) => {
+  setSelectedForGroup((prev) =>
+    prev.includes(uid)
+      ? prev.filter((x) => x !== uid)
+      : [...prev, uid]
+  );
+};
+
+const createGroup = async () => {
+  if (!newGroupName.trim() || selectedForGroup.length === 0) {
+    Alert.alert(
+      'Missing info',
+      'Give your group a name and pick at least one friend.'
+    );
+    return;
+  }
+
+  try {
+    const memberNames = {
+      [user.uid]: user.name,
+    };
+
+    realFriends.forEach((f) => {
+      if (selectedForGroup.includes(f.uid)) {
+        memberNames[f.uid] = f.name;
+      }
+    });
+
+    await addDoc(collection(db, 'groups'), {
+      name: newGroupName,
+      members: [user.uid, ...selectedForGroup],
+      memberNames,
+      createdBy: user.uid,
+    });
+
+    setCreatingGroup(false);
+    setNewGroupName('');
+    setSelectedForGroup([]);
+  } catch (error) {
+    Alert.alert(
+      'Failed to create group',
+      error.message
+    );
+  }
+};
+      const sendGroupChatMessage = async () => {
+  if (!groupMsgDraft.trim() || !activeGroup) return;
+
+  try {
+    await addDoc(
+      collection(
+        db,
+        'groups',
+        activeGroup.id,
+        'messages'
+      ),
+      {
+        text: groupMsgDraft,
+        senderUid: user.uid,
+        senderName: user.name,
+        timestamp: serverTimestamp(),
+      }
+    );
+
+    setGroupMsgDraft('');
+  } catch (error) {
+    Alert.alert(
+      'Message failed',
+      error.message
+    );
+  }
+};
+
+const sendPrivateMessage = async () => {
+  if (!privateDraft.trim() || !activePrivateFriend) return;
+
+  const chatId = [
+    user.uid,
+    activePrivateFriend.uid,
+  ]
+    .sort()
+    .join('_');
+
+  try {
+    await addDoc(
+      collection(
+        db,
+        'privateChats',
+        chatId,
+        'messages'
+      ),
+      {
+        text: privateDraft,
+        senderUid: user.uid,
+        senderName: user.name,
+        timestamp: serverTimestamp(),
+      }
+    );
+
+    setPrivateDraft('');
+  } catch (error) {
+    Alert.alert(
+      'Message failed',
+      error.message
+    );
+  }
+};
+
+const sendGroupMessage = async () => {
+  if (!groupDraft.trim()) return;
+
+  try {
+    await addDoc(
+      collection(db, 'familyChat'),
+      {
         text: groupDraft,
         sender: user.name,
         senderEmail: user.email,
         timestamp: serverTimestamp(),
-      });
-      setGroupDraft('');
-    } catch (error) {
-      Alert.alert('Message failed', error.message);
-    }
-  };
-  
-  const sendVoiceNote = () => {
-    if (!activeChatId) return;
-    const msgId = Date.now();
-    setChats((prev) => prev.map((c) => c.id === activeChatId
-      ? { ...c, messages: [...c.messages, { id: msgId, from: 'me', text: '🎤 Voice note · 0:05', read: false }] }
-      : c));
-    const sendGroupMessage = async () => {
-    if (!groupDraft.trim()) return;
-    try {
-      await addDoc(collection(db, 'familyChat'), {
-        text: groupDraft,
-        sender: user.name,
-        senderEmail: user.email,
-        timestamp: serverTimestamp(),
-      });
-      setGroupDraft('');
-    } catch (error) {
-      Alert.alert('Message failed', error.message);
-    }
-  };
+      }
+    );
 
-  const sendAiMessage = () => {
-    if (!aiDraft.trim()) return;
-    const question = aiDraft;
-    setAiMessages((prev) => [...prev, { id: Date.now(), from: 'user', text: question }]);
-    setAiDraft('');
-    setTimeout(() => {
-      setAiMessages((prev) => [...prev, { id: Date.now() + 1, from: 'bot', text: getBotReply(question) }]);
-    }, 700);
-  };
+    setGroupDraft('');
+  } catch (error) {
+    Alert.alert(
+      'Message failed',
+      error.message
+    );
+  }
+};
 
-  const generateCode = () => String(Math.floor(1000 + Math.random() * 9000));
+const sendVoiceNote = () => {
+  if (!activeChatId) return;
+
+  const msgId = Date.now();
+
+  setChats((prev) =>
+    prev.map((c) =>
+      c.id === activeChatId
+        ? {
+            ...c,
+            messages: [
+              ...c.messages,
+              {
+                id: msgId,
+                from: 'me',
+                text: '🎤 Voice note · 0:05',
+                read: false,
+              },
+            ],
+          }
+        : c
+    )
+  );
+};
+
+const sendAiMessage = () => {
+  if (!aiDraft.trim()) return;
+
+  const question = aiDraft;
+
+  setAiMessages((prev) => [
+    ...prev,
+    {
+      id: Date.now(),
+      from: 'user',
+      text: question,
+    },
+  ]);
+
+  setAiDraft('');
+
+  setTimeout(() => {
+    setAiMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now() + 1,
+        from: 'bot',
+        text: getBotReply(question),
+      },
+    ]);
+  }, 700);
+};
+const generateCode = () => String(Math.floor(1000 + Math.random() * 9000));
 const requestSignupCode = () => {
     if (!genderInput.trim() || !ageInput.trim() || !emailInput.trim() || !passInput.trim()) {
       Alert.alert('Missing info', 'Please fill in your gender, age, email, and password first.');
