@@ -468,9 +468,6 @@ const toggleGroupSelect = (uid) => {
       Alert.alert('Message failed', error.message);
     }
   };
-  const toggleGroupSelect = (uid) => {
-    setSelectedForGroup((prev) => prev.includes(uid) ? prev.filter((x) => x !== uid) : [...prev, uid]);
-  };
 
   const createGroup = async () => {
     if (!newGroupName.trim() || selectedForGroup.length === 0) {
