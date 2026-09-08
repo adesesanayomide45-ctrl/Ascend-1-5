@@ -152,7 +152,6 @@ function getBotReply(q) {
   const [userPosts, setUserPosts] = useState([]);
   const [commentDraft, setCommentDraft] = useState('');
   const [commentingPostId, setCommentingPostId] = useState(null);
-  const [groupDraft, setGroupDraft] = useState('');
   const [groupChatOpen, setGroupChatOpen] = useState(false);
 
   const [aiMessages, setAiMessages] = useState([
