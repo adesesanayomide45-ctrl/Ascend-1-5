@@ -281,7 +281,31 @@ function getBotReply(q) {
     const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, quality: 0.7 });
     if (!result.canceled) setSignupPhoto(result.assets[0].uri);
   };
+  const toggleLike = async (post) => {
+    if (typeof post.id !== 'string') { Alert.alert('Not available yet', 'Liking isn\'t supported on this post yet.'); return; }
+    try {
+      const liked = (post.likes || []).includes(user.uid);
+      await updateDoc(doc(db, 'posts', post.id), { likes: liked ? arrayRemove(user.uid) : arrayUnion(user.uid) });
+    } catch (error) { Alert.alert('Failed', error.message); }
+  };
 
+  const submitComment = async (post) => {
+    if (typeof post.id !== 'string') { Alert.alert('Not available yet', 'Comments aren\'t supported on this post yet.'); return; }
+    if (!commentDraft.trim()) return;
+    try {
+      await addDoc(collection(db, 'posts', post.id, 'comments'), { text: commentDraft, author: user.name, timestamp: serverTimestamp() });
+      await updateDoc(doc(db, 'posts', post.id), { commentCount: increment(1) });
+      setCommentDraft('');
+      setCommentingPostId(null);
+    } catch (error) { Alert.alert('Failed', error.message); }
+  };
+
+  const sharePost = async (post) => {
+    try {
+      await Share.share({ message: `${post.author} on Ascend: ${post.text}` });
+      if (typeof post.id === 'string') await updateDoc(doc(db, 'posts', post.id), { shareCount: increment(1) });
+    } catch (error) {}
+  };
   const addPost = async () => {
     if (!draft.trim() && !draftMedia) return;
     if (BLOCKED_WORDS.some((w) => draft.toLowerCase().includes(w))) {
