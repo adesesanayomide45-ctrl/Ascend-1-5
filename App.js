@@ -329,6 +329,9 @@ function getBotReply(q) {
         hasMedia: !!draftMedia,
         mediaType: draftMedia ? draftMedia.type : null,
         mediaUrl: mediaUrl,
+        likes: [],
+        commentCount: 0,
+        shareCount: 0,
         timestamp: serverTimestamp(),
       });
       setPoints(points + 2);
