@@ -315,7 +315,7 @@ function getBotReply(q) {
     }
     try {
       let mediaUrl = null;
-      if (draftMedia && draftMedia.type !== 'video') {
+      if (draftMedia) {
         const response = await fetch(draftMedia.uri);
         const blob = await response.blob();
         const fileRef = ref(storage, `posts/${user.uid}_${Date.now()}`);
