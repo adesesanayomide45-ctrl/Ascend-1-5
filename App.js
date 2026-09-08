@@ -836,6 +836,50 @@ if (!user) {
           ))}
         </ScrollView>
       )}
+{creatingGroup && (
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: bg, zIndex: 20, paddingTop: 60, paddingHorizontal: 16 }}>
+          <TouchableOpacity onPress={() => setCreatingGroup(false)} style={{ marginBottom: 16 }}>
+            <Text style={{ color: accent, fontWeight: '700' }}>← Back</Text>
+          </TouchableOpacity>
+          <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Group name" placeholderTextColor={subtext} value={newGroupName} onChangeText={setNewGroupName} />
+          <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>Add friends</Text>
+          <ScrollView style={{ flex: 1, marginBottom: 12 }}>
+            {realFriends.map((f) => (
+              <TouchableOpacity key={f.uid} style={[styles.card, { backgroundColor: selectedForGroup.includes(f.uid) ? accent : cardBg, borderColor: border }]} onPress={() => toggleGroupSelect(f.uid)}>
+                <Text style={{ color: selectedForGroup.includes(f.uid) ? '#fff' : text }}>{f.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+          <TouchableOpacity style={[styles.button, { backgroundColor: accent }]} onPress={createGroup}>
+            <Text style={styles.buttonText}>Create Group</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {screen === 'chat' && activeGroup && (
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity onPress={() => setActiveGroup(null)} style={{ marginBottom: 10 }}>
+            <Text style={{ color: accent, fontWeight: '700' }}>← Back</Text>
+          </TouchableOpacity>
+          <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>{activeGroup.name}</Text>
+          <ScrollView style={{ flex: 1, marginBottom: 8 }}>
+            {groupMsgs.map((m) => (
+              <View key={m.id} style={{ alignItems: m.senderUid === user.uid ? 'flex-end' : 'flex-start', marginBottom: 6 }}>
+                {m.senderUid !== user.uid && <Text style={{ color: subtext, fontSize: 11, marginBottom: 2 }}>{m.senderName}</Text>}
+                <View style={{ backgroundColor: m.senderUid === user.uid ? accent : cardBg, borderRadius: 14, paddingVertical: 8, paddingHorizontal: 12, maxWidth: '75%' }}>
+                  <Text style={{ color: m.senderUid === user.uid ? '#fff' : text }}>{m.text}</Text>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, flex: 1, marginBottom: 0 }]} placeholder="Message the group..." placeholderTextColor={subtext} value={groupMsgDraft} onChangeText={setGroupMsgDraft} />
+            <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 10, paddingHorizontal: 16, justifyContent: 'center' }} onPress={sendGroupChatMessage}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Send</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
 {screen === 'chat' && activePrivateFriend && (
         <View style={{ flex: 1 }}>
           <TouchableOpacity onPress={() => setActivePrivateFriend(null)} style={{ marginBottom: 10 }}>
