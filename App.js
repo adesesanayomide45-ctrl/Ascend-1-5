@@ -776,7 +776,7 @@ if (!user) {
                 {!!p.text && <Text style={{ color: text, marginBottom: p.media ? 8 : 0, lineHeight: 20 }}>{p.text}</Text>}
                 {p.media && (
                   p.media.type === 'video'
-                    ? <View style={{ height: 160, borderRadius: 10, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontSize: 26 }}>🎥</Text></View>
+                    ? <TouchableOpacity onPress={() => p.media.uri && Linking.openURL(p.media.uri)} style={{ height: 160, borderRadius: 10, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontSize: 26 }}>🎥</Text></TouchableOpacity>
                     : <Image source={{ uri: p.media.uri }} style={{ width: '100%', height: 180, borderRadius: 10 }} />
                 )}
       <View style={{ flexDirection: 'row', gap: 20, marginTop: 10 }}>
