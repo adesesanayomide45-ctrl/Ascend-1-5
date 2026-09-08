@@ -527,39 +527,6 @@ const sendChatMessage = () => {
   setChatDraft('');
 };
 
-const acceptFriendRequest = async (req) => {
-  try {
-    await updateDoc(
-      doc(db, 'friendRequests', req.id),
-      {
-        status: 'accepted',
-      }
-    );
-
-    const chatId = [user.uid, req.fromUid]
-      .sort()
-      .join('_');
-
-    await setDoc(
-      doc(db, 'privateChats', chatId),
-      {
-        members: [user.uid, req.fromUid],
-        memberNames: {
-          [user.uid]: user.name,
-          [req.fromUid]: req.fromName,
-        },
-      }
-    );
-  } catch (error) {
-    Alert.alert('Failed', error.message);
-  }
-};
-
-const openPrivateChat = (friend) => {
-  setActivePrivateFriend(friend);
-  setScreen('chat');
-};
-
 const toggleGroupSelect = (uid) => {
   setSelectedForGroup((prev) =>
     prev.includes(uid)
