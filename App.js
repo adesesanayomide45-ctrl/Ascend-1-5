@@ -388,6 +388,7 @@ function getBotReply(q) {
       ? { ...c, messages: [...c.messages, { id: msgId, from: 'me', text: chatDraft, read: false }] }
       : c));
     setChatDraft('');
+};
     const searchUsers = async () => {
     if (!searchQuery.trim()) return;
     try {
