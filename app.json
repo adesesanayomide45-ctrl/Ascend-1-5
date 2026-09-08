@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "ascend1-5",
+    "icon": "./assets/icon.png",
     "slug": "ascend-15",
     "version": "1.0.0",
     "orientation": "portrait",
