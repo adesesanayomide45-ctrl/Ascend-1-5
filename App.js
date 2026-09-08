@@ -496,41 +496,6 @@ const toggleGroupSelect = (uid) => {
     }
   };
 
-const sendPrivateMessage = async () => {
-  if (!privateDraft.trim() || !activePrivateFriend) return;
-
-  const chatId = [
-    user.uid,
-    activePrivateFriend.uid,
-  ]
-    .sort()
-    .join('_');
-
-  try {
-    await addDoc(
-      collection(
-        db,
-        'privateChats',
-        chatId,
-        'messages'
-      ),
-      {
-        text: privateDraft,
-        senderUid: user.uid,
-        senderName: user.name,
-        timestamp: serverTimestamp(),
-      }
-    );
-
-    setPrivateDraft('');
-  } catch (error) {
-    Alert.alert(
-      'Message failed',
-      error.message
-    );
-  }
-};
-
 const sendGroupMessage = async () => {
   if (!groupDraft.trim()) return;
 
