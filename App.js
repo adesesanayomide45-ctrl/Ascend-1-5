@@ -281,6 +281,7 @@ function getBotReply(q) {
     const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, quality: 0.7 });
     if (!result.canceled) setSignupPhoto(result.assets[0].uri);
   };
+  
   const toggleLike = async (post) => {
     if (typeof post.id !== 'string') { Alert.alert('Not available yet', 'Liking isn\'t supported on this post yet.'); return; }
     try {
