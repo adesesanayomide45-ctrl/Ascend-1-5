@@ -495,11 +495,6 @@ const toggleGroupSelect = (uid) => {
     }
   };
 
-const openProfile = (name) => {
-  setProfileMenuFor(null);
-  setViewProfileFor(name);
-};
-
 const sendChatMessage = () => {
   if (!chatDraft.trim() || !activeChatId) return;
 
