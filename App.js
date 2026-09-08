@@ -213,7 +213,23 @@ function getBotReply(q) {
       setUserPosts(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
     });
     return () => unsubscribe();
+  }, [user?.uid]);useEffect(() => {
+    if (!user || !user.uid) return;
+    const q = query(collection(db, 'groups'), where('members', 'array-contains', user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setGroups(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsubscribe();
   }, [user?.uid]);
+
+  useEffect(() => {
+    if (!activeGroup) return;
+    const q = query(collection(db, 'groups', activeGroup.id, 'messages'), orderBy('timestamp', 'asc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setGroupMsgs(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsubscribe();
+  }, [activeGroup]);
   useEffect(() => {
     if (!user || !user.uid) return;
     const q = query(collection(db, 'groups'), where('members', 'array-contains', user.uid));
