@@ -802,6 +802,19 @@ if (!user) {
             </TouchableOpacity>
           ))}
 
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, marginBottom: 6 }}>
+            <Text style={{ color: text, fontWeight: '700' }}>Groups</Text>
+            <TouchableOpacity onPress={() => setCreatingGroup(true)}>
+              <Text style={{ color: accent, fontWeight: '700' }}>+ New Group</Text>
+            </TouchableOpacity>
+          </View>
+          {groups.map((g) => (
+            <TouchableOpacity key={g.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border }]} onPress={() => setActiveGroup(g)}>
+              <Text style={{ color: text, fontWeight: '700' }}>{g.name}</Text>
+              <Text style={{ color: subtext, fontSize: 12 }}>{Object.values(g.memberNames || {}).join(', ')}</Text>
+            </TouchableOpacity>
+          ))}
+
           <TouchableOpacity style={[styles.card, { backgroundColor: cardBg, borderColor: accent, borderWidth: 1.5, marginTop: 10 }]} onPress={() => setGroupChatOpen(true)}>
             <Text style={{ color: text, fontWeight: '700' }}>🌐 Family & Friends (real chat)</Text>
             <Text style={{ color: subtext, fontSize: 12 }}>Everyone with the app can message here for real</Text>
