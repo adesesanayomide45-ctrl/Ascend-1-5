@@ -407,7 +407,9 @@ function getBotReply(q) {
         shareCount: 0,
         timestamp: serverTimestamp(),
       });
-      setPoints(points + 2);
+      await updateDoc(doc(db, 'users', user.uid), {
+  points: increment(2),
+});
       setDraft('');
       setDraftMedia(null);
     } catch (error) {
