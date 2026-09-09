@@ -367,9 +367,17 @@ function getBotReply(q) {
   const submitComment = async (post) => {
   if (!commentDraft.trim()) return;
 
+  if (typeof post.id !== 'string') {
+    Alert.alert(
+      'Comments coming soon',
+      'Comments for this Ascend post will be available soon.'
+    );
+    return;
+  }
+
   try {
     await addDoc(
-      collection(db, 'posts', String(post.id), 'comments'),
+      collection(db, 'posts', post.id, 'comments'),
       {
         text: commentDraft.trim(),
         author: user.name,
@@ -378,7 +386,7 @@ function getBotReply(q) {
       }
     );
 
-    await updateDoc(doc(db, 'posts', String(post.id)), {
+    await updateDoc(doc(db, 'posts', post.id), {
       commentCount: increment(1),
     });
 
