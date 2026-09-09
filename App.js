@@ -708,7 +708,7 @@ const requestSignupCode = () => {
   location: '',
   photo: null,
   profileComplete: false,
-  points: 0,
+  points: 40,
   verified: false,
   isOfficial: false,
   createdAt: serverTimestamp(),
