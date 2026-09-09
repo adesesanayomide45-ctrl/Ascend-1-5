@@ -918,7 +918,25 @@ if (!user) {
                     <View style={{ width: 34, height: 34, borderRadius: 17, backgroundColor: bg, alignItems: 'center', justifyContent: 'center', marginRight: 8 }}>
                       <Text style={{ color: accent, fontWeight: '700', fontSize: 13 }}>{p.author.charAt(0).toUpperCase()}</Text>
                     </View>
-                    <Text style={{ color: text, fontWeight: '700', flex: 1 }}>{p.author}{p.author === 'Ascend' || p.email === 'adesesanayomide45@gmail.com' ? ' ✅' : ''}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+  <Text style={{ color: text, fontWeight: '700' }}>
+    {p.author}
+  </Text>
+
+  {p.verified === true && (
+    <View style={{
+      width: 18,
+      height: 18,
+      borderRadius: 9,
+      backgroundColor: '#16a34a',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: 5,
+    }}>
+      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '900' }}>✓</Text>
+    </View>
+  )}
+</View>
                   </TouchableOpacity>
                   {p.author !== user.name && (
                     <TouchableOpacity onPress={() => setProfileMenuFor(p.author)} style={{ padding: 4 }}>
