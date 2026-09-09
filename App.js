@@ -945,14 +945,44 @@ if (!user) {
               <Text style={{ color: '#fff', fontWeight: 'bold' }}>Go</Text>
             </TouchableOpacity>
           </View>
-          {searchResults.map((r) => (
-            <View key={r.uid} style={[styles.card, { backgroundColor: cardBg, borderColor: border, flexDirection: 'row', alignItems: 'center' }]}>
-              <Text style={{ color: text, flex: 1 }}>{r.name}</Text>
-              <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 6 }} onPress={() => sendFriendRequest(r)}>
-                <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>Add</Text>
-              </TouchableOpacity>
-            </View>
-          ))}
+          {searchLoading ? (
+  <View style={{ alignItems: 'center', paddingVertical: 20 }}>
+    <Text style={{ color: subtext, fontWeight: '700' }}>
+      Searching...
+    </Text>
+  </View>
+) : (
+  searchResults.map((r) => (
+    <View
+      key={r.uid}
+      style={[
+        styles.card,
+        {
+          backgroundColor: cardBg,
+          borderColor: border,
+          flexDirection: 'row',
+          alignItems: 'center',
+        },
+      ]}
+    >
+      <Text style={{ color: text, flex: 1 }}>{r.name}</Text>
+
+      <TouchableOpacity
+        style={{
+          backgroundColor: accent,
+          borderRadius: 8,
+          paddingHorizontal: 12,
+          paddingVertical: 6,
+        }}
+        onPress={() => sendFriendRequest(r)}
+      >
+        <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
+          Add
+        </Text>
+      </TouchableOpacity>
+    </View>
+  ))
+)}
 
           {incomingRequests.length > 0 && <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friend Requests</Text>}
           {incomingRequests.map((req) => (
