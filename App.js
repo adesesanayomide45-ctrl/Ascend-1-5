@@ -1046,7 +1046,9 @@ if (!user) {
   </View>
 ))}
 
-          <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friends</Text>
+          <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>
+  Friends ({realFriends.length})
+</Text>
           {realFriends.map((f) => (
             <TouchableOpacity key={f.uid} style={[styles.card, { backgroundColor: cardBg, borderColor: border }]} onPress={() => openPrivateChat(f)}>
               <Text style={{ color: text, fontWeight: '700' }}>{f.name}</Text>
