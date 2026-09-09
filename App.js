@@ -168,7 +168,7 @@ function getBotReply(q) {
   const text = darkMode ? '#f0f0f0' : '#161b15';
   const subtext = darkMode ? '#9aa393' : '#657160';
   const accent = '#1E8449';
-  const border = darkMode ? '#2a3020' : '#e1e8dc';const [appReady, setAppReady] = useState(true);
+  const border = darkMode ? '#2a3020' : '#e1e8dc';const [appReady, setAppReady] = useState(false);
   const [loadingDots, setLoadingDots] = useState('.');
   
   useEffect(() => {
