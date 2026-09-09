@@ -175,27 +175,72 @@ function getBotReply(q) {
   useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
     try {
-      if (firebaseUser) {
-        const userDoc = await getDocs(
-          query(collection(db, 'users'), where('uid', '==', firebaseUser.uid))
-        );
-
-        if (!userDoc.empty) {
-          const data = userDoc.docs[0].data();
-          setUser({
-            uid: firebaseUser.uid,
-            ...data,
-            email: firebaseUser.email || data.email || '',
-          });
-        } else {
-          setUser({
-            uid: firebaseUser.uid,
-            name: firebaseUser.displayName || 'User',
-            email: firebaseUser.email || '',
-          });
-        }
-      } else {
+      if (!firebaseUser) {
         setUser(null);
+        return;
+      }
+
+      const userQuery = query(
+        collection(db, 'users'),
+        where('uid', '==', firebaseUser.uid)
+      );
+
+      const userSnapshot = await getDocs(userQuery);
+
+      const today = new Date();
+      const todayDate = today.toISOString().slice(0, 10);
+
+      if (!userSnapshot.empty) {
+        const userDoc = userSnapshot.docs[0];
+        const userData = userDoc.data();
+
+        const currentPoints = Number(userData.points || 0);
+        const lastLogin = userData.lastLoginDate;
+
+        let newPoints = currentPoints;
+
+        if (!lastLogin) {
+          newPoints = currentPoints + 40;
+        } else if (lastLogin !== todayDate) {
+          const previousDate = new Date(lastLogin + 'T00:00:00Z');
+          const currentDate = new Date(todayDate + 'T00:00:00Z');
+
+          const daysPassed = Math.floor(
+            (currentDate - previousDate) / (1000 * 60 * 60 * 24)
+          );
+
+          const missedDays = Math.max(0, daysPassed - 1);
+
+          newPoints = Math.max(
+            0,
+            currentPoints + 40 - (missedDays * 20)
+          );
+        }
+
+        await updateDoc(doc(db, 'users', userDoc.id), {
+          points: newPoints,
+          lastLoginDate: todayDate,
+        });
+
+        setPoints(newPoints);
+
+        setUser({
+          uid: firebaseUser.uid,
+          ...userData,
+          email: firebaseUser.email || userData.email || '',
+          points: newPoints,
+          lastLoginDate: todayDate,
+        });
+      } else {
+        setUser({
+          uid: firebaseUser.uid,
+          name: firebaseUser.displayName || 'User',
+          email: firebaseUser.email || '',
+          points: 40,
+          lastLoginDate: todayDate,
+        });
+
+        setPoints(40);
       }
     } catch (error) {
       console.log('Auth restore error:', error);
