@@ -1485,16 +1485,19 @@ if (!user) {
                 <Text style={{ color: accent, fontWeight: '700', fontSize: 22 }}>{viewProfileFor?.charAt(0)}</Text>
               </View>
               <Text style={{ color: text, fontWeight: '700', fontSize: 18 }}>{viewProfileFor}</Text>
-              {viewProfileFor && FRIEND_INFO[viewProfileFor] && (
-                <>
-                  <Text style={{ color: subtext, fontSize: 13, marginTop: 2 }}>{FRIEND_INFO[viewProfileFor].location}</Text>
-                  <View style={{ backgroundColor: accent, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 3, marginTop: 6 }}>
-                    <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>{FRIEND_INFO[viewProfileFor].rank}</Text>
-                  </View>
-                  <Text style={{ color: text, marginTop: 10, textAlign: 'center' }}>{FRIEND_INFO[viewProfileFor].bio}</Text>
-                  <Text style={{ color: subtext, fontSize: 12, marginTop: 4 }}>Age {FRIEND_INFO[viewProfileFor].age}</Text>
-                </>
-              )}
+              {viewProfileData && (
+  <>
+    <Text style={{ color: subtext, fontSize: 13, marginTop: 4 }}>
+      {viewProfileData.location || ''}
+    </Text>
+
+    {viewProfileData.bio && (
+      <Text style={{ color: text, marginTop: 10, textAlign: 'center' }}>
+        {viewProfileData.bio}
+      </Text>
+    )}
+  </>
+)}
             </View>
             <TouchableOpacity style={{ alignItems: 'center', paddingVertical: 10 }} onPress={() => setViewProfileFor(null)}>
               <Text style={{ color: accent, fontWeight: '700' }}>Close</Text>
