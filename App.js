@@ -117,6 +117,7 @@ function getBotReply(q) {
 
   const [screen, setScreen] = useState('feed');
   const [points, setPoints] = useState(0);
+  const [lastLoginDate, setLastLoginDate] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
   const [posts, setPosts] = useState([
     { id: 1, author: 'Ascend', text: 'Welcome to Ascend! We built this app to help you connect with real friends and family while making it fun to stay active in the community. Post updates, chat in real time, and climb the ranks as you go. We are just getting started, and we are excited to grow this together with you. Thanks for being here from day one.', media: null },
