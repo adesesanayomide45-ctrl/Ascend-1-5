@@ -365,13 +365,29 @@ function getBotReply(q) {
   };
 
   const submitComment = async (post) => {
-    try {
-      await addDoc(collection(db, 'posts', post.id, 'comments'), { text: commentDraft, author: user.name, timestamp: serverTimestamp() });
-      await updateDoc(doc(db, 'posts', post.id), { commentCount: increment(1) });
-      setCommentDraft('');
-      setCommentingPostId(null);
-    } catch (error) { Alert.alert('Failed', error.message); }
-  };
+  if (!commentDraft.trim()) return;
+
+  try {
+    await addDoc(
+      collection(db, 'posts', String(post.id), 'comments'),
+      {
+        text: commentDraft.trim(),
+        author: user.name,
+        authorUid: user.uid,
+        timestamp: serverTimestamp(),
+      }
+    );
+
+    await updateDoc(doc(db, 'posts', String(post.id)), {
+      commentCount: increment(1),
+    });
+
+    setCommentDraft('');
+    setCommentingPostId(null);
+  } catch (error) {
+    Alert.alert('Failed', error.message);
+  }
+};
 
   const sharePost = async (post) => {
     try {
