@@ -508,6 +508,7 @@ function getBotReply(q) {
         toUid: targetUser.uid,
         toName: targetUser.name,
         status: 'pending',
+createdAt: serverTimestamp(),
       }
     );
 
