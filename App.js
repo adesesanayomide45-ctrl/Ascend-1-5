@@ -523,7 +523,10 @@ createdAt: serverTimestamp(),
 
   const acceptFriendRequest = async (req) => {
     try {
-      await updateDoc(doc(db, 'friendRequests', req.id), { status: 'accepted' });
+      await updateDoc(doc(db, 'friendRequests', req.id), {
+  status: 'accepted',
+  acceptedAt: serverTimestamp(),
+});
       const chatId = [user.uid, req.fromUid].sort().join('_');
       await setDoc(doc(db, 'privateChats', chatId), {
         members: [user.uid, req.fromUid],
