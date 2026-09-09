@@ -1001,13 +1001,50 @@ if (!user) {
 
           {incomingRequests.length > 0 && <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friend Requests</Text>}
           {incomingRequests.map((req) => (
-            <View key={req.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border, flexDirection: 'row', alignItems: 'center' }]}>
-              <Text style={{ color: text, flex: 1 }}>{req.fromName}</Text>
-              <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 6 }} onPress={() => acceptFriendRequest(req)}>
-                <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>Accept</Text>
-              </TouchableOpacity>
-            </View>
-          ))}
+  <View
+    key={req.id}
+    style={[
+      styles.card,
+      {
+        backgroundColor: cardBg,
+        borderColor: border,
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+    ]}
+  >
+    <Text style={{ color: text, flex: 1 }}>{req.fromName}</Text>
+
+    <TouchableOpacity
+      style={{
+        backgroundColor: accent,
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        marginRight: 8,
+      }}
+      onPress={() => acceptFriendRequest(req)}
+    >
+      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
+        Accept
+      </Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity
+      style={{
+        backgroundColor: '#555',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+      }}
+      onPress={() => rejectFriendRequest(req)}
+    >
+      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
+        Reject
+      </Text>
+    </TouchableOpacity>
+  </View>
+))}
 
           <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friends</Text>
           {realFriends.map((f) => (
