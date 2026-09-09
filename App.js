@@ -726,72 +726,7 @@ const requestSignupCode = () => {
 
   const handleLogin = async () => {
   try {
-    const result = await signInWithEmailAndPassword(auth, emailInput.trim(), passInput);
-
-    const userQuery = query(
-      collection(db, 'users'),
-      where('uid', '==', result.user.uid)
-    );
-
-    const userSnapshot = await getDocs(userQuery);
-
-    const today = new Date();
-    const todayDate = today.toISOString().slice(0, 10);
-
-    let userData = {};
-    let newPoints = 40;
-
-    if (!userSnapshot.empty) {
-      const userDoc = userSnapshot.docs[0];
-      userData = userDoc.data();
-
-      const currentPoints = Number(userData.points || 0);
-      const lastLogin = userData.lastLoginDate;
-
-      if (lastLogin) {
-        const previousDate = new Date(lastLogin + 'T00:00:00Z');
-        const currentDate = new Date(todayDate + 'T00:00:00Z');
-        const daysPassed = Math.floor(
-          (currentDate - previousDate) / (1000 * 60 * 60 * 24)
-        );
-
-        if (daysPassed === 0) {
-          newPoints = currentPoints;
-        } else {
-          const missedDays = Math.max(0, daysPassed - 1);
-          newPoints = Math.max(0, currentPoints + 40 - (missedDays * 20));
-        }
-      } else {
-        newPoints = currentPoints + 40;
-      }
-
-      await updateDoc(doc(db, 'users', userDoc.id), {
-        points: newPoints,
-        lastLoginDate: todayDate,
-      });
-    } else {
-      await setDoc(doc(db, 'users', result.user.uid), {
-        uid: result.user.uid,
-        name: 'You',
-        email: emailInput.trim().toLowerCase(),
-        points: 40,
-        lastLoginDate: todayDate,
-        createdAt: serverTimestamp(),
-      });
-
-      newPoints = 40;
-    }
-
-    setPoints(newPoints);
-
-    setUser({
-      uid: result.user.uid,
-      ...userData,
-      email: result.user.email || emailInput.trim().toLowerCase(),
-      points: newPoints,
-      lastLoginDate: todayDate,
-    });
-
+    await signInWithEmailAndPassword(auth, emailInput.trim(), passInput);
   } catch (error) {
     Alert.alert('Log in failed', error.message);
   }
