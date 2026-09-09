@@ -170,6 +170,7 @@ function getBotReply(q) {
   const subtext = darkMode ? '#9aa393' : '#657160';
   const accent = '#1E8449';
   const border = darkMode ? '#2a3020' : '#e1e8dc';const [appReady, setAppReady] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [loadingDots, setLoadingDots] = useState('.');
   
   useEffect(() => {
