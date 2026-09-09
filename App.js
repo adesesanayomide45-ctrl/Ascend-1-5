@@ -44,7 +44,7 @@ You may create an account using either an email address or a phone number. Ascen
 2. Points & Ranks
 - Creating a post: +2 points
 - Daily login: +40 points
-- Missing a full day without logging in: -30 points
+- Missing a full day without logging in: -20 points
 - Adding a friend, only once they add you back: +5 points
 
 3. Reporting & Enforcement
@@ -80,7 +80,7 @@ function getBotReply(q) {
   if (t.includes('where') || t.includes('location') || t.includes('from')) return "You can add where you're from when you sign up, and view it on other people's profiles by tapping their name or photo.";
   if (t.includes('picture') || t.includes('photo') && t.includes('profile')) return "You can add a profile picture during sign up, from the Photo/Video option.";
   if (t.includes('settings')) return "All your account options — dark mode, password reset, terms, and logout — live under Settings on your Profile tab.";
-  if (t.includes('point')) return "You earn points by posting (+2), logging in daily (+40), and adding mutual friends (+5). Missing a full day without logging in costs -30.";
+  if (t.includes('point')) return "You earn points by posting (+2), logging in daily (+40), and adding mutual friends (+5). Missing a full day without logging in costs -20.";
   if (t.includes('legendary') || t.includes('legacy')) return "Legendary IV needs top 5000, III needs top 3500, II needs top 2500, and Legendary I — the most exclusive — needs top 1000.";
   if (t.includes('rank') || t.includes('level')) return "Ranks run from Rookie all the way to Supremacy XV, plus Legendary I-IV for the very top of the leaderboard.";
   if (t.includes('report') || t.includes('block')) return "Tap someone's name or photo on a post to open their menu, where you can view their profile, message them, block them, or report them.";
