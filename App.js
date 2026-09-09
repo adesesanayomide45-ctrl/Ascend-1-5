@@ -170,6 +170,43 @@ function getBotReply(q) {
   const accent = '#1E8449';
   const border = darkMode ? '#2a3020' : '#e1e8dc';const [appReady, setAppReady] = useState(true);
   const [loadingDots, setLoadingDots] = useState('.');
+  
+  useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    try {
+      if (firebaseUser) {
+        const userDoc = await getDocs(
+          query(collection(db, 'users'), where('uid', '==', firebaseUser.uid))
+        );
+
+        if (!userDoc.empty) {
+          const data = userDoc.docs[0].data();
+          setUser({
+            uid: firebaseUser.uid,
+            ...data,
+            email: firebaseUser.email || data.email || '',
+          });
+        } else {
+          setUser({
+            uid: firebaseUser.uid,
+            name: firebaseUser.displayName || 'User',
+            email: firebaseUser.email || '',
+          });
+        }
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.log('Auth restore error:', error);
+      setUser(null);
+    } finally {
+      setAppReady(true);
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+  
   useEffect(() => {
     if (!user) return;
     setNotifications([{ id: 1, from: 'Ascend', text: `Welcome to Ascend, ${user.name}! We're glad you're here. 🎉`, read: false }]);
