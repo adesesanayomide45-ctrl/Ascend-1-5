@@ -482,10 +482,28 @@ function getBotReply(q) {
     setScreen('chat');
   };
 
-  const openProfile = (name) => {
-    setProfileMenuFor(null);
-    setViewProfileFor(name);
-  };const sendChatMessage = () => {
+  const openProfile = async (name) => {
+  setProfileMenuFor(null);
+  setViewProfileFor(name);
+  setViewProfileData(null);
+
+  try {
+    const userQuery = query(
+      collection(db, 'users'),
+      where('name', '==', name)
+    );
+
+    const userSnapshot = await getDocs(userQuery);
+
+    if (!userSnapshot.empty) {
+      setViewProfileData(userSnapshot.docs[0].data());
+    }
+  } catch (error) {
+    console.log('Profile load error:', error);
+  }
+};
+  
+  const sendChatMessage = () => {
     if (!chatDraft.trim() || !activeChatId) return;
     const msgId = Date.now();
     setChats((prev) => prev.map((c) => c.id === activeChatId
