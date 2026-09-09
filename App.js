@@ -1484,7 +1484,25 @@ if (!user) {
               <View style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: bg, alignItems: 'center', justifyContent: 'center', marginBottom: 8 }}>
                 <Text style={{ color: accent, fontWeight: '700', fontSize: 22 }}>{viewProfileFor?.charAt(0)}</Text>
               </View>
-              <Text style={{ color: text, fontWeight: '700', fontSize: 18 }}>{viewProfileFor}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+  <Text style={{ color: text, fontWeight: '700', fontSize: 18 }}>
+    {viewProfileData?.name || viewProfileFor}
+  </Text>
+
+  {viewProfileData?.verified === true && (
+    <View style={{
+      width: 18,
+      height: 18,
+      borderRadius: 9,
+      backgroundColor: '#16a34a',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: 6,
+    }}>
+      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '900' }}>✓</Text>
+    </View>
+  )}
+</View>
               {viewProfileData && (
   <>
     <Text style={{ color: subtext, fontSize: 13, marginTop: 4 }}>
