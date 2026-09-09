@@ -420,9 +420,9 @@ function getBotReply(q) {
       }
       await addDoc(collection(db, 'posts'), {
         author: user.name,
-authorUid: user.uid || null,
-verified: user.verified === true,
-isOfficial: user.isOfficial === true,
+        authorUid: user.uid || null,
+        verified: user.verified === true,
+        isOfficial: user.isOfficial === true,
         text: draft,
         hasMedia: !!draftMedia,
         mediaType: draftMedia ? draftMedia.type : null,
