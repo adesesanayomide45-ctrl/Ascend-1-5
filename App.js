@@ -1279,9 +1279,6 @@ if (!user) {
           <TouchableOpacity style={[styles.button, { backgroundColor: border, marginTop: 10 }]} onPress={() => setScreen('terms')}>
             <Text style={{ color: text, fontWeight: 'bold' }}>Terms & Conditions</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, { backgroundColor: '#C2403F' }]} onPress={() => setPoints(Math.max(0, points - 30))}>
-            <Text style={styles.buttonText}>Simulate missing a day (-30)</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={[styles.button, { backgroundColor: '#555' }]} onPress={() => setUser(null)}>
             <Text style={styles.buttonText}>Log out</Text>
           </TouchableOpacity>
