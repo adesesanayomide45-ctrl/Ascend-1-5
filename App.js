@@ -537,6 +537,17 @@ createdAt: serverTimestamp(),
     }
   };
 
+  const rejectFriendRequest = async (req) => {
+  try {
+    await updateDoc(doc(db, 'friendRequests', req.id), {
+      status: 'rejected',
+      rejectedAt: serverTimestamp(),
+    });
+  } catch (error) {
+    Alert.alert('Failed', error.message);
+  }
+};
+
   const openPrivateChat = (friend) => {
     setActivePrivateFriend(friend);
     setScreen('chat');
