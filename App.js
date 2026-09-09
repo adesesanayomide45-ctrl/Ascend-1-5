@@ -1291,7 +1291,29 @@ if (!user) {
             <View style={{ width: 84, height: 84, borderRadius: 42, backgroundColor: cardBg, borderWidth: 3, borderColor: bg, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
               {user.photo ? <Image source={{ uri: user.photo }} style={{ width: '100%', height: '100%' }} /> : <Text style={{ fontSize: 28, fontWeight: '700', color: accent }}>{user.name.charAt(0).toUpperCase()}</Text>}
             </View>
-            <Text style={{ color: text, fontSize: 19, fontWeight: '700', marginTop: 8 }}>{user.name}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 8 }}>
+  <Text style={{ color: text, fontSize: 19, fontWeight: '700' }}>
+    {user.name}
+  </Text>
+
+  {user.verified === true && (
+    <View
+      style={{
+        width: 18,
+        height: 18,
+        borderRadius: 9,
+        backgroundColor: '#16a34a',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 6,
+      }}
+    >
+      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '900' }}>
+        ✓
+      </Text>
+    </View>
+  )}
+</View>
             {!!user.location && <Text style={{ color: subtext, fontSize: 12.5 }}>{user.location}</Text>}
             <View style={{ backgroundColor: accent, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 3, marginTop: 6 }}>
               <Text style={{ color: '#fff', fontWeight: '700', fontSize: 12.5 }}>{rank.stage} {rank.label} · {points} pts</Text>
