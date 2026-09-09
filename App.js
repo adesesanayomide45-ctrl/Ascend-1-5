@@ -410,6 +410,7 @@ function getBotReply(q) {
       await updateDoc(doc(db, 'users', user.uid), {
   points: increment(2),
 });
+      setPoints(prev => prev + 2);
       setDraft('');
       setDraftMedia(null);
     } catch (error) {
