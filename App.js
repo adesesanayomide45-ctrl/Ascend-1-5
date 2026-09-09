@@ -469,17 +469,34 @@ function getBotReply(q) {
     setChatDraft('');
 };
     const searchUsers = async () => {
-    if (!searchQuery.trim()) return;
-    try {
-      const snapshot = await getDocs(collection(db, 'users'));
-      const results = snapshot.docs
-        .map((d) => ({ uid: d.id, ...d.data() }))
-        .filter((u) => u.uid !== user.uid && u.name.toLowerCase().includes(searchQuery.toLowerCase()));
-      setSearchResults(results);
-    } catch (error) {
-      Alert.alert('Search failed', error.message);
-    }
-  };
+  const term = searchQuery.trim().toLowerCase();
+
+  if (!term) {
+    setSearchResults([]);
+    return;
+  }
+
+  setSearchLoading(true);
+
+  try {
+    const snapshot = await getDocs(collection(db, 'users'));
+
+    const results = snapshot.docs
+      .map((d) => ({ uid: d.id, ...d.data() }))
+      .filter(
+        (u) =>
+          u.uid !== user.uid &&
+          typeof u.name === 'string' &&
+          u.name.toLowerCase().includes(term)
+      );
+
+    setSearchResults(results);
+  } catch (error) {
+    Alert.alert('Search failed', error.message);
+  } finally {
+    setSearchLoading(false);
+  }
+};
 
   const sendFriendRequest = async (targetUser) => {
   try {
