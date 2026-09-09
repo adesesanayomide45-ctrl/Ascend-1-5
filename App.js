@@ -365,8 +365,6 @@ function getBotReply(q) {
   };
 
   const submitComment = async (post) => {
-    if (typeof post.id !== 'string') { Alert.alert('Not available yet', 'Comments aren\'t supported on this post yet.'); return; }
-    if (!commentDraft.trim()) return;
     try {
       await addDoc(collection(db, 'posts', post.id, 'comments'), { text: commentDraft, author: user.name, timestamp: serverTimestamp() });
       await updateDoc(doc(db, 'posts', post.id), { commentCount: increment(1) });
