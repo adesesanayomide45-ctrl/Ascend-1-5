@@ -2048,6 +2048,19 @@ if (!user) {
       </Text>
     </TouchableOpacity>
 
+  {pageProfile.photo ? (
+  <Image
+    source={{ uri: pageProfile.photo }}
+    style={{
+      width: 120,
+      height: 120,
+      borderRadius: 60,
+      alignSelf: 'center',
+      marginBottom: 16,
+    }}
+  />
+) : null}
+
     <Text style={{ color: text, fontSize: 28, fontWeight: '700', marginBottom: 8 }}>
       {pageProfile.name}
     </Text>
