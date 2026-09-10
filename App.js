@@ -116,6 +116,12 @@ function getBotReply(q) {
   const [codeInput, setCodeInput] = useState('');
 
   const [screen, setScreen] = useState('feed');
+
+  const [createPageOpen, setCreatePageOpen] = useState(false);
+  const [pageNameInput, setPageNameInput] = useState('');
+  const [pageDescriptionInput, setPageDescriptionInput] = useState('');
+  const [pageCategoryInput, setPageCategoryInput] = useState('');
+  
   const [points, setPoints] = useState(0);
   const [lastLoginDate, setLastLoginDate] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
