@@ -1578,6 +1578,50 @@ if (!user) {
             <Text style={{ color: accent, fontWeight: '700', marginBottom: 16 }}>← Back to Profile</Text>
           </TouchableOpacity>
 
+        <Text style={{ color: text, fontWeight: '700', marginTop: 8, marginBottom: 8 }}>
+  Username
+</Text>
+
+{editNameVisible ? (
+  <>
+    <TextInput
+      style={[styles.input, {
+        borderColor: border,
+        color: text,
+        backgroundColor: cardBg
+      }]}
+      placeholder="Enter your username"
+      placeholderTextColor={subtext}
+      value={editName}
+      onChangeText={setEditName}
+    />
+
+    <TouchableOpacity
+      style={[styles.button, { backgroundColor: accent }]}
+      onPress={saveUsername}
+    >
+      <Text style={styles.buttonText}>Save Username</Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity onPress={() => setEditNameVisible(false)}>
+      <Text style={{ color: accent, textAlign: 'center', marginTop: 8 }}>
+        Cancel
+      </Text>
+    </TouchableOpacity>
+  </>
+) : (
+  <TouchableOpacity
+    style={[styles.settingRow, { borderColor: border }]}
+    onPress={() => {
+      setEditName(user?.name || '');
+      setEditNameVisible(true);
+    }}
+  >
+    <Text style={{ color: text }}>Edit Username</Text>
+    <Text style={{ color: accent, fontWeight: '700' }}>Edit</Text>
+  </TouchableOpacity>
+)}
+
           <View style={[styles.settingRow, { borderColor: border }]}>
             <Text style={{ color: text }}>Dark mode</Text>
             <Switch value={darkMode} onValueChange={setDarkMode} />
