@@ -329,6 +329,23 @@ function getBotReply(q) {
     return () => unsubscribe();
   }, [user?.uid]);
 
+    useEffect(() => {
+    if (!user) return;
+
+    const q = query(collection(db, 'pages'), orderBy('createdAt', 'desc'));
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setPages(
+        snapshot.docs.map((d) => ({
+          id: d.id,
+          ...d.data(),
+        }))
+      );
+    });
+
+    return () => unsubscribe();
+  }, [user?.uid]);
+
   useEffect(() => {
     if (!activeGroup) return;
     const q = query(collection(db, 'groups', activeGroup.id, 'messages'), orderBy('timestamp', 'asc'));
