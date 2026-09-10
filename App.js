@@ -1726,6 +1726,62 @@ if (!user) {
           </ScrollView>
         </View>
       )}
+
+{createPageOpen && (
+  <ScrollView style={{ flex: 1 }}>
+    <TouchableOpacity onPress={() => setCreatePageOpen(false)}>
+      <Text style={{ color: accent, fontWeight: '700', marginBottom: 16 }}>
+        ← Back to Settings
+      </Text>
+    </TouchableOpacity>
+
+    <Text style={{ color: text, fontSize: 24, fontWeight: '700', marginBottom: 20 }}>
+      Create Page
+    </Text>
+
+    <TextInput
+      style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]}
+      placeholder="Page name"
+      placeholderTextColor={subtext}
+      value={pageNameInput}
+      onChangeText={setPageNameInput}
+    />
+
+    <TextInput
+      style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]}
+      placeholder="Page description"
+      placeholderTextColor={subtext}
+      value={pageDescriptionInput}
+      onChangeText={setPageDescriptionInput}
+      multiline
+    />
+
+    <TextInput
+      style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]}
+      placeholder="Page category"
+      placeholderTextColor={subtext}
+      value={pageCategoryInput}
+      onChangeText={setPageCategoryInput}
+    />
+
+    <TouchableOpacity
+      onPress={handleCreatePage}
+      style={[styles.button, { backgroundColor: accent }]}
+    >
+      <Text style={styles.buttonText}>Create Page</Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity
+      onPress={() => setCreatePageOpen(false)}
+      style={{ marginTop: 12, marginBottom: 20 }}
+    >
+      <Text style={{ color: accent, textAlign: 'center', fontWeight: '700' }}>
+        Cancel
+      </Text>
+    </TouchableOpacity>
+  </ScrollView>
+)}
+
       {screen === 'terms' && (
         <ScrollView style={{ flex: 1 }}>
           <TouchableOpacity onPress={() => setScreen('settings')}>
