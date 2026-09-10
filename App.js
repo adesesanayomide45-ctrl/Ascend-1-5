@@ -786,17 +786,6 @@ const sendAiMessage = () => {
   }, 700);
 };
 const generateCode = () => String(Math.floor(1000 + Math.random() * 9000));
-const requestSignupCode = () => {
-    if (!genderInput.trim() || !ageInput.trim() || !emailInput.trim() || !passInput.trim()) {
-      Alert.alert('Missing info', 'Please fill in your gender, age, email, and password first.');
-      return;
-    }
-    Alert.alert('Verify your account', 'How should we send your verification code?', [
-      { text: 'Via Email', onPress: () => { const c = generateCode(); setSignupCode(c); setSignupStage('code'); Alert.alert('Demo code', `Since Ascend has no real email service yet, here's your code: ${c}`); } },
-      { text: 'Via Phone', onPress: () => { const c = generateCode(); setSignupCode(c); setSignupStage('code'); Alert.alert('Demo code', `Since Ascend has no real SMS service yet, here's your code: ${c}`); } },
-      { text: 'Cancel', style: 'cancel' },
-    ]);
-  };
 
   const verifySignupCode = () => {
     if (codeInput !== signupCode) {
