@@ -849,7 +849,7 @@ await setDoc(doc(db, 'users', result.user.uid), {
   age: Number(ageInput),
   email: emailInput.trim().toLowerCase(),
   location: '',
-  photo: null,
+  photo: photoUrl,
   profileComplete: false,
   points: 40,
   lastLoginDate: new Date().toISOString().slice(0, 10),
