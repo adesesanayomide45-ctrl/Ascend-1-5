@@ -161,9 +161,6 @@ function getBotReply(q) {
   ]);
   const [aiDraft, setAiDraft] = useState('');
 
-  const [resetVisible, setResetVisible] = useState(false);
-  const [resetCode, setResetCode] = useState('');
-  const [resetInput, setResetInput] = useState('');
   const [editName, setEditName] = useState('');
   const [editNameVisible, setEditNameVisible] = useState(false);
 
