@@ -809,6 +809,38 @@ const requestSignupCode = () => {
     setUser({ name: nameInput, gender: genderInput, age: ageInput, email: emailInput, location: '', photo: null, profileComplete: false });
   };
 
+  const saveUsername = async () => {
+  const newName = editName.trim();
+
+  if (!newName) {
+    Alert.alert('Name needed', 'Please enter your name.');
+    return;
+  }
+
+  if (!user?.uid) {
+    Alert.alert('Error', 'Please log in again and try.');
+    return;
+  }
+
+  try {
+    await updateDoc(doc(db, 'users', user.uid), {
+      name: newName,
+    });
+
+    setUser((prev) => ({
+      ...prev,
+      name: newName,
+    }));
+
+    setEditName('');
+    setEditNameVisible(false);
+
+    Alert.alert('Success', 'Your username has been updated.');
+  } catch (error) {
+    Alert.alert('Error', error.message);
+  }
+};
+
   const requestResetCode = () => {
     Alert.alert('Reset password', 'How should we send your code?', [
       { text: 'Via Email', onPress: () => { const c = generateCode(); setResetCode(c); setResetVisible(true); Alert.alert('Demo code', `Here's your reset code: ${c}`); } },
