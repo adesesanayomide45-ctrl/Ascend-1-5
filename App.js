@@ -856,15 +856,6 @@ const requestSignupCode = () => {
   }
 };
 
-  const verifyResetCode = () => {
-    if (resetInput !== resetCode) {
-      Alert.alert('Incorrect code', 'That code doesn\'t match. Please try again.');
-      return;
-    }
-    Alert.alert('Success', 'Your password has been reset.');
-    setResetVisible(false);
-    setResetInput('');
-  };
   if (!appReady) {
     return (
       <View style={[styles.app, { backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }]}>
