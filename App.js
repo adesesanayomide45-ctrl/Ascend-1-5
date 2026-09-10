@@ -837,7 +837,7 @@ const requestSignupCode = () => {
   profileComplete: false,
   points: 40,
   lastLoginDate: new Date().toISOString().slice(0, 10),
-  verified: false,
+  Verified: false,
   isOfficial: false,
   createdAt: serverTimestamp(),
 });
