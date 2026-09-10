@@ -901,7 +901,73 @@ if (!user) {
           </>
         )}
 
-        {authMode === 'signup' && signupStage === 'code' && (
+{authMode === 'signup' && signupStage === 'photo' && (
+  <>
+    <Text style={{ color: text, fontSize: 20, fontWeight: '700', textAlign: 'center', marginBottom: 8 }}>
+      Add a Profile Picture
+    </Text>
+
+    <Text style={{ color: subtext, textAlign: 'center', marginBottom: 20 }}>
+      Choose a profile picture so people can recognize you. You can also skip this for now.
+    </Text>
+
+    <View style={{
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      backgroundColor: cardBg,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      marginBottom: 20,
+      borderWidth: 1,
+      borderColor: border,
+    }}>
+      {signupPhoto ? (
+        <Image
+          source={{ uri: signupPhoto }}
+          style={{ width: '100%', height: '100%' }}
+        />
+      ) : (
+        <Text style={{ color: accent, fontSize: 32, fontWeight: '700' }}>
+          {nameInput?.charAt(0)?.toUpperCase()}
+        </Text>
+      )}
+    </View>
+
+    <TouchableOpacity
+      style={[styles.button, { backgroundColor: accent }]}
+      onPress={pickSignupPhoto}
+    >
+      <Text style={styles.buttonText}>
+        Choose Profile Picture
+      </Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity
+      style={[styles.button, {
+        backgroundColor: cardBg,
+        borderWidth: 1,
+        borderColor: border,
+        marginTop: 10,
+      }]}
+      onPress={handleSignup}
+    >
+      <Text style={{ color: text, textAlign: 'center', fontWeight: '700' }}>
+        {signupPhoto ? 'Create Account' : 'Skip for Now'}
+      </Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity onPress={() => setSignupStage('details')}>
+      <Text style={{ color: accent, textAlign: 'center', marginTop: 12 }}>
+        ← Back
+      </Text>
+    </TouchableOpacity>
+  </>
+)}
+
+       {authMode === 'signup' && signupStage === 'code' && (
           <>
             <Text style={{ color: subtext, textAlign: 'center', marginBottom: 12 }}>Enter the code we sent you</Text>
             <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, textAlign: 'center', letterSpacing: 4, fontSize: 18 }]} placeholder="0000" placeholderTextColor={subtext} keyboardType="number-pad" value={codeInput} onChangeText={setCodeInput} />
