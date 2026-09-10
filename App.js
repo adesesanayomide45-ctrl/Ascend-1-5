@@ -942,6 +942,39 @@ await setDoc(doc(db, 'users', result.user.uid), {
     }
   };
 
+const handleFollowPage = async (pageId) => {
+  if (!user?.uid) {
+    Alert.alert('Login required', 'Please log in first.');
+    return;
+  }
+
+  try {
+    const existingFollow = await getDocs(
+      query(
+        collection(db, 'follows'),
+        where('userUid', '==', user.uid),
+        where('pageId', '==', pageId)
+      )
+    );
+
+    if (!existingFollow.empty) {
+      Alert.alert('Already following', 'You already follow this page.');
+      return;
+    }
+
+    await addDoc(collection(db, 'follows'), {
+      userUid: user.uid,
+      userName: user.name || '',
+      pageId: pageId,
+      createdAt: serverTimestamp(),
+    });
+
+    Alert.alert('Following', 'You are now following this page.');
+  } catch (error) {
+    Alert.alert('Follow failed', error.message);
+  }
+};
+
   const handleLogin = async () => {
   try {
     await signInWithEmailAndPassword(auth, emailInput.trim(), passInput);
