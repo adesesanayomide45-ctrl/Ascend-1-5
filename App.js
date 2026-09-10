@@ -986,6 +986,10 @@ const handleFollowPage = async (pageId) => {
       createdAt: serverTimestamp(),
     });
 
+   await updateDoc(doc(db, 'pages', pageId), {
+  followersCount: increment(1),
+});
+
     Alert.alert('Following', 'You are now following this page.');
   } catch (error) {
     Alert.alert('Follow failed', error.message);
