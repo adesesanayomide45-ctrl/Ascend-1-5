@@ -841,13 +841,23 @@ const requestSignupCode = () => {
   }
 };
 
-  const requestResetCode = () => {
-    Alert.alert('Reset password', 'How should we send your code?', [
-      { text: 'Via Email', onPress: () => { const c = generateCode(); setResetCode(c); setResetVisible(true); Alert.alert('Demo code', `Here's your reset code: ${c}`); } },
-      { text: 'Via Phone', onPress: () => { const c = generateCode(); setResetCode(c); setResetVisible(true); Alert.alert('Demo code', `Here's your reset code: ${c}`); } },
-      { text: 'Cancel', style: 'cancel' },
-    ]);
-  };
+  const requestResetCode = async () => {
+  if (!user?.email) {
+    Alert.alert('Email needed', 'Please log in with your email first.');
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, user.email);
+
+    Alert.alert(
+      'Check your email',
+      `A password reset link has been sent to ${user.email}.`
+    );
+  } catch (error) {
+    Alert.alert('Reset failed', error.message);
+  }
+};
 
   const verifyResetCode = () => {
     if (resetInput !== resetCode) {
