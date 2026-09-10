@@ -1766,12 +1766,10 @@ if (!user) {
           marginBottom: 12,
         }}
       >
-        <TouchableOpacity onPress={() => setPageProfile(page)}>
-  <TouchableOpacity onPress={() => setPageProfile(page)}>
+        <TouchableOpacity onPress={() => openPageProfile(page.id)}>
   <Text style={{ color: text, fontSize: 18, fontWeight: '700' }}>
     {page.name}
   </Text>
-</TouchableOpacity>
 </TouchableOpacity>
 
         <Text style={{ color: subtext, marginTop: 4 }}>
