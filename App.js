@@ -903,6 +903,42 @@ await setDoc(doc(db, 'users', result.user.uid), {
     }
   };
 
+  const handleCreatePage = async () => {
+    if (!user?.uid) {
+      Alert.alert('Login required', 'Please log in before creating a page.');
+      return;
+    }
+
+    if (!pageNameInput.trim() || !pageDescriptionInput.trim() || !pageCategoryInput.trim()) {
+      Alert.alert('Missing information', 'Please enter the page name, description, and category.');
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, 'pages'), {
+        name: pageNameInput.trim(),
+        description: pageDescriptionInput.trim(),
+        category: pageCategoryInput.trim(),
+        ownerUid: user.uid,
+        ownerName: user.name || '',
+        photo: '',
+        Verified: false,
+        isOfficial: false,
+        followersCount: 0,
+        createdAt: serverTimestamp(),
+      });
+
+      Alert.alert('Page created', 'Your page has been created successfully.');
+
+      setPageNameInput('');
+      setPageDescriptionInput('');
+      setPageCategoryInput('');
+      setCreatePageOpen(false);
+    } catch (error) {
+      Alert.alert('Page creation failed', error.message);
+    }
+  };
+
   const handleLogin = async () => {
   try {
     await signInWithEmailAndPassword(auth, emailInput.trim(), passInput);
