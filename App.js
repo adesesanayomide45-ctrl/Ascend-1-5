@@ -347,6 +347,23 @@ function getBotReply(q) {
   }, [user?.uid]);
 
   useEffect(() => {
+  if (!user?.uid) return;
+
+  const q = query(
+    collection(db, 'follows'),
+    where('userUid', '==', user.uid)
+  );
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    setFollowedPages(
+      snapshot.docs.map((d) => d.data().pageId)
+    );
+  });
+
+  return () => unsubscribe();
+}, [user?.uid]);
+
+  useEffect(() => {
     if (!activeGroup) return;
     const q = query(collection(db, 'groups', activeGroup.id, 'messages'), orderBy('timestamp', 'asc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
