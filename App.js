@@ -971,27 +971,42 @@ const choosePagePhoto = async () => {
     }
 
     try {
-      await addDoc(collection(db, 'pages'), {
-        name: pageNameInput.trim(),
-        description: pageDescriptionInput.trim(),
-        category: pageCategoryInput.trim(),
-        ownerUid: user.uid,
-        ownerName: user.name || '',
-        photo: '',
-        Verified: false,
-        isOfficial: false,
-        followersCount: 0,
-        createdAt: serverTimestamp(),
-      });
+  let pagePhotoUrl = '';
 
-      Alert.alert('Page created', 'Your page has been created successfully.');
+  if (pagePhoto) {
+    const response = await fetch(pagePhoto);
+    const blob = await response.blob();
 
-      setPageNameInput('');
-      setPageDescriptionInput('');
-      setPageCategoryInput('');
-      setCreatePageOpen(false);
-    } catch (error) {
-      Alert.alert('Page creation failed', error.message);
+    const fileRef = ref(
+      storage,
+      `pagePictures/${user.uid}_${Date.now()}`
+    );
+
+    await uploadBytes(fileRef, blob);
+    pagePhotoUrl = await getDownloadURL(fileRef);
+  }
+
+  await addDoc(collection(db, 'pages'), {
+    name: pageNameInput.trim(),
+    description: pageDescriptionInput.trim(),
+    category: pageCategoryInput.trim(),
+    ownerUid: user.uid,
+    ownerName: user.name || '',
+    photo: pagePhotoUrl,
+    Verified: false,
+    isOfficial: false,
+    followersCount: 0,
+    createdAt: serverTimestamp(),
+  });
+
+  Alert.alert('Page created', 'Your page has been created successfully.');
+
+  setPageNameInput('');
+  setPageDescriptionInput('');
+  setPageCategoryInput('');
+  setCreatePageOpen(false);
+} catch (error) {
+  Alert.alert('Page creation failed', error.message);
     }
   };
 
