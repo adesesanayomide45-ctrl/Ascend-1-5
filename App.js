@@ -1482,7 +1482,16 @@ if (!user) {
           <View style={{ backgroundColor: cardBg, borderRadius: 16, padding: 20 }}>
             <View style={{ alignItems: 'center', marginBottom: 10 }}>
               <View style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: bg, alignItems: 'center', justifyContent: 'center', marginBottom: 8 }}>
-                <Text style={{ color: accent, fontWeight: '700', fontSize: 22 }}>{viewProfileFor?.charAt(0)}</Text>
+                {viewProfileData?.photo ? (
+  <Image
+    source={{ uri: viewProfileData.photo }}
+    style={{ width: 64, height: 64, borderRadius: 32 }}
+  />
+) : (
+  <Text style={{ color: accent, fontWeight: '700', fontSize: 22 }}>
+    {viewProfileData?.name?.charAt(0) || viewProfileFor?.charAt(0)}
+  </Text>
+)}
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
   <Text style={{ color: text, fontWeight: '700', fontSize: 18 }}>
