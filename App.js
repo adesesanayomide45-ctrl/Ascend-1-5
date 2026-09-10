@@ -785,7 +785,6 @@ const sendAiMessage = () => {
     ]);
   }, 700);
 };
-const generateCode = () => String(Math.floor(1000 + Math.random() * 9000));
 
   const verifySignupCode = () => {
     if (codeInput !== signupCode) {
