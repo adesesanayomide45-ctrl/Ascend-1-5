@@ -1703,7 +1703,7 @@ if (!user) {
     {user.name}
   </Text>
 
-  {user.verified === true && (
+  {user.Verified === true && (
     <View
       style={{
         width: 18,
