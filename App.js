@@ -1045,6 +1045,24 @@ const handleUnfollowPage = async (pageId) => {
   }
 };
 
+const openPageProfile = async (pageId) => {
+  try {
+    const pageRef = doc(db, 'pages', pageId);
+    const pageSnap = await getDoc(pageRef);
+
+    if (pageSnap.exists()) {
+      setPageProfile({
+        id: pageSnap.id,
+        ...pageSnap.data(),
+      });
+    } else {
+      Alert.alert('Page not found', 'This page no longer exists.');
+    }
+  } catch (error) {
+    Alert.alert('Page failed', error.message);
+  }
+};
+
   const handleLogin = async () => {
   try {
     await signInWithEmailAndPassword(auth, emailInput.trim(), passInput);
