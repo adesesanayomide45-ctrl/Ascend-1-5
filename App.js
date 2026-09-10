@@ -356,6 +356,54 @@ function getBotReply(q) {
     const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, quality: 0.7 });
     if (!result.canceled) setSignupPhoto(result.assets[0].uri);
   };
+
+  const pickProfileImage = async () => {
+  try {
+    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (!perm.granted) {
+      Alert.alert(
+        'Permission needed',
+        'Please allow photo access to change your profile picture.'
+      );
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0.7,
+    });
+
+    if (result.canceled) return;
+
+    const imageUri = result.assets[0].uri;
+
+    const response = await fetch(imageUri);
+    const blob = await response.blob();
+
+    const fileRef = ref(
+      storage,
+      `profilePictures/${user.uid}_${Date.now()}`
+    );
+
+    await uploadBytes(fileRef, blob);
+
+    const photoUrl = await getDownloadURL(fileRef);
+
+    await updateDoc(doc(db, 'users', user.uid), {
+      photo: photoUrl,
+    });
+
+    setUser((prev) => ({
+      ...prev,
+      photo: photoUrl,
+    }));
+
+    Alert.alert('Success', 'Your profile picture has been updated!');
+  } catch (error) {
+    Alert.alert('Profile picture failed', error.message);
+  }
+};
   
   const toggleLike = async (post) => {
     if (typeof post.id !== 'string') { Alert.alert('Not available yet', 'Liking isn\'t supported on this post yet.'); return; }
