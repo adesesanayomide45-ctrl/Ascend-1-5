@@ -942,6 +942,23 @@ await setDoc(doc(db, 'users', result.user.uid), {
     }
   };
 
+const choosePagePhoto = async () => {
+  try {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+
+    if (!result.canceled) {
+      setPagePhoto(result.assets[0].uri);
+    }
+  } catch (error) {
+    Alert.alert('Photo error', error.message);
+  }
+};
+
   const handleCreatePage = async () => {
     if (!user?.uid) {
       Alert.alert('Login required', 'Please log in before creating a page.');
