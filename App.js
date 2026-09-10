@@ -826,7 +826,23 @@ const requestSignupCode = () => {
     try {
       const result = await createUserWithEmailAndPassword(auth, emailInput, passInput);
       await sendEmailVerification(result.user);
-      await setDoc(doc(db, 'users', result.user.uid), {
+
+let photoUrl = null;
+
+if (signupPhoto) {
+  const response = await fetch(signupPhoto);
+  const blob = await response.blob();
+
+  const fileRef = ref(
+    storage,
+    `profilePictures/${result.user.uid}_${Date.now()}`
+  );
+
+  await uploadBytes(fileRef, blob);
+  photoUrl = await getDownloadURL(fileRef);
+}
+
+await setDoc(doc(db, 'users', result.user.uid), {
   uid: result.user.uid,
   name: nameInput.trim(),
   gender: genderInput,
