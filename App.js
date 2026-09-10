@@ -882,9 +882,19 @@ if (!user) {
             <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Age" placeholderTextColor={subtext} keyboardType="number-pad" value={ageInput} onChangeText={setAgeInput} />
             <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Email address" placeholderTextColor={subtext} value={emailInput} onChangeText={setEmailInput} />
             <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Password" placeholderTextColor={subtext} secureTextEntry value={passInput} onChangeText={setPassInput} />
-            <TouchableOpacity style={[styles.button, { backgroundColor: accent }]} onPress={handleSignup}>
-              <Text style={styles.buttonText}>Create Account</Text>
-            </TouchableOpacity>
+            <TouchableOpacity
+  style={[styles.button, { backgroundColor: accent }]}
+  onPress={() => {
+    if (!genderInput.trim() || !ageInput.trim() || !emailInput.trim() || !passInput.trim()) {
+      Alert.alert('Missing info', 'Please fill in your gender, age, email, and password first.');
+      return;
+    }
+
+    setSignupStage('photo');
+  }}
+>
+  <Text style={styles.buttonText}>Next</Text>
+</TouchableOpacity>
             <TouchableOpacity onPress={() => setSignupStage('name')}>
               <Text style={{ color: accent, textAlign: 'center', marginTop: 4 }}>← Back</Text>
             </TouchableOpacity>
