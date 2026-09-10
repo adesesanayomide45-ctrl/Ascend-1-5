@@ -116,6 +116,7 @@ function getBotReply(q) {
   const [codeInput, setCodeInput] = useState('');
 
   const [screen, setScreen] = useState('feed');
+  const [authLoading, setAuthLoading] = useState(false);
 
   const [createPageOpen, setCreatePageOpen] = useState(false);
   const [pageNameInput, setPageNameInput] = useState('');
