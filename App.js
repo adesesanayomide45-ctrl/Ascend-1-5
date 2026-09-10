@@ -996,6 +996,38 @@ const handleFollowPage = async (pageId) => {
   }
 };
 
+const handleUnfollowPage = async (pageId) => {
+  if (!user?.uid) {
+    Alert.alert('Login required', 'Please log in first.');
+    return;
+  }
+
+  try {
+    const existingFollow = await getDocs(
+      query(
+        collection(db, 'follows'),
+        where('userUid', '==', user.uid),
+        where('pageId', '==', pageId)
+      )
+    );
+
+    if (existingFollow.empty) {
+      Alert.alert('Not following', 'You do not follow this page.');
+      return;
+    }
+
+    await deleteDoc(existingFollow.docs[0].ref);
+
+    await updateDoc(doc(db, 'pages', pageId), {
+      followersCount: increment(-1),
+    });
+
+    Alert.alert('Unfollowed', 'You no longer follow this page.');
+  } catch (error) {
+    Alert.alert('Unfollow failed', error.message);
+  }
+};
+
   const handleLogin = async () => {
   try {
     await signInWithEmailAndPassword(auth, emailInput.trim(), passInput);
