@@ -1727,6 +1727,72 @@ if (!user) {
   </Text>
 </TouchableOpacity>
 
+        <Text style={{ color: text, fontSize: 20, fontWeight: '700', marginBottom: 10 }}>
+    Pages
+  </Text>
+
+  {pages.length === 0 ? (
+    <Text style={{ color: subtext, marginBottom: 16 }}>
+      No pages have been created yet.
+    </Text>
+  ) : (
+    pages.map((page) => (
+      <View
+        key={page.id}
+        style={{
+          backgroundColor: cardBg,
+          borderWidth: 1,
+          borderColor: border,
+          borderRadius: 12,
+          padding: 14,
+          marginBottom: 12,
+        }}
+      >
+        <Text style={{ color: text, fontSize: 18, fontWeight: '700' }}>
+          {page.name}
+        </Text>
+
+        <Text style={{ color: subtext, marginTop: 4 }}>
+          {page.description}
+        </Text>
+
+        <Text style={{ color: subtext, marginTop: 4 }}>
+          {page.category} • {page.followersCount || 0} followers
+        </Text>
+
+        {followedPages.includes(page.id) ? (
+          <TouchableOpacity
+            onPress={() => handleUnfollowPage(page.id)}
+            style={{
+              marginTop: 10,
+              paddingVertical: 10,
+              borderRadius: 8,
+              backgroundColor: border,
+            }}
+          >
+            <Text style={{ color: text, textAlign: 'center', fontWeight: '700' }}>
+              Following
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => handleFollowPage(page.id)}
+            style={{
+              marginTop: 10,
+              paddingVertical: 10,
+              borderRadius: 8,
+              backgroundColor: accent,
+            }}
+          >
+            <Text style={{ color: '#fff', textAlign: 'center', fontWeight: '700' }}>
+              Follow
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    ))
+  )}
+
         <Text style={{ color: text, fontWeight: '700', marginTop: 8, marginBottom: 8 }}>
   Username
 </Text>
