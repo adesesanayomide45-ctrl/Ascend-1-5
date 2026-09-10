@@ -1983,6 +1983,64 @@ if (!user) {
         </ScrollView>
       )}
 
+  {pageProfile && (
+  <ScrollView style={{ flex: 1 }}>
+    <TouchableOpacity onPress={() => setPageProfile(null)}>
+      <Text style={{ color: accent, fontWeight: '700', marginBottom: 16 }}>
+        ← Back
+      </Text>
+    </TouchableOpacity>
+
+    <Text style={{ color: text, fontSize: 28, fontWeight: '700', marginBottom: 8 }}>
+      {pageProfile.name}
+    </Text>
+
+    {pageProfile.Verified === true && (
+      <Text style={{ color: '#16a34a', fontSize: 16, fontWeight: '700', marginBottom: 8 }}>
+        ✓ Verified Page
+      </Text>
+    )}
+
+    {pageProfile.isOfficial === true && (
+      <Text style={{ color: '#16a34a', fontSize: 16, fontWeight: '700', marginBottom: 8 }}>
+        ✓ Official Ascend Page
+      </Text>
+    )}
+
+    <Text style={{ color: subtext, marginBottom: 12 }}>
+      {pageProfile.category}
+    </Text>
+
+    <Text style={{ color: text, lineHeight: 22, marginBottom: 12 }}>
+      {pageProfile.description}
+    </Text>
+
+    <Text style={{ color: subtext, marginBottom: 16 }}>
+      {pageProfile.followersCount || 0} followers
+    </Text>
+
+    {followedPages.includes(pageProfile.id) ? (
+      <TouchableOpacity
+        onPress={() => handleUnfollowPage(pageProfile.id)}
+        style={[styles.button, { backgroundColor: border }]}
+      >
+        <Text style={[styles.buttonText, { color: text }]}>
+          Following
+        </Text>
+      </TouchableOpacity>
+    ) : (
+      <TouchableOpacity
+        onPress={() => handleFollowPage(pageProfile.id)}
+        style={[styles.button, { backgroundColor: accent }]}
+      >
+        <Text style={styles.buttonText}>
+          Follow
+        </Text>
+      </TouchableOpacity>
+    )}
+  </ScrollView>
+)}
+
       <Modal visible={!!profileMenuFor} transparent animationType="fade" onRequestClose={() => setProfileMenuFor(null)}>
         <TouchableOpacity style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'flex-end' }} activeOpacity={1} onPress={() => setProfileMenuFor(null)}>
           <View style={{ backgroundColor: cardBg, borderTopLeftRadius: 16, borderTopRightRadius: 16, padding: 20 }}>
