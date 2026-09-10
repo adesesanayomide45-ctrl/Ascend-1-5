@@ -164,6 +164,8 @@ function getBotReply(q) {
   const [resetVisible, setResetVisible] = useState(false);
   const [resetCode, setResetCode] = useState('');
   const [resetInput, setResetInput] = useState('');
+  const [editName, setEditName] = useState('');
+  const [editNameVisible, setEditNameVisible] = useState(false);
 
   const bg = darkMode ? '#141119' : '#f0f2ee';
   const cardBg = darkMode ? '#1c1f16' : '#ffffff';
