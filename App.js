@@ -1358,6 +1358,20 @@ if (!user) {
             <View style={{ width: 84, height: 84, borderRadius: 42, backgroundColor: cardBg, borderWidth: 3, borderColor: bg, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
               {user.photo ? <Image source={{ uri: user.photo }} style={{ width: '100%', height: '100%' }} /> : <Text style={{ fontSize: 28, fontWeight: '700', color: accent }}>{user.name.charAt(0).toUpperCase()}</Text>}
             </View>
+                <TouchableOpacity
+  onPress={pickProfileImage}
+  style={{
+    marginTop: 10,
+    backgroundColor: accent,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+  }}
+>
+  <Text style={{ color: '#fff', fontWeight: '700' }}>
+    Change Profile Picture
+  </Text>
+</TouchableOpacity>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 8 }}>
   <Text style={{ color: text, fontSize: 19, fontWeight: '700' }}>
     {user.name}
