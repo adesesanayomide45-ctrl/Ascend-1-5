@@ -122,6 +122,7 @@ function getBotReply(q) {
   const [pageNameInput, setPageNameInput] = useState('');
   const [pageDescriptionInput, setPageDescriptionInput] = useState('');
   const [pageCategoryInput, setPageCategoryInput] = useState('');
+  const [pagePhoto, setPagePhoto] = useState(null);
   const [pages, setPages] = useState([]);
   const [followedPages, setFollowedPages] = useState([]);
   const [pageProfile, setPageProfile] = useState(null);
