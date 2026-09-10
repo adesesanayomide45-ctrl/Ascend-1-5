@@ -1606,6 +1606,21 @@ if (!user) {
             <Text style={{ color: accent, fontWeight: '700', marginBottom: 16 }}>← Back to Profile</Text>
           </TouchableOpacity>
 
+        <TouchableOpacity
+  onPress={() => setCreatePageOpen(true)}
+  style={{
+    backgroundColor: accent,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    marginBottom: 16,
+  }}
+>
+  <Text style={{ color: '#fff', fontWeight: '700', textAlign: 'center' }}>
+    Create Page
+  </Text>
+</TouchableOpacity>
+
         <Text style={{ color: text, fontWeight: '700', marginTop: 8, marginBottom: 8 }}>
   Username
 </Text>
