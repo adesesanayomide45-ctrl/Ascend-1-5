@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';import { auth, db, storage } fr
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Linking, Share } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut } from 'firebase/auth';
-import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, setDoc, getDocs, where, updateDoc, deleteDoc, arrayUnion, arrayRemove, increment } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, setDoc, getDocs, where, updateDoc, deleteDoc, arrayUnion, arrayRemove, increment, getDoc } from 'firebase/firestore';
 
 const buildLevels = () => {
   const stages = [
