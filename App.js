@@ -1966,6 +1966,28 @@ if (!user) {
       Create Page
     </Text>
 
+  <TouchableOpacity
+  onPress={choosePagePhoto}
+  style={[styles.button, { backgroundColor: accent, marginBottom: 12 }]}
+>
+  <Text style={styles.buttonText}>
+    Choose Page Picture
+  </Text>
+</TouchableOpacity>
+
+{pagePhoto && (
+  <Image
+    source={{ uri: pagePhoto }}
+    style={{
+      width: 120,
+      height: 120,
+      borderRadius: 60,
+      alignSelf: 'center',
+      marginBottom: 16,
+    }}
+  />
+)}
+
     <TextInput
       style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]}
       placeholder="Page name"
