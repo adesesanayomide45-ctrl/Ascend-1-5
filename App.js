@@ -1498,7 +1498,7 @@ if (!user) {
     {viewProfileData?.name || viewProfileFor}
   </Text>
 
-  {viewProfileData?.verified === true && (
+  {viewProfileData?.Verified === true && (
     <View style={{
       width: 18,
       height: 18,
