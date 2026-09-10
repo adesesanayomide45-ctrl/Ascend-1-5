@@ -1004,6 +1004,7 @@ const choosePagePhoto = async () => {
   setPageNameInput('');
   setPageDescriptionInput('');
   setPageCategoryInput('');
+  setPagePhoto(null);
   setCreatePageOpen(false);
 } catch (error) {
   Alert.alert('Page creation failed', error.message);
