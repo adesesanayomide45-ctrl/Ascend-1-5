@@ -1643,14 +1643,12 @@ if (!user) {
               <Text style={styles.buttonText}>Send reset code</Text>
             </TouchableOpacity>
           )}
-          {resetVisible && (
-            <>
-              <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, textAlign: 'center', letterSpacing: 4 }]} placeholder="Enter code" placeholderTextColor={subtext} keyboardType="number-pad" value={resetInput} onChangeText={setResetInput} />
-              <TouchableOpacity style={[styles.button, { backgroundColor: accent }]} onPress={verifyResetCode}>
-                <Text style={styles.buttonText}>Verify Code</Text>
-              </TouchableOpacity>
-            </>
-          )}
+          <TouchableOpacity
+  style={[styles.button, { backgroundColor: accent }]}
+  onPress={requestResetCode}
+>
+  <Text style={styles.buttonText}>Send Password Reset Email</Text>
+</TouchableOpacity>
 
           <TouchableOpacity style={[styles.button, { backgroundColor: border, marginTop: 10 }]} onPress={() => setScreen('terms')}>
             <Text style={{ color: text, fontWeight: 'bold' }}>Terms & Conditions</Text>
