@@ -680,6 +680,38 @@ function getBotReply(q) {
   }
 };
 
+  const searchGroups = async () => {
+  const term = searchQuery.trim().toLowerCase();
+
+  if (!term) {
+    setSearchResults([]);
+    return;
+  }
+
+  setSearchLoading(true);
+
+  try {
+    const snapshot = await getDocs(collection(db, 'groups'));
+
+    const results = snapshot.docs
+      .map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }))
+      .filter(
+        (g) =>
+          typeof g.name === 'string' &&
+          g.name.toLowerCase().includes(term)
+      );
+
+    setSearchResults(results);
+  } catch (error) {
+    Alert.alert('Group search failed', error.message);
+  } finally {
+    setSearchLoading(false);
+  }
+};
+
   const sendFriendRequest = async (targetUser) => {
   try {
     await setDoc(
