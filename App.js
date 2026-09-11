@@ -755,13 +755,14 @@ function getBotReply(q) {
     }
 
     await addDoc(collection(db, 'groupJoinRequests'), {
-      groupId: group.id,
-      groupName: group.name,
-      userUid: user.uid,
-      userName: user.name,
-      status: 'pending',
-      createdAt: serverTimestamp(),
-    });
+  groupId: group.id,
+  groupName: group.name,
+  ownerUid: group.createdBy,
+  userUid: user.uid,
+  userName: user.name,
+  status: 'pending',
+  createdAt: serverTimestamp(),
+});
 
     await addDoc(collection(db, 'notifications'), {
       recipientUid: group.createdBy,
