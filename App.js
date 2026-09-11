@@ -648,6 +648,38 @@ function getBotReply(q) {
   }
 };
 
+  const searchPages = async () => {
+  const term = searchQuery.trim().toLowerCase();
+
+  if (!term) {
+    setSearchResults([]);
+    return;
+  }
+
+  setSearchLoading(true);
+
+  try {
+    const snapshot = await getDocs(collection(db, 'pages'));
+
+    const results = snapshot.docs
+      .map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }))
+      .filter(
+        (p) =>
+          typeof p.name === 'string' &&
+          p.name.toLowerCase().includes(term)
+      );
+
+    setSearchResults(results);
+  } catch (error) {
+    Alert.alert('Page search failed', error.message);
+  } finally {
+    setSearchLoading(false);
+  }
+};
+
   const sendFriendRequest = async (targetUser) => {
   try {
     await setDoc(
