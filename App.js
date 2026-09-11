@@ -100,6 +100,7 @@ function getBotReply(q) {
   const [creatingGroup, setCreatingGroup] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
   const [selectedForGroup, setSelectedForGroup] = useState([]);
+  const [groupPrivacy, setGroupPrivacy] = useState('public');
   const [authMode, setAuthMode] = useState('login');
   const [signupStage, setSignupStage] = useState('name');
   const [nameInput, setNameInput] = useState('');
