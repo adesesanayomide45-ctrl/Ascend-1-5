@@ -241,9 +241,20 @@ function getBotReply(q) {
         }
 
         await updateDoc(doc(db, 'users', userDoc.id), {
-          points: newPoints,
-          lastLoginDate: todayDate,
-        });
+  points: newPoints,
+  lastLoginDate: todayDate,
+  ...(isAscendOfficial
+    ? {
+        Verified: true,
+        isOfficial: true,
+      }
+    : isPersonalVerified
+    ? {
+        Verified: true,
+        isOfficial: false,
+      }
+    : {}),
+});
 
         setPoints(newPoints);
 
