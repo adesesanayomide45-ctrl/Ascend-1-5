@@ -488,6 +488,7 @@ function getBotReply(q) {
         text: commentDraft.trim(),
         author: user.name,
         authorUid: user.uid,
+        verified: user.Verified === true,
         timestamp: serverTimestamp(),
       }
     );
