@@ -757,6 +757,37 @@ function getBotReply(q) {
   }
 };
 
+  const joinPublicGroup = async (group) => {
+  if (!user?.uid || !group?.id) return;
+
+  if ((group.members || []).includes(user.uid)) {
+    Alert.alert('Already joined', 'You are already a member of this group.');
+    return;
+  }
+
+  try {
+    await updateDoc(doc(db, 'groups', group.id), {
+      members: arrayUnion(user.uid),
+      [`memberNames.${user.uid}`]: user.name,
+    });
+
+    await addDoc(collection(db, 'notifications'), {
+      recipientUid: group.createdBy,
+      type: 'group_joined',
+      groupId: group.id,
+      groupName: group.name,
+      fromUid: user.uid,
+      fromName: user.name,
+      read: false,
+      timestamp: serverTimestamp(),
+    });
+
+    Alert.alert('Joined', `You joined ${group.name}`);
+  } catch (error) {
+    Alert.alert('Join failed', error.message);
+  }
+};
+
   const sendFriendRequest = async (targetUser) => {
   try {
     await setDoc(
