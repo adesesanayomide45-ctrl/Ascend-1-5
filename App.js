@@ -2091,7 +2091,13 @@ if (!user) {
 </View>
         
           <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
-            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, flex: 1, marginBottom: 0 }]} placeholder="🔍 Search people by name..." placeholderTextColor={subtext} value={searchQuery} onChangeText={setSearchQuery} />
+            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, flex: 1, marginBottom: 0 }]} placeholder={
+  searchCategory === 'people'
+    ? '🔍 Search people by name...'
+    : searchCategory === 'pages'
+    ? '🔍 Search pages by name...'
+    : '🔍 Search groups by name...'
+      } placeholderTextColor={subtext} value={searchQuery} onChangeText={setSearchQuery} />
             <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 10, paddingHorizontal: 16, justifyContent: 'center' }} onPress={() => {
   if (searchCategory === 'people') {
     searchUsers();
