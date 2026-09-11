@@ -474,7 +474,8 @@ function getBotReply(q) {
   const activeChat = chats.find((c) => c.id === activeChatId);
   const combinedPosts = [...userPosts.map((p) => ({ ...p, media: p.hasMedia ? { uri: p.mediaUrl || null, type: p.mediaType } : null })), ...posts];
   const visiblePosts = combinedPosts.filter((p) => !blockedUsers.includes(p.author));
-  const videoPosts = visiblePosts.filter((p) => p.media && p.media.type === 'video');const pickMedia = async () => {
+  const videoPosts = visiblePosts.filter((p) => p.media && p.media.type === 'video');
+  const pickMedia = async () => {
     const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!perm.granted) { Alert.alert('Permission needed', 'Please allow photo access to attach media.'); return; }
     const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.All, quality: 0.7 });
