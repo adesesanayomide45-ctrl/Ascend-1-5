@@ -788,6 +788,51 @@ function getBotReply(q) {
   }
 };
 
+  const approveGroupJoinRequest = async (request) => {
+  if (!user?.uid || !request?.id || !request?.groupId) return;
+
+  try {
+    const groupRef = doc(db, 'groups', request.groupId);
+    const groupSnap = await getDoc(groupRef);
+
+    if (!groupSnap.exists()) {
+      Alert.alert('Error', 'This group no longer exists.');
+      return;
+    }
+
+    const group = groupSnap.data();
+
+    if (group.createdBy !== user.uid) {
+      Alert.alert('Not allowed', 'Only the group owner can approve requests.');
+      return;
+    }
+
+    await updateDoc(groupRef, {
+      members: arrayUnion(request.userUid),
+      [`memberNames.${request.userUid}`]: request.userName,
+    });
+
+    await updateDoc(doc(db, 'groupJoinRequests', request.id), {
+      status: 'approved',
+    });
+
+    await addDoc(collection(db, 'notifications'), {
+      recipientUid: request.userUid,
+      type: 'group_join_approved',
+      groupId: request.groupId,
+      groupName: request.groupName,
+      fromUid: user.uid,
+      fromName: user.name,
+      read: false,
+      timestamp: serverTimestamp(),
+    });
+
+    Alert.alert('Approved', `${request.userName} has joined the group.`);
+  } catch (error) {
+    Alert.alert('Approval failed', error.message);
+  }
+};
+
   const sendFriendRequest = async (targetUser) => {
   try {
     await setDoc(
