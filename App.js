@@ -1391,6 +1391,78 @@ if (!user) {
         </ScrollView>
       )}{screen === 'chat' && !activeChatId && !groupChatOpen && !activePrivateFriend && (
         <ScrollView style={{ flex: 1 }}>
+
+        <View
+  style={{
+    flexDirection: 'row',
+    marginBottom: 10,
+    justifyContent: 'space-between',
+  }}
+>
+  <TouchableOpacity
+    onPress={() => setSearchCategory('people')}
+    style={{
+      flex: 1,
+      paddingVertical: 8,
+      alignItems: 'center',
+      borderBottomWidth: 2,
+      borderBottomColor:
+        searchCategory === 'people' ? accent : border,
+    }}
+  >
+    <Text
+      style={{
+        color: searchCategory === 'people' ? accent : subtext,
+        fontWeight: '700',
+      }}
+    >
+      People
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() => setSearchCategory('pages')}
+    style={{
+      flex: 1,
+      paddingVertical: 8,
+      alignItems: 'center',
+      borderBottomWidth: 2,
+      borderBottomColor:
+        searchCategory === 'pages' ? accent : border,
+    }}
+  >
+    <Text
+      style={{
+        color: searchCategory === 'pages' ? accent : subtext,
+        fontWeight: '700',
+      }}
+    >
+      Pages
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() => setSearchCategory('groups')}
+    style={{
+      flex: 1,
+      paddingVertical: 8,
+      alignItems: 'center',
+      borderBottomWidth: 2,
+      borderBottomColor:
+        searchCategory === 'groups' ? accent : border,
+    }}
+  >
+    <Text
+      style={{
+        color: searchCategory === 'groups' ? accent : subtext,
+        fontWeight: '700',
+      }}
+    >
+      Groups
+    </Text>
+  </TouchableOpacity>
+</View>
+        
           <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
             <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, flex: 1, marginBottom: 0 }]} placeholder="🔍 Search people by name..." placeholderTextColor={subtext} value={searchQuery} onChangeText={setSearchQuery} />
             <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 10, paddingHorizontal: 16, justifyContent: 'center' }} onPress={searchUsers}>
