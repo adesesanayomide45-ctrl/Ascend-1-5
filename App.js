@@ -1806,7 +1806,7 @@ if (!user) {
   } else if (searchCategory === 'groups') {
     searchGroups();
   }
-}}
+}}>
               <Text style={{ color: '#fff', fontWeight: 'bold' }}>Go</Text>
             </TouchableOpacity>
           </View>
