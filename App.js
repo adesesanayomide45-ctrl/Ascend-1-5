@@ -1817,7 +1817,7 @@ if (!user) {
     </Text>
   </View>
 ) : (
-    {searchResults.map((r) => (
+    searchResults.map((r) => (
   <View
     key={r.id || r.uid}
     style={[
