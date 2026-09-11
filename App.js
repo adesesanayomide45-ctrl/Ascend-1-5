@@ -1148,51 +1148,82 @@ const sendAiMessage = () => {
         <Text style={{ color: subtext, marginTop: 10, fontSize: 16, fontWeight: '700' }}>{loadingDots}</Text>
       </View>
     );
-}const handleSignup = async () => {
-    if (!genderInput.trim() || !ageInput.trim() || !emailInput.trim() || !passInput.trim()) {
-      Alert.alert('Missing info', 'Please fill in your gender, age, email, and password first.');
-      return;
-    }
-    try {
-      const result = await createUserWithEmailAndPassword(auth, emailInput, passInput);
-      await sendEmailVerification(result.user);
-
-let photoUrl = null;
-
-if (signupPhoto) {
-  const response = await fetch(signupPhoto);
-  const blob = await response.blob();
-
-  const fileRef = ref(
-    storage,
-    `profilePictures/${result.user.uid}_${Date.now()}`
-  );
-
-  await uploadBytes(fileRef, blob);
-  photoUrl = await getDownloadURL(fileRef);
 }
 
-await setDoc(doc(db, 'users', result.user.uid), {
-  uid: result.user.uid,
-  name: nameInput.trim(),
-  gender: genderInput,
-  age: Number(ageInput),
-  email: emailInput.trim().toLowerCase(),
-  location: '',
-  photo: photoUrl,
-  profileComplete: false,
-  points: 40,
-  lastLoginDate: new Date().toISOString().slice(0, 10),
-  Verified: false,
-  isOfficial: false,
-  createdAt: serverTimestamp(),
-});
-      Alert.alert('Check your email', 'We sent a verification link to ' + emailInput + '. Tap it to confirm your account.');
-      setUser({ name: nameInput, gender: genderInput, age: ageInput, email: emailInput, location: '', photo: null, profileComplete: false, uid: result.user.uid });
-    } catch (error) {
-      Alert.alert('Sign up failed', error.message);
+const handleSignup = async () => {
+  if (!genderInput.trim() || !ageInput.trim() || !emailInput.trim() || !passInput.trim()) {
+    Alert.alert(
+      'Missing info',
+      'Please fill in your gender, age, email, and password first.'
+    );
+    return;
+  }
+
+  setAuthLoading(true);
+
+  try {
+    const result = await createUserWithEmailAndPassword(
+      auth,
+      emailInput,
+      passInput
+    );
+
+    await sendEmailVerification(result.user);
+
+    let photoUrl = null;
+
+    if (signupPhoto) {
+      const response = await fetch(signupPhoto);
+      const blob = await response.blob();
+
+      const fileRef = ref(
+        storage,
+        `profilePictures/${result.user.uid}_${Date.now()}`
+      );
+
+      await uploadBytes(fileRef, blob);
+      photoUrl = await getDownloadURL(fileRef);
     }
-  };
+
+    await setDoc(doc(db, 'users', result.user.uid), {
+      uid: result.user.uid,
+      name: nameInput.trim(),
+      gender: genderInput,
+      age: Number(ageInput),
+      email: emailInput.trim().toLowerCase(),
+      location: '',
+      photo: photoUrl,
+      profileComplete: false,
+      points: 40,
+      lastLoginDate: new Date().toISOString().slice(0, 10),
+      Verified: false,
+      isOfficial: false,
+      createdAt: serverTimestamp(),
+    });
+
+    Alert.alert(
+      'Check your email',
+      'We sent a verification link to ' +
+        emailInput +
+        '. Tap it to confirm your account.'
+    );
+
+    setUser({
+      name: nameInput,
+      gender: genderInput,
+      age: ageInput,
+      email: emailInput,
+      location: '',
+      photo: photoUrl,
+      profileComplete: false,
+      uid: result.user.uid,
+    });
+  } catch (error) {
+    Alert.alert('Sign up failed', error.message);
+  } finally {
+    setAuthLoading(false);
+  }
+};
 
 const choosePagePhoto = async () => {
   try {
