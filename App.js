@@ -1416,7 +1416,27 @@ if (!user) {
         },
       ]}
     >
-      <Text style={{ color: text, flex: 1 }}>{r.name}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+  <Text style={{ color: text }}>{r.name}</Text>
+
+  {r.Verified === true && (
+    <View
+      style={{
+        width: 18,
+        height: 18,
+        borderRadius: 9,
+        backgroundColor: '#16a34a',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 6,
+      }}
+    >
+      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '900' }}>
+        ✓
+      </Text>
+    </View>
+  )}
+</View>
 
       <TouchableOpacity
         style={{
