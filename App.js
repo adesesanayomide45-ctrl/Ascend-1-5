@@ -1940,6 +1940,22 @@ if (!user) {
             Approve
           </Text>
         </TouchableOpacity>
+
+       <TouchableOpacity
+  style={{
+    backgroundColor: '#dc2626',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    marginTop: 8,
+    alignSelf: 'flex-start',
+  }}
+  onPress={() => rejectGroupJoinRequest(request)}
+>
+  <Text style={{ color: '#fff', fontWeight: '700', fontSize: 12 }}>
+    Reject
+  </Text>
+</TouchableOpacity>
       </View>
     ))}
   </View>
