@@ -472,7 +472,15 @@ function getBotReply(q) {
   const idx = LEVELS.findIndex((l) => l === rank);
   const next = LEVELS[idx + 1];
   const activeChat = chats.find((c) => c.id === activeChatId);
-  const combinedPosts = [...userPosts.map((p) => ({ ...p, media: p.hasMedia ? { uri: p.mediaUrl || null, type: p.mediaType } : null })), ...posts];
+  const combinedPosts = userPosts.map((p) => ({
+  ...p,
+  media: p.hasMedia
+    ? {
+        uri: p.mediaUrl || null,
+        type: p.mediaType,
+      }
+    : null,
+}));
   const visiblePosts = combinedPosts.filter((p) => !blockedUsers.includes(p.author));
   const videoPosts = visiblePosts.filter((p) => p.media && p.media.type === 'video');
   const pickMedia = async () => {
