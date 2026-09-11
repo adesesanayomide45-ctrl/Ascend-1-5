@@ -1860,6 +1860,51 @@ if (!user) {
             </TouchableOpacity>
           ))}
 
+          {groupJoinRequests.length > 0 && (
+  <View style={{ marginTop: 12 }}>
+    <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>
+      Group Join Requests
+    </Text>
+
+    {groupJoinRequests.map((request) => (
+      <View
+        key={request.id}
+        style={[
+          styles.card,
+          {
+            backgroundColor: cardBg,
+            borderColor: border,
+          },
+        ]}
+      >
+        <Text style={{ color: text, fontWeight: '700' }}>
+          {request.userName}
+        </Text>
+
+        <Text style={{ color: subtext, fontSize: 12, marginTop: 3 }}>
+          wants to join {request.groupName}
+        </Text>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: accent,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 7,
+            marginTop: 8,
+            alignSelf: 'flex-start',
+          }}
+          onPress={() => approveGroupJoinRequest(request)}
+        >
+          <Text style={{ color: '#fff', fontWeight: '700', fontSize: 12 }}>
+            Approve
+          </Text>
+        </TouchableOpacity>
+      </View>
+    ))}
+  </View>
+)}
+
           <TouchableOpacity style={[styles.card, { backgroundColor: cardBg, borderColor: accent, borderWidth: 1.5, marginTop: 10 }]} onPress={() => setGroupChatOpen(true)}>
             <Text style={{ color: text, fontWeight: '700' }}>🌐 Family & Friends (real chat)</Text>
             <Text style={{ color: subtext, fontSize: 12 }}>Everyone with the app can message here for real</Text>
