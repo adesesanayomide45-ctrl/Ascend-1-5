@@ -780,11 +780,12 @@ const toggleGroupSelect = (uid) => {
       const memberNames = { [user.uid]: user.name };
       realFriends.forEach((f) => { if (selectedForGroup.includes(f.uid)) memberNames[f.uid] = f.name; });
       await addDoc(collection(db, 'groups'), {
-        name: newGroupName,
-        members: [user.uid, ...selectedForGroup],
-        memberNames,
-        createdBy: user.uid,
-      });
+  name: newGroupName,
+  members: [user.uid, ...selectedForGroup],
+  memberNames,
+  createdBy: user.uid,
+  privacy: groupPrivacy,
+});
       setCreatingGroup(false);
       setNewGroupName('');
       setSelectedForGroup([]);
