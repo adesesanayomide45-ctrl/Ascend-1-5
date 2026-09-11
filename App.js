@@ -132,17 +132,7 @@ function getBotReply(q) {
   const [points, setPoints] = useState(0);
   const [lastLoginDate, setLastLoginDate] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
-  const [posts, setPosts] = useState([
-    { id: 1, author: 'Ascend', text: 'Welcome to Ascend! We built this app to help you connect with real friends and family while making it fun to stay active in the community. Post updates, chat in real time, and climb the ranks as you go. We are just getting started, and we are excited to grow this together with you. Thanks for being here from day one.', media: null },
-    { id: 2, author: 'Ascend', text: 'Curious how ranks work? Everyone starts at Rookie and climbs through Silver, Gold, Platinum, Master, and Supremacy by earning points. Post, log in daily, and add friends to level up. At the very top sits Legendary I through IV, reserved only for the highest point earners on the entire platform. How far can you climb?', media: null },
-    { id: 3, author: 'Ascend', text: 'Reels are here! Head over to the Reels tab to watch short videos shared by the community. Got something worth sharing? Attach a video from the Feed screen using the Photo/Video button, and it will automatically show up in Reels for everyone to enjoy. We cannot wait to see what you create.', media: null },
-    { id: 4, author: 'Ascend', text: 'Real conversations matter to us. That is why Ascend now supports live messaging, complete with online status and read receipts, so you always know when your friend has seen your message. We are working hard on bringing private one on one chats between real accounts very soon, so stay tuned for that update.', media: null },
-    { id: 5, author: 'Ascend', text: 'Did you know logging in every day earns you 40 points automatically? Consistency pays off on Ascend. On the flip side, going a full day without opening the app costs you 30 points, so try to check in daily to keep your rank climbing steadily instead of slipping backward. Small habits add up fast here.', media: null },
-    { id: 6, author: 'Ascend', text: 'Community safety is something we take seriously. If you ever come across content that violates our rules, nudity, hate speech, or harassment, please use the report option found on any profile. Verified reports are rewarded with points, while confirmed violations can lead to serious consequences for the offending account, including a ban.', media: null },
-    { id: 7, author: 'Ascend', text: 'The most dedicated Ascend members can reach Legendary status, a set of four exclusive tiers above Supremacy. Legendary IV requires being in the top 5000 point earners worldwide, while Legendary I, the rarest of all, is reserved for only the top 1000. It is a true test of consistency and dedication.', media: null },
-    { id: 8, author: 'Ascend', text: 'Personalize your experience! Head to your Profile tab and tap Settings to switch between light and dark mode, update your account details, or review our Terms and Conditions at any time. We built these options so Ascend can look and feel exactly the way you want it to, day or night.', media: null },
-    { id: 9, author: 'Ascend', text: 'Building your circle is easy on Ascend. Tap on anyone profile to view their details, send them a message, or add them as a friend. Once someone adds you back, you will both earn bonus points, and your friend count will grow right on your profile for everyone to see.', media: { uri: null, type: 'video' } },
-  ]);
+  
   const [draft, setDraft] = useState('');
   const [draftMedia, setDraftMedia] = useState(null);
   const [friends, setFriends] = useState([])
@@ -151,7 +141,7 @@ function getBotReply(q) {
   const [notifOpen, setNotifOpen] = useState(false);
   const [viewProfileFor, setViewProfileFor] = useState(null);
   const [viewProfileData, setViewProfileData] = useState(null);
-
+  const [posts, setPosts] = useState([]);
   const [chats, setChats] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
   const [chatDraft, setChatDraft] = useState('');
