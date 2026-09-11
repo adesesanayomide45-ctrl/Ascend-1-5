@@ -157,6 +157,7 @@ function getBotReply(q) {
   const [groupDraft, setGroupDraft] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [searchCategory, setSearchCategory] = useState('people');
   const [incomingRequests, setIncomingRequests] = useState([]);
   const [realFriends, setRealFriends] = useState([]);
   const [activePrivateFriend, setActivePrivateFriend] = useState(null);
