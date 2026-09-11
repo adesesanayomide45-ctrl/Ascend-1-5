@@ -384,24 +384,31 @@ function getBotReply(q) {
       const officialPageRef = doc(db, 'pages', user.uid);
       const officialPageSnap = await getDoc(officialPageRef);
 
-      if (!officialPageSnap.exists()) {
-        await setDoc(officialPageRef, {
-          name: 'Ascend',
-          description: 'The official Ascend page.',
-          category: 'Social Network',
-          ownerUid: user.uid,
-          ownerName: 'Ascend',
-          photo: user.photo || '',
-          Verified: true,
-          isOfficial: true,
-          followersCount: 0,
-          createdAt: serverTimestamp(),
-        });
-      }
+      const officialPageData = {
+        name: 'Ascend',
+        description: 'The official Ascend page.',
+        category: 'Social Network',
+        ownerUid: user.uid,
+        ownerName: 'Ascend',
+        photo: user.photo || '',
+        Verified: true,
+        isOfficial: true,
+        followersCount: officialPageSnap.exists()
+          ? officialPageSnap.data().followersCount || 0
+          : 0,
+        createdAt: officialPageSnap.exists()
+          ? officialPageSnap.data().createdAt || serverTimestamp()
+          : serverTimestamp(),
+      };
+
+      await setDoc(officialPageRef, officialPageData, { merge: true });
     } catch (error) {
       console.log('Official page setup failed:', error);
     }
   };
+
+  createOfficialPage();
+}, [user?.uid, user?.isOfficial, user?.photo]);
 
   createOfficialPage();
 }, [user?.uid, user?.isOfficial]);
