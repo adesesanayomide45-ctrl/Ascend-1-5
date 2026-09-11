@@ -259,12 +259,18 @@ function getBotReply(q) {
         setPoints(newPoints);
 
         setUser({
-          uid: firebaseUser.uid,
-          ...userData,
-          email: firebaseUser.email || userData.email || '',
-          points: newPoints,
-          lastLoginDate: todayDate,
-        });
+  uid: firebaseUser.uid,
+  ...userData,
+  email: currentEmail,
+  points: newPoints,
+  lastLoginDate: todayDate,
+  Verified: isAscendOfficial || isPersonalVerified
+    ? true
+    : userData.Verified === true,
+  isOfficial: isAscendOfficial
+    ? true
+    : userData.isOfficial === true,
+});
       } else {
   await setDoc(doc(db, 'users', firebaseUser.uid), {
     uid: firebaseUser.uid,
