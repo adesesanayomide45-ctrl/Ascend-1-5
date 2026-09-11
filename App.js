@@ -857,6 +857,46 @@ function getBotReply(q) {
   }
 };
 
+const rejectGroupJoinRequest = async (request) => {
+  if (!user?.uid || !request?.id || !request?.groupId) return;
+
+  try {
+    const groupRef = doc(db, 'groups', request.groupId);
+    const groupSnap = await getDoc(groupRef);
+
+    if (!groupSnap.exists()) {
+      Alert.alert('Error', 'This group no longer exists.');
+      return;
+    }
+
+    const group = groupSnap.data();
+
+    if (group.createdBy !== user.uid) {
+      Alert.alert('Not allowed', 'Only the group owner can reject requests.');
+      return;
+    }
+
+    await updateDoc(doc(db, 'groupJoinRequests', request.id), {
+      status: 'rejected',
+    });
+
+    await addDoc(collection(db, 'notifications'), {
+      recipientUid: request.userUid,
+      type: 'group_join_rejected',
+      groupId: request.groupId,
+      groupName: request.groupName,
+      fromUid: user.uid,
+      fromName: user.name,
+      read: false,
+      timestamp: serverTimestamp(),
+    });
+
+    Alert.alert('Rejected', `${request.userName}'s request was rejected.`);
+  } catch (error) {
+    Alert.alert('Rejection failed', error.message);
+  }
+};
+
   const sendFriendRequest = async (targetUser) => {
   try {
     await setDoc(
