@@ -1831,27 +1831,29 @@ if (!user) {
     ]}
   >
     <View style={{ flex: 1 }}>
-      <Text style={{ color: text, fontWeight: '700' }}>
-        {r.name}
-      </Text>
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Text style={{ color: text, fontWeight: '700' }}>
+      {r.name}
+    </Text>
 
-      {searchCategory === 'pages' && r.Verified === true && (
-        <View
-          style={{
-            width: 18,
-            height: 18,
-            borderRadius: 9,
-            backgroundColor: '#16a34a',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 4,
-          }}
-        >
-          <Text style={{ color: '#fff', fontSize: 12, fontWeight: '900' }}>
-            ✓
-          </Text>
-        </View>
-      )}
+    {searchCategory === 'pages' && r.Verified === true && (
+      <View
+        style={{
+          width: 18,
+          height: 18,
+          borderRadius: 9,
+          backgroundColor: '#16a34a',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginLeft: 6,
+        }}
+      >
+        <Text style={{ color: '#fff', fontSize: 12, fontWeight: '900' }}>
+          ✓
+        </Text>
+      </View>
+    )}
+  </View>
 
       {searchCategory === 'pages' && (
         <Text style={{ color: subtext, fontSize: 12, marginTop: 3 }}>
