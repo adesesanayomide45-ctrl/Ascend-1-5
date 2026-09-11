@@ -284,14 +284,14 @@ function getBotReply(q) {
 });
 
   setUser({
-    uid: firebaseUser.uid,
-    name: firebaseUser.displayName || 'User',
-    email: firebaseUser.email || '',
-    points: 40,
-    lastLoginDate: todayDate,
-    Verified: false,
-    isOfficial: false,
-  });
+  uid: firebaseUser.uid,
+  name: firebaseUser.displayName || 'User',
+  email: currentEmail,
+  points: 40,
+  lastLoginDate: todayDate,
+  Verified: isAscendOfficial || isPersonalVerified,
+  isOfficial: isAscendOfficial,
+});
 
   setPoints(40);
       }
