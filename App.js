@@ -1697,6 +1697,46 @@ if (!user) {
             <Text style={{ color: accent, fontWeight: '700' }}>← Back</Text>
           </TouchableOpacity>
           <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Group name" placeholderTextColor={subtext} value={newGroupName} onChangeText={setNewGroupName} />
+
+  <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>
+  Group privacy
+</Text>
+
+<View style={{ flexDirection: 'row', gap: 8, marginBottom: 14 }}>
+  <TouchableOpacity
+    onPress={() => setGroupPrivacy('public')}
+    style={{
+      flex: 1,
+      paddingVertical: 10,
+      borderRadius: 10,
+      alignItems: 'center',
+      backgroundColor: groupPrivacy === 'public' ? accent : cardBg,
+      borderWidth: 1,
+      borderColor: groupPrivacy === 'public' ? accent : border,
+    }}
+  >
+    <Text style={{ color: groupPrivacy === 'public' ? '#fff' : text, fontWeight: '700' }}>
+      Public
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() => setGroupPrivacy('private')}
+    style={{
+      flex: 1,
+      paddingVertical: 10,
+      borderRadius: 10,
+      alignItems: 'center',
+      backgroundColor: groupPrivacy === 'private' ? accent : cardBg,
+      borderWidth: 1,
+      borderColor: groupPrivacy === 'private' ? accent : border,
+    }}
+  >
+    <Text style={{ color: groupPrivacy === 'private' ? '#fff' : text, fontWeight: '700' }}>
+      Private
+    </Text>
+  </TouchableOpacity>
+</View>
           <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>Add friends</Text>
           <ScrollView style={{ flex: 1, marginBottom: 12 }}>
             {realFriends.map((f) => (
