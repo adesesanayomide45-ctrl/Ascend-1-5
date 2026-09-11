@@ -587,6 +587,257 @@ function getBotReply(q) {
       if (typeof post.id === 'string') await updateDoc(doc(db, 'posts', post.id), { shareCount: increment(1) });
     } catch (error) {}
   };
+
+ const seedAscendOfficialPosts = async () => {
+  if (!user?.uid || user.isOfficial !== true) return;
+
+  try {
+    const seedRef = doc(db, 'system', 'ascendOfficialPostsV1');
+    const seedSnap = await getDoc(seedRef);
+
+    if (seedSnap.exists() && seedSnap.data()?.seeded === true) {
+      return;
+    }
+
+    const batch = writeBatch(db);
+
+    const officialPosts = [
+      {
+        id: 'ascend-official-01',
+        text: 'Welcome to Ascend! 🎉 This is a place to connect, share, make friends, follow Pages, join groups, and climb the ranks together.',
+      },
+      {
+        id: 'ascend-official-02',
+        text: 'Quick question 😄: If you could give yourself one special superpower on Ascend, what would it be?',
+      },
+      {
+        id: 'ascend-official-03',
+        text: 'Daily reminder: consistency matters. Log in, connect with people, post something, and keep climbing. 🚀',
+      },
+      {
+        id: 'ascend-official-04',
+        text: 'Ascend joke of the day 😂: I wanted to post something intelligent today… then I remembered I am still loading.',
+      },
+      {
+        id: 'ascend-official-05',
+        text: 'Your friends are part of your journey. Send a friend request to someone you know and grow your circle. 🤝',
+      },
+      {
+        id: 'ascend-official-06',
+        text: 'Did you know you can follow Pages on Ascend? Find your favourite Pages under the Pages search category.',
+      },
+      {
+        id: 'ascend-official-07',
+        text: 'Public or private? 👀 If you created a group, choose the privacy that works best for your community.',
+      },
+      {
+        id: 'ascend-official-08',
+        text: 'Never underestimate one small post. Someone might need to see exactly what you decided to share today. ❤️',
+      },
+      {
+        id: 'ascend-official-09',
+        text: 'Ascend challenge: make one new friend this week. No pressure, just good vibes. 😎',
+      },
+      {
+        id: 'ascend-official-10',
+        text: 'Remember: your profile is yours. Add a profile picture, update your information, and make Ascend feel like home.',
+      },
+      {
+        id: 'ascend-official-11',
+        text: 'What makes a great friend? Loyalty, honesty, support, or simply being there when it matters? Tell us your answer.',
+      },
+      {
+        id: 'ascend-official-12',
+        text: 'Sometimes the best conversations start with a simple “hello.” 👋',
+      },
+      {
+        id: 'ascend-official-13',
+        text: 'Keep going. Your current rank does not have to be your final rank. 💪',
+      },
+      {
+        id: 'ascend-official-14',
+        text: 'Ascend joke 😂: My phone asked me if I wanted to save my password. I said, “Of course.” It replied, “Then remember it.” 😭',
+      },
+      {
+        id: 'ascend-official-15',
+        text: 'Have something interesting to share? Create a post and let the community see it.',
+      },
+      {
+        id: 'ascend-official-16',
+        text: 'Pages are for communities, brands, creators, businesses, and official identities. Create yours and start building followers.',
+      },
+        {
+        id: 'ascend-official-17',
+        text: 'A good community is built one person at a time. Thanks for being one of the people helping Ascend grow. ❤️',
+      },
+      {
+        id: 'ascend-official-18',
+        text: 'Question of the day: What is the funniest thing that happened to you this week? 😂',
+      },
+      {
+        id: 'ascend-official-19',
+        text: 'Take a moment today to check on someone you care about. A simple message can mean a lot.',
+      },
+      {
+        id: 'ascend-official-20',
+        text: 'Ascend is just getting started. More features, more communities, and more ways to connect are coming. 🚀',
+      },
+      {
+        id: 'ascend-official-21',
+        text: 'If you could rename your current rank, what funny name would you choose? 😂',
+      },
+      {
+        id: 'ascend-official-22',
+        text: 'Your next great conversation could be one search away. Find people, Pages, or Groups using Search.',
+      },
+      {
+        id: 'ascend-official-23',
+        text: 'Keep your community positive. Treat people with respect and help make Ascend a place people enjoy visiting.',
+      },
+      {
+        id: 'ascend-official-24',
+        text: 'Ascend joke 😂: “I will sleep early tonight.” — Famous last words before scrolling for another two hours. 😭',
+      },
+      {
+        id: 'ascend-official-25',
+        text: 'Progress does not always happen quickly. Keep showing up and keep moving forward. 🌟',
+      },
+              {
+        id: 'ascend-official-26',
+        text: 'You can now discover people, Pages, and Groups from one Search screen. 🔎',
+      },
+      {
+        id: 'ascend-official-27',
+        text: 'Ascend joke 😂: I opened the fridge three times hoping new food would appear. It did not. 😭',
+      },
+      {
+        id: 'ascend-official-28',
+        text: 'A new day is another chance to make progress. Keep building, keep connecting, and keep climbing. 🚀',
+      },
+      {
+        id: 'ascend-official-29',
+        text: 'What kind of group would you create on Ascend: football, gaming, school, business, music, or something completely different?',
+      },
+      {
+        id: 'ascend-official-30',
+        text: 'Remember that private groups require approval before someone can become a member. 🔐',
+      },
+      {
+        id: 'ascend-official-31',
+        text: 'Public groups are open for people to join directly. Find one that interests you and become part of the community.',
+      },
+      {
+        id: 'ascend-official-32',
+        text: 'Good things take time. Your Ascend journey is yours, so focus on improving rather than comparing yourself with everyone else.',
+      },
+      {
+        id: 'ascend-official-33',
+        text: 'Ascend joke 😂: “I will only check my notifications for one minute.” Famous last words. 😭',
+      },
+      {
+        id: 'ascend-official-34',
+        text: 'Have you discovered a Page you like? Follow it so you can stay connected with its community.',
+      },
+      {
+        id: 'ascend-official-35',
+        text: 'Your posts can include photos or videos. Share something that tells the community what you are about.',
+      },
+      {
+        id: 'ascend-official-36',
+        text: 'A great conversation does not need a complicated beginning. Sometimes “Hey, how are you?” is enough. 👋',
+      },
+      {
+        id: 'ascend-official-37',
+        text: 'Question: If Ascend gave you a free trip anywhere in the world, where would you go? 🌍',
+      },
+      {
+        id: 'ascend-official-38',
+        text: 'Keep your passwords private and never share your account credentials with anyone.',
+      },
+      {
+        id: 'ascend-official-39',
+        text: 'Ascend is built around real people and real communities. Help us keep the platform respectful and enjoyable.',
+      },
+      {
+        id: 'ascend-official-40',
+        text: 'Small achievement today? Celebrate it. Progress is progress. 🎉',
+      },
+      {
+        id: 'ascend-official-41',
+        text: 'Ascend joke 😂: My alarm clock and I have a toxic relationship. It keeps waking me up and I keep ignoring it. 😭',
+      },
+      {
+        id: 'ascend-official-42',
+        text: 'If you have a business, community, creator identity, or organisation, a Page can help people find and follow you.',
+      },
+      {
+        id: 'ascend-official-43',
+        text: 'Friendships grow through communication. Check your chats and keep in touch with the people who matter.',
+      },
+      {
+        id: 'ascend-official-44',
+        text: 'What is one thing you want to accomplish before this year ends? Tell someone and make it real. 💪',
+      },
+      {
+        id: 'ascend-official-45',
+        text: 'You do not have to be perfect to participate. Share, connect, learn, and enjoy the journey.',
+      },
+      {
+        id: 'ascend-official-46',
+        text: 'Ascend joke 😂: I said I was going to be productive today. My bed said, “Let us discuss this first.” 😭',
+      },
+      {
+        id: 'ascend-official-47',
+        text: 'Every community starts small. The people here today are part of the beginning of Ascend. ❤️',
+      },
+      {
+        id: 'ascend-official-48',
+        text: 'Question of the day: What feature would you love to see added to Ascend in the future?',
+      },
+      {
+        id: 'ascend-official-49',
+        text: 'Thank you for being part of Ascend. Keep inviting good people, sharing good energy, and building something great together.',
+      },
+      {
+        id: 'ascend-official-50',
+        text: 'This is only the beginning. 🚀 Welcome to Ascend — connect, create, follow, chat, join communities, and keep climbing.',
+      },
+    ];
+
+    officialPosts.forEach((post) => {
+      const postRef = doc(db, 'posts', post.id);
+
+      batch.set(postRef, {
+        author: 'Ascend',
+        authorUid: user.uid,
+        verified: true,
+        isOfficial: true,
+        text: post.text,
+        hasMedia: false,
+        mediaType: null,
+        mediaUrl: null,
+        likes: [],
+        commentCount: 0,
+        shareCount: 0,
+        timestamp: serverTimestamp(),
+      });
+    });
+
+    batch.set(seedRef, {
+      seeded: true,
+      version: 1,
+      postCount: 50,
+      seededAt: serverTimestamp(),
+    });
+
+    await batch.commit();
+
+    console.log('50 Ascend official posts seeded successfully.');
+  } catch (error) {
+    console.log('Ascend official post seeding failed:', error);
+  }
+};
+
   const addPost = async () => {
     if (!draft.trim() && !draftMedia) return;
     if (BLOCKED_WORDS.some((w) => draft.toLowerCase().includes(w))) {
