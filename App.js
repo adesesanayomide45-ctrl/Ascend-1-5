@@ -527,7 +527,7 @@ function getBotReply(q) {
       await addDoc(collection(db, 'posts'), {
         author: user.name,
         authorUid: user.uid || null,
-        verified: user.verified === true,
+        verified: user.Verified === true,
         isOfficial: user.isOfficial === true,
         text: draft,
         hasMedia: !!draftMedia,
