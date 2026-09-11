@@ -175,6 +175,16 @@ function getBotReply(q) {
   const border = darkMode ? '#2a3020' : '#e1e8dc';const [appReady, setAppReady] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const [loadingDots, setLoadingDots] = useState('.');
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    setLoadingDots((dots) =>
+      dots === '.' ? '..' : dots === '..' ? '...' : '.'
+    );
+  }, 500);
+
+  return () => clearInterval(interval);
+}, []);
   
   useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
