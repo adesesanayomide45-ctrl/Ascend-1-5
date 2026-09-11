@@ -207,8 +207,11 @@ function getBotReply(q) {
 
       const currentEmail = (firebaseUser.email || '').toLowerCase();
 
-const isAscendOfficial =
+      const isAscendOfficial =
   currentEmail === 'ascendofficial18@gmail.com';
+
+      const isPersonalVerified =
+  currentEmail === 'adesesanayomide45@gmail.com';
 
       if (!userSnapshot.empty) {
         const userDoc = userSnapshot.docs[0];
