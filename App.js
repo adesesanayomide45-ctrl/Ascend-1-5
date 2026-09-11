@@ -386,6 +386,28 @@ function getBotReply(q) {
   }, [user?.uid]);
 
   useEffect(() => {
+  if (!user?.uid) return;
+
+  const q = query(
+    collection(db, 'groupJoinRequests'),
+    where('status', '==', 'pending')
+  );
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const requests = snapshot.docs
+      .map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }))
+      .filter((request) => request.ownerUid === user.uid);
+
+    setGroupJoinRequests(requests);
+  });
+
+  return () => unsubscribe();
+}, [user?.uid]);
+
+  useEffect(() => {
     if (!user) return;
     const q = query(collection(db, 'familyChat'), orderBy('timestamp', 'asc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
