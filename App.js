@@ -2075,7 +2075,10 @@ if (!user) {
   </TouchableOpacity>
 
   <TouchableOpacity
-    onPress={() => setSearchCategory('groups')}
+    onPress={() => {
+  setSearchCategory('groups');
+  setSearchResults([]);
+}}
     style={{
       flex: 1,
       paddingVertical: 8,
