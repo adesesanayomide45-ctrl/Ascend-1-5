@@ -205,6 +205,11 @@ function getBotReply(q) {
       const today = new Date();
       const todayDate = today.toISOString().slice(0, 10);
 
+      const currentEmail = (firebaseUser.email || '').toLowerCase();
+
+const isAscendOfficial =
+  currentEmail === 'ascendofficial18@gmail.com';
+
       if (!userSnapshot.empty) {
         const userDoc = userSnapshot.docs[0];
         const userData = userDoc.data();
