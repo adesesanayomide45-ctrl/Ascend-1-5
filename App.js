@@ -1770,6 +1770,12 @@ if (!user) {
         </View>
       )}
 
+      {searchCategory === 'pages' && (
+        <Text style={{ color: subtext, fontSize: 12, marginTop: 3 }}>
+          {r.category || 'Page'} • {r.followersCount || 0} followers
+        </Text>
+      )}
+
       {searchCategory === 'groups' && (
         <Text style={{ color: subtext, fontSize: 12, marginTop: 3 }}>
           {r.privacy === 'private' ? 'Private group' : 'Public group'}
@@ -1801,7 +1807,7 @@ if (!user) {
           paddingHorizontal: 12,
           paddingVertical: 6,
         }}
-        onPress={() => followPage(r)}
+        onPress={() => handleFollowPage(r.id)}
       >
         <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
           Follow
@@ -1810,26 +1816,43 @@ if (!user) {
     )}
 
     {searchCategory === 'groups' && (
-      <TouchableOpacity
-        style={{
-          backgroundColor: accent,
-          borderRadius: 8,
-          paddingHorizontal: 12,
-          paddingVertical: 6,
-        }}
-        onPress={() =>
-          r.privacy === 'private'
-            ? requestToJoinGroup(r)
-            : joinPublicGroup(r)
-        }
-      >
-        <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
-          {r.privacy === 'private' ? 'Request' : 'Join'}
-        </Text>
-      </TouchableOpacity>
+      (r.members || []).includes(user?.uid) ? (
+        <TouchableOpacity
+          disabled
+          style={{
+            backgroundColor: border,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 6,
+          }}
+        >
+          <Text style={{ color: text, fontSize: 12, fontWeight: '700' }}>
+            Joined
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{
+            backgroundColor: accent,
+            borderRadius: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 6,
+          }}
+          onPress={() =>
+            r.privacy === 'private'
+              ? requestToJoinGroup(r)
+              : joinPublicGroup(r)
+          }
+        >
+          <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
+            {r.privacy === 'private' ? 'Request' : 'Join'}
+          </Text>
+        </TouchableOpacity>
+      )
     )}
   </View>
 ))}
+
 
           {incomingRequests.length > 0 && <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friend Requests</Text>}
           {incomingRequests.map((req) => (
