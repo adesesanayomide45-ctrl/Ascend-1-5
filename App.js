@@ -2027,7 +2027,10 @@ if (!user) {
   }}
 >
   <TouchableOpacity
-    onPress={() => setSearchCategory('people')}
+    onPress={() => {
+  setSearchCategory('people');
+  setSearchResults([]);
+}}
     style={{
       flex: 1,
       paddingVertical: 8,
