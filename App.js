@@ -1800,20 +1800,36 @@ if (!user) {
     )}
 
     {searchCategory === 'pages' && (
-      <TouchableOpacity
-        style={{
-          backgroundColor: accent,
-          borderRadius: 8,
-          paddingHorizontal: 12,
-          paddingVertical: 6,
-        }}
-        onPress={() => handleFollowPage(r.id)}
-      >
-        <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
-          Follow
-        </Text>
-      </TouchableOpacity>
-    )}
+  followedPages.includes(r.id) ? (
+    <TouchableOpacity
+      style={{
+        backgroundColor: border,
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+      }}
+      onPress={() => handleUnfollowPage(r.id)}
+    >
+      <Text style={{ color: text, fontSize: 12, fontWeight: '700' }}>
+        Following
+      </Text>
+    </TouchableOpacity>
+  ) : (
+    <TouchableOpacity
+      style={{
+        backgroundColor: accent,
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+      }}
+      onPress={() => handleFollowPage(r.id)}
+    >
+      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
+        Follow
+      </Text>
+    </TouchableOpacity>
+  )
+)}
 
     {searchCategory === 'groups' && (
       (r.members || []).includes(user?.uid) ? (
