@@ -713,6 +713,50 @@ function getBotReply(q) {
   }
 };
 
+  const requestToJoinGroup = async (group) => {
+  if (!user?.uid || !group?.id) return;
+
+  try {
+    const existing = await getDocs(
+      query(
+        collection(db, 'groupJoinRequests'),
+        where('groupId', '==', group.id),
+        where('userUid', '==', user.uid),
+        where('status', '==', 'pending')
+      )
+    );
+
+    if (!existing.empty) {
+      Alert.alert('Request already sent', 'You already requested to join this group.');
+      return;
+    }
+
+    await addDoc(collection(db, 'groupJoinRequests'), {
+      groupId: group.id,
+      groupName: group.name,
+      userUid: user.uid,
+      userName: user.name,
+      status: 'pending',
+      createdAt: serverTimestamp(),
+    });
+
+    await addDoc(collection(db, 'notifications'), {
+      recipientUid: group.createdBy,
+      type: 'group_join_request',
+      groupId: group.id,
+      groupName: group.name,
+      fromUid: user.uid,
+      fromName: user.name,
+      read: false,
+      timestamp: serverTimestamp(),
+    });
+
+    Alert.alert('Request sent', 'The group owner has been notified.');
+  } catch (error) {
+    Alert.alert('Request failed', error.message);
+  }
+};
+
   const sendFriendRequest = async (targetUser) => {
   try {
     await setDoc(
