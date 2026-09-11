@@ -96,6 +96,7 @@ function getBotReply(q) {
   const [groups, setGroups] = useState([]);
   const [activeGroup, setActiveGroup] = useState(null);
   const [groupMsgs, setGroupMsgs] = useState([]);
+  const [groupJoinRequests, setGroupJoinRequests] = useState([]);
   const [groupMsgDraft, setGroupMsgDraft] = useState('');
   const [creatingGroup, setCreatingGroup] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
