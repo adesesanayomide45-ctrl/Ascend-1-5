@@ -2686,10 +2686,22 @@ if (!user) {
     </Text>
 
     {pageProfile.Verified === true && (
-      <Text style={{ color: '#16a34a', fontSize: 16, fontWeight: '700', marginBottom: 8 }}>
-        ✓ Verified Page
-      </Text>
-    )}
+  <View
+    style={{
+      width: 20,
+      height: 20,
+      borderRadius: 10,
+      backgroundColor: '#16a34a',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 10,
+    }}
+  >
+    <Text style={{ color: '#fff', fontSize: 13, fontWeight: '900' }}>
+      ✓
+    </Text>
+  </View>
+)}
 
     {pageProfile.isOfficial === true && (
       <Text style={{ color: '#16a34a', fontSize: 16, fontWeight: '700', marginBottom: 8 }}>
