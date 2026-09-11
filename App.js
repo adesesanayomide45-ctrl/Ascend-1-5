@@ -690,6 +690,7 @@ function getBotReply(q) {
       .filter(
         (u) =>
           u.uid !== user.uid &&
+          u.isOfficial !== true &&
           typeof u.name === 'string' &&
           u.name.toLowerCase().includes(term)
       );
