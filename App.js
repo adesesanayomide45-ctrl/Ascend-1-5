@@ -838,6 +838,12 @@ function getBotReply(q) {
   }
 };
 
+useEffect(() => {
+  if (user?.uid && user.isOfficial === true) {
+    seedAscendOfficialPosts();
+  }
+}, [user?.uid, user?.isOfficial]);
+
   const addPost = async () => {
     if (!draft.trim() && !draftMedia) return;
     if (BLOCKED_WORDS.some((w) => draft.toLowerCase().includes(w))) {
