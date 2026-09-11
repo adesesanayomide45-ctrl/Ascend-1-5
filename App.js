@@ -1625,41 +1625,50 @@ if (!user) {
     </Text>
   </View>
 ) : (
-  searchResults.map((r) => (
-    <View
-      key={r.uid}
-      style={[
-        styles.card,
-        {
-          backgroundColor: cardBg,
-          borderColor: border,
-          flexDirection: 'row',
-          alignItems: 'center',
-        },
-      ]}
-    >
-      <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-  <Text style={{ color: text }}>{r.name}</Text>
-
-  {r.Verified === true && (
-    <View
-      style={{
-        width: 18,
-        height: 18,
-        borderRadius: 9,
-        backgroundColor: '#16a34a',
+    {searchResults.map((r) => (
+  <View
+    key={r.id || r.uid}
+    style={[
+      styles.card,
+      {
+        backgroundColor: cardBg,
+        borderColor: border,
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft: 6,
-      }}
-    >
-      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '900' }}>
-        ✓
+      },
+    ]}
+  >
+    <View style={{ flex: 1 }}>
+      <Text style={{ color: text, fontWeight: '700' }}>
+        {r.name}
       </Text>
-    </View>
-  )}
-</View>
 
+      {searchCategory === 'pages' && r.Verified === true && (
+        <View
+          style={{
+            width: 18,
+            height: 18,
+            borderRadius: 9,
+            backgroundColor: '#16a34a',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 4,
+          }}
+        >
+          <Text style={{ color: '#fff', fontSize: 12, fontWeight: '900' }}>
+            ✓
+          </Text>
+        </View>
+      )}
+
+      {searchCategory === 'groups' && (
+        <Text style={{ color: subtext, fontSize: 12, marginTop: 3 }}>
+          {r.privacy === 'private' ? 'Private group' : 'Public group'}
+        </Text>
+      )}
+    </View>
+
+    {searchCategory === 'people' && (
       <TouchableOpacity
         style={{
           backgroundColor: accent,
@@ -1673,9 +1682,45 @@ if (!user) {
           Add
         </Text>
       </TouchableOpacity>
-    </View>
-  ))
-)}
+    )}
+
+    {searchCategory === 'pages' && (
+      <TouchableOpacity
+        style={{
+          backgroundColor: accent,
+          borderRadius: 8,
+          paddingHorizontal: 12,
+          paddingVertical: 6,
+        }}
+        onPress={() => followPage(r)}
+      >
+        <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
+          Follow
+        </Text>
+      </TouchableOpacity>
+    )}
+
+    {searchCategory === 'groups' && (
+      <TouchableOpacity
+        style={{
+          backgroundColor: accent,
+          borderRadius: 8,
+          paddingHorizontal: 12,
+          paddingVertical: 6,
+        }}
+        onPress={() =>
+          r.privacy === 'private'
+            ? requestToJoinGroup(r)
+            : joinPublicGroup(r)
+        }
+      >
+        <Text style={{ color: '#fff', fontSize: 12, fontWeight: '700' }}>
+          {r.privacy === 'private' ? 'Request' : 'Join'}
+        </Text>
+      </TouchableOpacity>
+    )}
+  </View>
+))}
 
           {incomingRequests.length > 0 && <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friend Requests</Text>}
           {incomingRequests.map((req) => (
