@@ -1351,10 +1351,18 @@ const openPageProfile = async (pageId) => {
 };
 
   const handleLogin = async () => {
+  setAuthLoading(true);
+
   try {
-    await signInWithEmailAndPassword(auth, emailInput.trim(), passInput);
+    await signInWithEmailAndPassword(
+      auth,
+      emailInput.trim(),
+      passInput
+    );
   } catch (error) {
     Alert.alert('Log in failed', error.message);
+  } finally {
+    setAuthLoading(false);
   }
 };
 if (!user) {
