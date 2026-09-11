@@ -352,6 +352,36 @@ function getBotReply(q) {
   }, [user?.uid]);
 
   useEffect(() => {
+  const createOfficialPage = async () => {
+    if (!user?.uid || user.isOfficial !== true) return;
+
+    try {
+      const officialPageRef = doc(db, 'pages', user.uid);
+      const officialPageSnap = await getDoc(officialPageRef);
+
+      if (!officialPageSnap.exists()) {
+        await setDoc(officialPageRef, {
+          name: 'Ascend',
+          description: 'The official Ascend page.',
+          category: 'Social Network',
+          ownerUid: user.uid,
+          ownerName: 'Ascend',
+          photo: user.photo || '',
+          Verified: true,
+          isOfficial: true,
+          followersCount: 0,
+          createdAt: serverTimestamp(),
+        });
+      }
+    } catch (error) {
+      console.log('Official page setup failed:', error);
+    }
+  };
+
+  createOfficialPage();
+}, [user?.uid, user?.isOfficial]);
+
+  useEffect(() => {
   if (!user?.uid) return;
 
   const q = query(
