@@ -259,12 +259,12 @@ function getBotReply(q) {
         setPoints(newPoints);
 
         setUser({
-  uid: firebaseUser.uid,
-  ...userData,
-  email: currentEmail,
-  points: newPoints,
-  lastLoginDate: todayDate,
-  Verified: isAscendOfficial || isPersonalVerified
+    uid: firebaseUser.uid,
+    ...userData,
+    email: currentEmail,
+    points: newPoints,
+    lastLoginDate: todayDate,
+    Verified: isAscendOfficial || isPersonalVerified
     ? true
     : userData.Verified === true,
   isOfficial: isAscendOfficial
