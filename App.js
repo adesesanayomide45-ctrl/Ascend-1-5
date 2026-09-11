@@ -273,15 +273,15 @@ function getBotReply(q) {
 });
       } else {
   await setDoc(doc(db, 'users', firebaseUser.uid), {
-    uid: firebaseUser.uid,
-    name: firebaseUser.displayName || 'User',
-    email: firebaseUser.email || '',
-    points: 40,
-    lastLoginDate: todayDate,
-    Verified: false,
-    isOfficial: false,
-    createdAt: serverTimestamp(),
-  });
+  uid: firebaseUser.uid,
+  name: firebaseUser.displayName || 'User',
+  email: currentEmail,
+  points: 40,
+  lastLoginDate: todayDate,
+  Verified: isAscendOfficial || isPersonalVerified,
+  isOfficial: isAscendOfficial,
+  createdAt: serverTimestamp(),
+});
 
   setUser({
     uid: firebaseUser.uid,
