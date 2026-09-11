@@ -1522,9 +1522,17 @@ if (!user) {
           <>
             <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Email or phone number" placeholderTextColor={subtext} value={emailInput} onChangeText={setEmailInput} />
             <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg }]} placeholder="Password" placeholderTextColor={subtext} secureTextEntry value={passInput} onChangeText={setPassInput} />
-            <TouchableOpacity style={[styles.button, { backgroundColor: accent }]} onPress={authMode === 'signup' ? handleSignup : handleLogin}>
-              <Text style={styles.buttonText}>Log in</Text>
-            </TouchableOpacity>
+            <TouchableOpacity
+  style={[styles.button, { backgroundColor: accent }]}
+  onPress={authMode === 'signup' ? handleSignup : handleLogin}
+  disabled={authLoading}
+>
+  {authLoading ? (
+    <ActivityIndicator color="#fff" />
+  ) : (
+    <Text style={styles.buttonText}>Log in</Text>
+  )}
+</TouchableOpacity>
           </>
         )}
 
