@@ -141,7 +141,6 @@ function getBotReply(q) {
   const [notifOpen, setNotifOpen] = useState(false);
   const [viewProfileFor, setViewProfileFor] = useState(null);
   const [viewProfileData, setViewProfileData] = useState(null);
-  const [posts, setPosts] = useState([]);
   const [chats, setChats] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
   const [chatDraft, setChatDraft] = useState('');
