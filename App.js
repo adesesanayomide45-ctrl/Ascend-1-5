@@ -1487,18 +1487,23 @@ if (!user) {
     </TouchableOpacity>
 
     <TouchableOpacity
-      style={[styles.button, {
-        backgroundColor: cardBg,
-        borderWidth: 1,
-        borderColor: border,
-        marginTop: 10,
-      }]}
-      onPress={handleSignup}
-    >
-      <Text style={{ color: text, textAlign: 'center', fontWeight: '700' }}>
-        {signupPhoto ? 'Create Account' : 'Skip for Now'}
-      </Text>
-    </TouchableOpacity>
+  style={[styles.button, {
+    backgroundColor: cardBg,
+    borderWidth: 1,
+    borderColor: border,
+    marginTop: 10,
+  }]}
+  onPress={handleSignup}
+  disabled={authLoading}
+>
+  {authLoading ? (
+    <ActivityIndicator color={text} />
+  ) : (
+    <Text style={{ color: text, textAlign: 'center', fontWeight: '700' }}>
+      {signupPhoto ? 'Create Account' : 'Skip for Now'}
+    </Text>
+  )}
+</TouchableOpacity>
 
     <TouchableOpacity onPress={() => setSignupStage('details')}>
       <Text style={{ color: accent, textAlign: 'center', marginTop: 12 }}>
