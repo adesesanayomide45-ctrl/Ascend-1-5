@@ -400,9 +400,6 @@ function getBotReply(q) {
   createOfficialPage();
 }, [user?.uid, user?.isOfficial, user?.photo]);
 
-  createOfficialPage();
-}, [user?.uid, user?.isOfficial]);
-
   useEffect(() => {
   if (!user?.uid) return;
 
