@@ -2943,20 +2943,6 @@ if (!user) {
           </View>
         </View>
       )}
-              </View>
-            ))}
-          </ScrollView>
-          <View style={{ flexDirection: 'row', gap: 8 }}>
-            <TouchableOpacity style={{ backgroundColor: cardBg, borderWidth: 1, borderColor: border, borderRadius: 10, width: 42, alignItems: 'center', justifyContent: 'center' }} onPress={sendVoiceNote}>
-              <Text style={{ fontSize: 16 }}>🎤</Text>
-            </TouchableOpacity>
-            <TextInput style={[styles.input, { borderColor: border, color: text, backgroundColor: cardBg, flex: 1, marginBottom: 0 }]} placeholder="Message..." placeholderTextColor={subtext} value={chatDraft} onChangeText={setChatDraft} />
-            <TouchableOpacity style={{ backgroundColor: accent, borderRadius: 10, paddingHorizontal: 16, justifyContent: 'center' }} onPress={sendChatMessage}>
-              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Send</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
 
       {screen === 'ranks' && (
         <ScrollView style={{ flex: 1 }}>
