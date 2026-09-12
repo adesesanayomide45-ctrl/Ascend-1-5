@@ -2243,26 +2243,31 @@ if (!user) {
           {p.author}
         </Text>
 
-        <View
-          style={{
-            height: 220,
-            borderRadius: 12,
-            backgroundColor: bg,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text style={{ fontSize: 30 }}>🎥</Text>
+        <>
+  {p.media?.uri ? (
+    <AscendVideoPlayer uri={p.media.uri} />
+  ) : (
+    <View
+      style={{
+        height: 220,
+        borderRadius: 12,
+        backgroundColor: bg,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Text style={{ color: subtext }}>
+        Video unavailable
+      </Text>
+    </View>
+  )}
 
-          <Text
-            style={{
-              color: subtext,
-              marginTop: 6,
-            }}
-          >
-            {p.text || 'Video'}
-          </Text>
-        </View>
+  {!!p.text && (
+    <Text style={{ color: subtext, marginTop: 6 }}>
+      {p.text}
+    </Text>
+  )}
+</>
       </View>
     ))}
   </ScrollView>
