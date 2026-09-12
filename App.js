@@ -2420,21 +2420,7 @@ if (!user) {
             <Text style={{ color: text, fontWeight: '700' }}>🌐 Family & Friends (real chat)</Text>
             <Text style={{ color: subtext, fontSize: 12 }}>Everyone with the app can message here for real</Text>
           </TouchableOpacity>
-          {chats.map((c) => (
-            <TouchableOpacity key={c.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border, flexDirection: 'row', alignItems: 'center' }]} onPress={() => setActiveChatId(c.id)}>
-              <View style={{ marginRight: 10 }}>
-                <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}>
-                  <Text style={{ color: accent, fontWeight: '700' }}>{c.name.charAt(0)}</Text>
-                </View>
-                <View style={{ position: 'absolute', bottom: 0, right: 0, width: 12, height: 12, borderRadius: 6, backgroundColor: c.online ? '#1E8449' : '#9aa393', borderWidth: 2, borderColor: cardBg }} />
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={{ color: text, fontWeight: '700' }}>{c.name}</Text>
-                <Text style={{ color: subtext, fontSize: 12.5 }}>{c.messages[c.messages.length - 1]?.text || 'Say hi 👋'}</Text>
-              </View>
-              <Text style={{ color: c.online ? accent : subtext, fontSize: 11.5, fontWeight: '600' }}>{c.online ? 'Active now' : 'Offline'}</Text>
-            </TouchableOpacity>
-          ))}
+        
         </ScrollView>
       )}
 {creatingGroup && (
