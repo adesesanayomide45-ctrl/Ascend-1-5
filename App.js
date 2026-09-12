@@ -2688,7 +2688,7 @@ if (!user) {
       )
     )}
   </View>
-))}
+)))}
 
 
           {incomingRequests.length > 0 && <Text style={{ color: text, fontWeight: '700', marginTop: 10, marginBottom: 6 }}>Friend Requests</Text>}
