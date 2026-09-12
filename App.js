@@ -984,14 +984,6 @@ useEffect(() => {
   }
 };
   
-  const sendChatMessage = () => {
-    if (!chatDraft.trim() || !activeChatId) return;
-    const msgId = Date.now();
-    setChats((prev) => prev.map((c) => c.id === activeChatId
-      ? { ...c, messages: [...c.messages, { id: msgId, from: 'me', text: chatDraft, read: false }] }
-      : c));
-    setChatDraft('');
-};
     const searchUsers = async () => {
   const term = searchQuery.trim().toLowerCase();
 
