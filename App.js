@@ -2014,7 +2014,8 @@ if (!user) {
                 ? <Text style={{ color: subtext, marginTop: 8 }}>🎥 Video attached</Text>
                 : <Image source={{ uri: draftMedia.uri }} style={{ width: '100%', height: 160, borderRadius: 10, marginTop: 8 }} />
             )}
-            <View style={{ flexDirection: 'row', gap: 6, marginTop: 10 }}>
+            <View style={{ marginTop: 10 }}>
+              <View style={{ flexDirection: 'row', gap: 6 }}>
               <TouchableOpacity
   style={[styles.smallButton, { backgroundColor: bg, flex: 1 }]}
   onPress={() => pickMedia('photo')}
