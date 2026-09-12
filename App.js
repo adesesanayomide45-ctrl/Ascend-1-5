@@ -1563,6 +1563,7 @@ const handleSignup = async () => {
       gender: genderInput,
       age: Number(ageInput),
       email: emailInput.trim().toLowerCase(),
+      notificationToken: notificationToken,
       location: '',
       photo: photoUrl,
       profileComplete: false,
