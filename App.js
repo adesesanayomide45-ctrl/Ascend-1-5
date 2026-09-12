@@ -2285,10 +2285,12 @@ if (!user) {
       <Text style={{ color: '#fff', fontWeight: 'bold' }}>
         Post
       </Text>
-    </TouchableOpacity>
+        </TouchableOpacity>
   </View>
 )}
-  
+
+</View>
+
         </ScrollView>
       )}
 
