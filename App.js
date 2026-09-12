@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Switch, Image, Alert, Modal , ActivityIndicator } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';import { auth, db, storage } from './firebaseConfig';
+import * as ImagePicker from 'expo-image-picker';
+import * as Notifications from 'expo-notifications';
+import { auth, db, storage } from './firebaseConfig';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Linking, Share } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut } from 'firebase/auth';
