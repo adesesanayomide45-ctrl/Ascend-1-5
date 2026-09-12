@@ -2042,6 +2042,11 @@ if (!user) {
     🎥 Video
   </Text>
 </TouchableOpacity>
+
+      </View>
+
+<View style={{ flexDirection: 'row', gap: 6, marginTop: 6 }}>
+      
               <TouchableOpacity style={[styles.smallButton, { backgroundColor: bg, flex: 1 }]} onPress={addFeeling}>
                 <Text style={{ color: text, fontWeight: 'bold', fontSize: 12.5 }}>😊 Feeling</Text>
               </TouchableOpacity>
