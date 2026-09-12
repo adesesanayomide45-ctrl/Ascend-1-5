@@ -937,18 +937,31 @@ useEffect(() => {
     ]);
   };
 
-  const messagePerson = (name) => {
-    setProfileMenuFor(null);
-    const existing = chats.find((c) => c.name === name);
-    if (existing) {
-      setActiveChatId(existing.id);
+  const messagePerson = async (name) => {
+  setProfileMenuFor(null);
+
+  try {
+    const userQuery = query(
+      collection(db, 'users'),
+      where('name', '==', name)
+    );
+
+    const userSnapshot = await getDocs(userQuery);
+
+    if (!userSnapshot.empty) {
+      const friend = {
+        uid: userSnapshot.docs[0].id,
+        ...userSnapshot.docs[0].data(),
+      };
+
+      openPrivateChat(friend);
     } else {
-      const newChat = { id: Date.now(), name, online: false, messages: [] };
-      setChats((prev) => [...prev, newChat]);
-      setActiveChatId(newChat.id);
+      Alert.alert('Not found', 'This user could not be found.');
     }
-    setScreen('chat');
-  };
+  } catch (error) {
+    Alert.alert('Message failed', error.message);
+  }
+};
 
   const openProfile = async (name) => {
   setProfileMenuFor(null);
