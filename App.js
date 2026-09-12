@@ -2882,7 +2882,23 @@ if (!user) {
       )}
 {notifOpen && (
         <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: bg, zIndex: 20, paddingTop: 60, paddingHorizontal: 16 }}>
-          <TouchableOpacity onPress={() => { setNotifOpen(false); setNotifications((prev) => prev.map((n) => ({ ...n, read: true }))); }} style={{ marginBottom: 16 }}>
+          <TouchableOpacity onPress={async () => {
+  setNotifOpen(false);
+
+  try {
+    await Promise.all(
+      notifications
+        .filter((n) => n.id !== 1 && !n.read)
+        .map((n) =>
+          updateDoc(doc(db, 'notifications', n.id), {
+            read: true,
+          })
+        )
+    );
+  } catch (error) {
+    console.log('Notification read error:', error);
+  }
+}} style={{ marginBottom: 16 }}>
             <Text style={{ color: accent, fontWeight: '700' }}>← Back</Text>
           </TouchableOpacity>
           <Text style={{ color: text, fontSize: 18, fontWeight: '700', marginBottom: 12 }}>Notifications</Text>
