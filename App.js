@@ -226,6 +226,11 @@ function getBotReply(q) {
 
       const currentEmail = (firebaseUser.email || '').toLowerCase();
 
+      const { data: notificationToken } =
+  await Notifications.getExpoPushTokenAsync();
+
+console.log('Expo Push Token:', notificationToken);
+
       const isAscendOfficial =
   currentEmail === 'ascendofficial18@gmail.com';
 
