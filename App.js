@@ -434,14 +434,6 @@ function getBotReply(q) {
     });
     return () => unsubscribe();
   }, [activeGroup]);
-  useEffect(() => {
-    if (!user || !user.uid) return;
-    const q = query(collection(db, 'groups'), where('members', 'array-contains', user.uid));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setGroups(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
-    });
-    return () => unsubscribe();
-  }, [user?.uid]);
 
   useEffect(() => {
   if (!user?.uid) return;
