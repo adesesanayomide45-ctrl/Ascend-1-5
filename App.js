@@ -3276,7 +3276,7 @@ if (!user) {
       </Modal>
 
       <View style={[styles.nav, { borderColor: border }]}>
-        {['feed', 'reels', 'chat', 'ranks', 'ai', 'profile'].map((s) => (
+        {['feed', 'reels', 'videos', 'chat', 'ranks', 'ai', 'profile'].map((s) => (
           <TouchableOpacity key={s} style={styles.navItem} onPress={() => setScreen(s)}>
             <Text style={{ color: screen === s ? accent : subtext, fontWeight: '700', fontSize: 10 }}>{s === 'ai' ? 'HELP' : s.toUpperCase()}</Text>
           </TouchableOpacity>
