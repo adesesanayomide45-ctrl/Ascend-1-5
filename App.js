@@ -527,15 +527,63 @@ console.log('Expo Push Token:', notificationToken);
 }));
   const visiblePosts = combinedPosts.filter((p) => !blockedUsers.includes(p.author));
   const videoPosts = visiblePosts.filter((p) => p.media && p.media.type === 'video');
-  const pickMedia = async () => {
-    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!perm.granted) { Alert.alert('Permission needed', 'Please allow photo access to attach media.'); return; }
-    const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.All, quality: 0.7 });
-    if (!result.canceled) {
-      const asset = result.assets[0];
-      setDraftMedia({ uri: asset.uri, type: asset.type });
+  const pickMedia = async (mediaMode = 'all') => {
+  const perm =
+    await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+  if (!perm.granted) {
+    Alert.alert(
+      'Permission needed',
+      'Please allow photo and video access to attach media.'
+    );
+    return;
+  }
+
+  const mediaTypes =
+    mediaMode === 'photo'
+      ? ImagePicker.MediaTypeOptions.Images
+      : ImagePicker.MediaTypeOptions.Videos;
+
+  const result =
+    await ImagePicker.launchImageLibraryAsync({
+      mediaTypes,
+      quality: 0.7,
+    });
+
+  if (!result.canceled) {
+    const asset = result.assets[0];
+
+    const durationInSeconds =
+      asset.duration ? asset.duration / 1000 : 0;
+
+    if (mediaMode === 'reel' && durationInSeconds > 180) {
+      Alert.alert(
+        'Video too long for a Reel',
+        'Reels can be up to 3 minutes. Please shorten your video or upload it as a Video.'
+      );
+      return;
     }
-  };
+
+    if (mediaMode === 'video' && durationInSeconds > 1200) {
+      Alert.alert(
+        'Video too long',
+        'Videos can be up to 20 minutes. Please shorten your video.'
+      );
+      return;
+    }
+
+    setDraftMedia({
+      uri: asset.uri,
+      type: asset.type,
+      postType:
+        mediaMode === 'reel'
+          ? 'reel'
+          : mediaMode === 'video'
+          ? 'video'
+          : 'photo',
+    });
+  }
+};
 
   const pickSignupPhoto = async () => {
     const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
