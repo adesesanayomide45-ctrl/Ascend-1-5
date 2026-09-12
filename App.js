@@ -1402,31 +1402,6 @@ const sendGroupMessage = async () => {
   }
 };
 
-const sendVoiceNote = () => {
-  if (!activeChatId) return;
-
-  const msgId = Date.now();
-
-  setChats((prev) =>
-    prev.map((c) =>
-      c.id === activeChatId
-        ? {
-            ...c,
-            messages: [
-              ...c.messages,
-              {
-                id: msgId,
-                from: 'me',
-                text: '🎤 Voice note · 0:05',
-                read: false,
-              },
-            ],
-          }
-        : c
-    )
-  );
-};
-
 const sendAiMessage = () => {
   if (!aiDraft.trim()) return;
 
