@@ -106,9 +106,16 @@ function getBotReply(q) {
 }
 
 function AscendVideoPlayer({ uri }) {
-  const player = useVideoPlayer(uri, (player) => {
+  const player = useVideoPlayer(
+  uri,
+  (player) => {
     player.loop = false;
-  });
+  },
+  {
+    seekBackwardIncrement: 10,
+    seekForwardIncrement: 10,
+  }
+);
 
   return (
     <VideoView
