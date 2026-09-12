@@ -2387,7 +2387,42 @@ if (!user) {
     </Text>
   </TouchableOpacity>
 </View>
-      
+
+      {commentingPostId === p.id && (
+  <View style={{ flexDirection: 'row', gap: 6, marginTop: 8 }}>
+    <TextInput
+      style={[
+        styles.input,
+        {
+          borderColor: border,
+          color: text,
+          backgroundColor: bg,
+          flex: 1,
+          marginBottom: 0,
+        },
+      ]}
+      placeholder="Write a comment..."
+      placeholderTextColor={subtext}
+      value={commentDraft}
+      onChangeText={setCommentDraft}
+    />
+
+    <TouchableOpacity
+      style={{
+        backgroundColor: accent,
+        borderRadius: 10,
+        paddingHorizontal: 14,
+        justifyContent: 'center',
+      }}
+      onPress={() => submitComment(p)}
+    >
+      <Text style={{ color: '#fff', fontWeight: 'bold' }}>
+        Post
+      </Text>
+    </TouchableOpacity>
+  </View>
+)}
+  
       </View>
     ))}
   </ScrollView>
