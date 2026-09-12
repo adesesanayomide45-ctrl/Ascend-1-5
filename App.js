@@ -103,6 +103,18 @@ function getBotReply(q) {
   if (t.includes('hi') || t.includes('hello') || t.includes('hey')) return "Hey! I'm the Ascend Help Bot. Ask me about points, ranks, posting, reels, friends, rules, your account, or how anything in the app works.";
   return "I'm still learning! Try asking about points, ranks, posting rules, Legendary ranks, reels, voice notes, account settings, or how OTP verification works.";
 }export default function App() {
+  useEffect(() => {
+  const requestNotificationPermission = async () => {
+    const { status } = await Notifications.requestPermissionsAsync();
+
+    if (status !== 'granted') {
+      console.log('Notification permission not granted');
+    }
+  };
+
+  requestNotificationPermission();
+}, []);
+  
   const [user, setUser] = useState(null);
   const [groups, setGroups] = useState([]);
   const [activeGroup, setActiveGroup] = useState(null);
