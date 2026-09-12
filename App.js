@@ -2146,7 +2146,7 @@ if (!user) {
 
       {screen === 'reels' && (
         <ScrollView style={{ flex: 1 }}>
-          <Text style={{ color: text, fontSize: 18, fontWeight: '700', marginBottom: 12 }}>Reels & Videos</Text>
+          <Text style={{ color: text, fontSize: 18, fontWeight: '700', marginBottom: 12 }}>🎬 Reels</Text>
           {videoPosts.length === 0 && <Text style={{ color: subtext }}>No videos posted yet. Attach one from the Feed to see it here.</Text>}
           {videoPosts.map((p) => (
             <View key={p.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border }]}>
