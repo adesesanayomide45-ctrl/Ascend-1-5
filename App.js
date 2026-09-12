@@ -2252,14 +2252,6 @@ if (!user) {
   </TouchableOpacity>
 </View>
 
-<View
-  style={{
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-    gap: 10,
-  }}
->
 </>
 
       {commentingPostId === p.id && (
