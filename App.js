@@ -2836,7 +2836,7 @@ if (!user) {
           <TouchableOpacity style={[styles.button, { backgroundColor: border, marginTop: 10 }]} onPress={() => setScreen('terms')}>
             <Text style={{ color: text, fontWeight: 'bold' }}>Terms & Conditions</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, { backgroundColor: '#555' }]} onPress={() => signOut(auth)}
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#555' }]} onPress={() => signOut(auth)}>
             <Text style={styles.buttonText}>Log out</Text>
           </TouchableOpacity>
         </ScrollView>
