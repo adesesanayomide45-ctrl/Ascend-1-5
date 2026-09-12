@@ -968,6 +968,7 @@ useEffect(() => {
         text: draft,
         hasMedia: !!draftMedia,
         mediaType: draftMedia ? draftMedia.type : null,
+        postType: draftMedia ? draftMedia.postType : 'text',
         mediaUrl: mediaUrl,
         likes: [],
         commentCount: 0,
