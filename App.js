@@ -2871,11 +2871,7 @@ if (!user) {
           </View>
 
           <Text style={{ color: text, fontWeight: '700', marginTop: 20, marginBottom: 8 }}>Reset password</Text>
-          {!resetVisible && (
-            <TouchableOpacity style={[styles.button, { backgroundColor: accent }]} onPress={requestResetCode}>
-              <Text style={styles.buttonText}>Send reset code</Text>
-            </TouchableOpacity>
-          )}
+          
           <TouchableOpacity
   style={[styles.button, { backgroundColor: accent }]}
   onPress={requestResetCode}
