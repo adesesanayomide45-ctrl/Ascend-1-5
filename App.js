@@ -1249,6 +1249,15 @@ createdAt: serverTimestamp(),
       }
     );
 
+        await addDoc(collection(db, 'notifications'), {
+      recipientUid: targetUser.uid,
+      from: user.name,
+      text: `${user.name} sent you a friend request.`,
+      type: 'friend_request',
+      read: false,
+      createdAt: serverTimestamp(),
+    });
+
     Alert.alert(
       'Friend request sent',
       `Friend request sent to ${targetUser.name}`
