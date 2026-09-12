@@ -1278,6 +1278,16 @@ createdAt: serverTimestamp(),
         members: [user.uid, req.fromUid],
         memberNames: { [user.uid]: user.name, [req.fromUid]: req.fromName },
       });
+
+      await addDoc(collection(db, 'notifications'), {
+  recipientUid: req.fromUid,
+  from: user.name,
+  text: `${user.name} accepted your friend request.`,
+  type: 'friend_request_accepted',
+  read: false,
+  createdAt: serverTimestamp(),
+});
+      
     } catch (error) {
       Alert.alert('Failed', error.message);
     }
