@@ -8,6 +8,15 @@ import { Linking, Share } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, setDoc, getDocs, where, updateDoc, deleteDoc, arrayUnion, arrayRemove, increment, getDoc, writeBatch } from 'firebase/firestore';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowBanner: true,
+    shouldShowList: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
 const buildLevels = () => {
   const stages = [
     { name: "Rookie", sub: ["I","II","III","IV"], cost: () => 100 },
