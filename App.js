@@ -2202,8 +2202,6 @@ if (!user) {
       )}
 
       {screen === 'reels' && (
-
-      {screen === 'reels' && (
         <ScrollView style={{ flex: 1 }}>
           <Text style={{ color: text, fontSize: 18, fontWeight: '700', marginBottom: 12 }}>🎬 Reels</Text>
           {reelPosts.length === 0 && (
