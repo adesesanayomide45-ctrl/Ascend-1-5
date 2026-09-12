@@ -2304,9 +2304,10 @@ if (!user) {
 )}
 
 </View>
+))}
 
-        </ScrollView>
-      )}
+</ScrollView>
+)}
 
 {screen === 'videos' && (
   <ScrollView style={{ flex: 1 }}>
