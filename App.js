@@ -2198,7 +2198,10 @@ if (!user) {
             ))}
           </ScrollView>
         </View>
+        </View>
       )}
+
+      {screen === 'reels' && (
 
       {screen === 'reels' && (
         <ScrollView style={{ flex: 1 }}>
