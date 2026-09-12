@@ -2439,7 +2439,7 @@ if (!user) {
   </ScrollView>
 )}
 
-{screen === 'chat' && !activeChatId && !groupChatOpen && !activePrivateFriend && (
+{screen === 'chat' && !groupChatOpen && !activePrivateFriend && (
         <ScrollView style={{ flex: 1 }}>
 
         <View
