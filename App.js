@@ -2925,8 +2925,22 @@ if (!user) {
             {notifications.length === 0 && <Text style={{ color: subtext }}>No notifications yet.</Text>}
             {notifications.map((n) => (
               <View key={n.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border }]}>
-                <Text style={{ color: accent, fontWeight: '700', marginBottom: 2 }}>{n.from}</Text>
-                <Text style={{ color: text }}>{n.text}</Text>
+                <Text style={{ color: accent, fontWeight: '700', marginBottom: 2 }}>
+  {n.from || n.fromName || 'Ascend'}
+</Text>
+
+<Text style={{ color: text }}>
+  {n.text ||
+    (n.type === 'group_join_request'
+      ? `${n.fromName} requested to join ${n.groupName}.`
+      : n.type === 'group_joined'
+      ? `${n.fromName} joined ${n.groupName}.`
+      : n.type === 'group_join_approved'
+      ? `Your request to join ${n.groupName} was approved.`
+      : n.type === 'group_join_rejected'
+      ? `Your request to join ${n.groupName} was rejected.`
+      : 'You have a new notification.')}
+</Text>
               </View>
             ))}
           </ScrollView>
