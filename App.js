@@ -2260,24 +2260,6 @@ if (!user) {
     gap: 10,
   }}
 >
-  <TouchableOpacity
-    onPress={() => toggleLike(p)}
-    style={[styles.smallButton, { backgroundColor: bg }]}
-  >
-    <Text style={{ color: text, fontWeight: '700' }}>
-      ❤️ Like {p.likes?.length || 0}
-    </Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity
-    onPress={() => setCommentingPostId(p.id)}
-    style={[styles.smallButton, { backgroundColor: bg }]}
-  >
-    <Text style={{ color: text, fontWeight: '700' }}>
-      💬 Comment {p.commentCount || 0}
-    </Text>
-  </TouchableOpacity>
-</View>
 </>
 
       {commentingPostId === p.id && (
