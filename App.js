@@ -315,7 +315,7 @@ function getBotReply(q) {
 
   const q = query(
     collection(db, 'notifications'),
-    where('toUid', '==', user.uid)
+    where('recipientUid', '==', user.uid)
   );
 
   const unsubscribe = onSnapshot(q, (snapshot) => {
