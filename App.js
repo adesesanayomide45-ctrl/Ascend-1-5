@@ -490,7 +490,6 @@ function getBotReply(q) {
   const rank = getRank(points);
   const idx = LEVELS.findIndex((l) => l === rank);
   const next = LEVELS[idx + 1];
-  const activeChat = chats.find((c) => c.id === activeChatId);
   const combinedPosts = userPosts.map((p) => ({
   ...p,
   media: p.hasMedia
