@@ -2356,6 +2356,38 @@ if (!user) {
     </Text>
   )}
 </>
+
+  <View
+  style={{
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    gap: 10,
+  }}
+>
+  <TouchableOpacity
+    onPress={() => toggleLike(p)}
+    style={[styles.smallButton, { backgroundColor: bg }]}
+  >
+    <Text style={{ color: text, fontWeight: '700' }}>
+      ❤️ Like {p.likes?.length || 0}
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    onPress={() =>
+      setCommentingPostId(
+        commentingPostId === p.id ? null : p.id
+      )
+    }
+    style={[styles.smallButton, { backgroundColor: bg }]}
+  >
+    <Text style={{ color: text, fontWeight: '700' }}>
+      💬 Comment {p.commentCount || 0}
+    </Text>
+  </TouchableOpacity>
+</View>
+      
       </View>
     ))}
   </ScrollView>
