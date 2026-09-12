@@ -2015,9 +2015,32 @@ if (!user) {
                 : <Image source={{ uri: draftMedia.uri }} style={{ width: '100%', height: 160, borderRadius: 10, marginTop: 8 }} />
             )}
             <View style={{ flexDirection: 'row', gap: 6, marginTop: 10 }}>
-              <TouchableOpacity style={[styles.smallButton, { backgroundColor: bg, flex: 1 }]} onPress={pickMedia}>
-                <Text style={{ color: text, fontWeight: 'bold', fontSize: 12.5 }}>📎 Photo/Video</Text>
-              </TouchableOpacity>
+              <TouchableOpacity
+  style={[styles.smallButton, { backgroundColor: bg, flex: 1 }]}
+  onPress={() => pickMedia('photo')}
+>
+  <Text style={{ color: text, fontWeight: 'bold', fontSize: 12.5 }}>
+    📷 Photo
+  </Text>
+</TouchableOpacity>
+
+<TouchableOpacity
+  style={[styles.smallButton, { backgroundColor: bg, flex: 1 }]}
+  onPress={() => pickMedia('reel')}
+>
+  <Text style={{ color: text, fontWeight: 'bold', fontSize: 12.5 }}>
+    🎬 Reel
+  </Text>
+</TouchableOpacity>
+
+<TouchableOpacity
+  style={[styles.smallButton, { backgroundColor: bg, flex: 1 }]}
+  onPress={() => pickMedia('video')}
+>
+  <Text style={{ color: text, fontWeight: 'bold', fontSize: 12.5 }}>
+    🎥 Video
+  </Text>
+</TouchableOpacity>
               <TouchableOpacity style={[styles.smallButton, { backgroundColor: bg, flex: 1 }]} onPress={addFeeling}>
                 <Text style={{ color: text, fontWeight: 'bold', fontSize: 12.5 }}>😊 Feeling</Text>
               </TouchableOpacity>
