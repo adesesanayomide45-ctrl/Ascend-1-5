@@ -2176,10 +2176,31 @@ if (!user) {
           {reelPosts.map((p) => (
             <View key={p.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border }]}>
               <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>{p.author}</Text>
-              <View style={{ height: 220, borderRadius: 12, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 30 }}>🎥</Text>
-                <Text style={{ color: subtext, marginTop: 6 }}>{p.text || 'Video'}</Text>
-              </View>
+              <>
+  {p.media?.uri ? (
+    <AscendVideoPlayer uri={p.media.uri} />
+  ) : (
+    <View
+      style={{
+        height: 220,
+        borderRadius: 12,
+        backgroundColor: bg,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Text style={{ color: subtext }}>
+        Video unavailable
+      </Text>
+    </View>
+  )}
+
+  {!!p.text && (
+    <Text style={{ color: subtext, marginTop: 6 }}>
+      {p.text}
+    </Text>
+  )}
+</>
             </View>
           ))}
         </ScrollView>
