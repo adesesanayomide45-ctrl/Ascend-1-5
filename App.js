@@ -1635,6 +1635,17 @@ const handleSignup = async () => {
 
     await sendEmailVerification(result.user);
 
+    let notificationToken = null;
+
+try {
+  const tokenResponse =
+    await Notifications.getExpoPushTokenAsync();
+
+  notificationToken = tokenResponse.data;
+} catch (error) {
+  console.log('Could not get notification token:', error);
+}
+
     let photoUrl = null;
 
     if (signupPhoto) {
