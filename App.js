@@ -309,6 +309,27 @@ function getBotReply(q) {
     if (!user) return;
     setNotifications([{ id: 1, from: 'Ascend', text: `Welcome to Ascend, ${user.name}! We're glad you're here. 🎉`, read: false }]);
   }, [user?.email]);
+
+   useEffect(() => {
+  if (!user || !user.uid) return;
+
+  const q = query(
+    collection(db, 'notifications'),
+    where('toUid', '==', user.uid)
+  );
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const realNotifications = snapshot.docs.map((d) => ({
+      id: d.id,
+      ...d.data(),
+    }));
+
+    setNotifications(realNotifications);
+  });
+
+  return () => unsubscribe();
+}, [user?.uid]);
+  
   useEffect(() => {
     if (!user || !user.uid) return;
     const q = query(collection(db, 'friendRequests'), where('toUid', '==', user.uid), where('status', '==', 'pending'));
