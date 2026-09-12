@@ -531,8 +531,16 @@ console.log('Expo Push Token:', notificationToken);
     p.postType !== 'video'
 );
   
-  const videoPosts = visiblePosts.filter(
-  (p) => p.postType === 'reel'
+  const reelPosts = combinedPosts.filter(
+  (p) =>
+    !blockedUsers.includes(p.author) &&
+    p.postType === 'reel'
+);
+
+const videoPosts = combinedPosts.filter(
+  (p) =>
+    !blockedUsers.includes(p.author) &&
+    p.postType === 'video'
 );
   
   const pickMedia = async (mediaMode = 'all') => {
