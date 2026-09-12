@@ -264,9 +264,10 @@ console.log('Expo Push Token:', notificationToken);
           );
         }
 
-        await updateDoc(doc(db, 'users', userDoc.id), {
+      await updateDoc(doc(db, 'users', userDoc.id), {
   points: newPoints,
   lastLoginDate: todayDate,
+  notificationToken: notificationToken,
   ...(isAscendOfficial
     ? {
         Verified: true,
