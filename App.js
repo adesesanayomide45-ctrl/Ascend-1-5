@@ -1299,6 +1299,16 @@ createdAt: serverTimestamp(),
       status: 'rejected',
       rejectedAt: serverTimestamp(),
     });
+
+       await addDoc(collection(db, 'notifications'), {
+      recipientUid: req.fromUid,
+      from: user.name,
+      text: `${user.name} declined your friend request.`,
+      type: 'friend_request_rejected',
+      read: false,
+      createdAt: serverTimestamp(),
+    });
+    
   } catch (error) {
     Alert.alert('Failed', error.message);
   }
