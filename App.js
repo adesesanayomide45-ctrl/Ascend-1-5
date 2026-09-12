@@ -2162,7 +2162,71 @@ if (!user) {
             </View>
           ))}
         </ScrollView>
-      )}{screen === 'chat' && !activeChatId && !groupChatOpen && !activePrivateFriend && (
+      )}
+
+{screen === 'videos' && (
+  <ScrollView style={{ flex: 1 }}>
+    <Text
+      style={{
+        color: text,
+        fontSize: 18,
+        fontWeight: '700',
+        marginBottom: 12,
+      }}
+    >
+      🎥 Videos
+    </Text>
+
+    {videoPosts.length === 0 && (
+      <Text style={{ color: subtext }}>
+        No videos posted yet. Post a Video from the Feed to see it here.
+      </Text>
+    )}
+
+    {videoPosts.map((p) => (
+      <View
+        key={p.id}
+        style={[
+          styles.card,
+          { backgroundColor: cardBg, borderColor: border },
+        ]}
+      >
+        <Text
+          style={{
+            color: text,
+            fontWeight: '700',
+            marginBottom: 8,
+          }}
+        >
+          {p.author}
+        </Text>
+
+        <View
+          style={{
+            height: 220,
+            borderRadius: 12,
+            backgroundColor: bg,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 30 }}>🎥</Text>
+
+          <Text
+            style={{
+              color: subtext,
+              marginTop: 6,
+            }}
+          >
+            {p.text || 'Video'}
+          </Text>
+        </View>
+      </View>
+    ))}
+  </ScrollView>
+)}
+
+{screen === 'chat' && !activeChatId && !groupChatOpen && !activePrivateFriend && (
         <ScrollView style={{ flex: 1 }}>
 
         <View
