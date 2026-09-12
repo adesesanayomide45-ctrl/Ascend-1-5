@@ -2152,7 +2152,7 @@ if (!user) {
     No Reels posted yet. Post a Reel from the Feed to see it here.
   </Text>
 )}
-          {videoPosts.map((p) => (
+          {reelPosts.map((p) => (
             <View key={p.id} style={[styles.card, { backgroundColor: cardBg, borderColor: border }]}>
               <Text style={{ color: text, fontWeight: '700', marginBottom: 8 }}>{p.author}</Text>
               <View style={{ height: 220, borderRadius: 12, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}>
