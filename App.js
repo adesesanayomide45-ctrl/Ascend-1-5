@@ -526,7 +526,9 @@ console.log('Expo Push Token:', notificationToken);
     : null,
 }));
   const visiblePosts = combinedPosts.filter((p) => !blockedUsers.includes(p.author));
-  const videoPosts = visiblePosts.filter((p) => p.media && p.media.type === 'video');
+  const videoPosts = visiblePosts.filter(
+  (p) => p.postType === 'reel'
+);
   const pickMedia = async (mediaMode = 'all') => {
   const perm =
     await ImagePicker.requestMediaLibraryPermissionsAsync();
