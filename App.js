@@ -2553,27 +2553,6 @@ if (!user) {
           </View>
         </View>
       )}
-      {screen === 'chat' && activeChat && (
-        <View style={{ flex: 1 }}>
-          <TouchableOpacity onPress={() => setActiveChatId(null)} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-            <Text style={{ color: accent, fontWeight: '700', marginRight: 10 }}>←</Text>
-            <View style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: cardBg, alignItems: 'center', justifyContent: 'center', marginRight: 8 }}>
-              <Text style={{ color: accent, fontWeight: '700' }}>{activeChat.name.charAt(0)}</Text>
-            </View>
-            <View>
-              <Text style={{ color: text, fontWeight: '700' }}>{activeChat.name}</Text>
-              <Text style={{ color: activeChat.online ? accent : subtext, fontSize: 11.5 }}>{activeChat.online ? 'Active now' : 'Offline'}</Text>
-            </View>
-          </TouchableOpacity>
-          <ScrollView style={{ flex: 1, marginBottom: 8 }}>
-            {activeChat.messages.map((m, i) => (
-              <View key={m.id} style={{ alignItems: m.from === 'me' ? 'flex-end' : 'flex-start', marginBottom: 6 }}>
-                <View style={{ backgroundColor: m.from === 'me' ? accent : cardBg, borderRadius: 14, paddingVertical: 8, paddingHorizontal: 12, maxWidth: '75%' }}>
-                  <Text style={{ color: m.from === 'me' ? '#fff' : text }}>{m.text}</Text>
-                </View>
-                {m.from === 'me' && i === activeChat.messages.length - 1 && (
-                  <Text style={{ color: subtext, fontSize: 10.5, marginTop: 2 }}>{m.read ? 'Seen' : 'Sent'}</Text>
-                )}
               </View>
             ))}
           </ScrollView>
