@@ -263,6 +263,34 @@ export default function App() {
     }
   );
 
+  const unsubscribeEarnedReward = rewardedAd.addAdEventListener(
+    RewardedAdEventType.EARNED_REWARD,
+    async () => {
+      if (!user?.uid) return;
+
+      if (adsWatchedToday >= 20) return;
+
+      try {
+        await updateDoc(doc(db, 'users', user.uid), {
+          points: increment(5),
+        });
+
+        setPoints((prev) => prev + 5);
+        setAdsWatchedToday((prev) => prev + 1);
+
+        Alert.alert(
+          'Reward earned! 🎉',
+          'You received +5 Ascend Points!'
+        );
+      } catch (error) {
+        Alert.alert(
+          'Reward error',
+          'Your points could not be added. Please try again.'
+        );
+      }
+    }
+  );
+
   const unsubscribeClosed = rewardedAd.addAdEventListener(
     RewardedAdEventType.CLOSED,
     () => {
@@ -273,9 +301,10 @@ export default function App() {
 
   return () => {
     unsubscribeLoaded();
+    unsubscribeEarnedReward();
     unsubscribeClosed();
   };
-}, []);
+}, [user, adsWatchedToday]);
   
   useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
