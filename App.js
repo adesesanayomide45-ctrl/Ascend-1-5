@@ -10,6 +10,15 @@ import { Linking, Share } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, setDoc, getDocs, where, updateDoc, deleteDoc, arrayUnion, arrayRemove, increment, getDoc, writeBatch } from 'firebase/firestore';
 
+const REWARDED_AD_UNIT_ID =
+  __DEV__
+    ? TestIds.REWARDED
+    : 'ca-app-pub-8423402489636119/9451311119';
+
+const rewardedAd = RewardedAd.createForAdRequest(
+  REWARDED_AD_UNIT_ID
+);
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowBanner: true,
