@@ -3116,6 +3116,64 @@ if (!user) {
           <Text style={{ color: subtext, marginBottom: 16 }}>
             {points} pts total{next ? ` · ${Math.max(0, rank.to - points)} pts to ${next.stage} ${next.label}` : ' · Max rank!'}
           </Text>
+
+         <View
+  style={{
+    backgroundColor: cardBg,
+    borderWidth: 1,
+    borderColor: border,
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 16,
+  }}
+>
+  <Text
+    style={{
+      color: text,
+      fontSize: 16,
+      fontWeight: '700',
+      marginBottom: 5,
+    }}
+  >
+    🎬 Earn Ascend Points
+  </Text>
+
+  <Text
+    style={{
+      color: subtext,
+      fontSize: 12,
+      marginBottom: 12,
+    }}
+  >
+    Watch an ad and earn +5 points.
+    {'\n'}Ads watched today: {adsWatchedToday}/20
+  </Text>
+
+  <TouchableOpacity
+    onPress={watchRewardedAd}
+    style={{
+      backgroundColor:
+        adsWatchedToday >= 20 ? '#777' : accent,
+      borderRadius: 10,
+      paddingVertical: 12,
+      alignItems: 'center',
+    }}
+  >
+    <Text
+      style={{
+        color: '#fff',
+        fontWeight: '700',
+      }}
+    >
+      {adsWatchedToday >= 20
+        ? 'Daily Limit Reached'
+        : rewardedAdLoaded
+        ? '🎬 Watch Ad (+5 Points)'
+        : 'Loading Ad...'}
+    </Text>
+  </TouchableOpacity>
+</View>
+
           {LEVELS.map((l, i) => (
             <View key={l.stage + l.label} style={[styles.rankRow, { borderColor: border, backgroundColor: l === rank ? accent : cardBg }]}>
               <Text style={{ color: l === rank ? '#fff' : text, fontWeight: '600' }}>{l.stage} {l.label}</Text>
