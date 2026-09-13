@@ -6,25 +6,43 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+
     "ios": {
       "supportsTablet": true
     },
+
     "android": {
-  "package": "com.adesesanayomide.ascend15",
-  "adaptiveIcon": {
-    "foregroundImage": "./icon.png",
-        "backgroundColor": "#E6F4FE",
+      "package": "com.adesesanayomide.ascend15",
+      "adaptiveIcon": {
+        "foregroundImage": "./icon.png",
+        "backgroundColor": "#E6F4FE"
       }
     },
+
     "web": {
       "favicon": "./assets/favicon.png"
     },
+
     "description": "Social Media app",
-"platforms": ["ios", "android"],
-"extra": {
-  "eas": {
-    "projectId": "ec6f3830-f62b-4584-a560-ce6a0f54b19e"
+
+    "platforms": [
+      "ios",
+      "android"
+    ],
+
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-8423402489636119~6285704680"
+        }
+      ]
+    ],
+
+    "extra": {
+      "eas": {
+        "projectId": "ec6f3830-f62b-4584-a560-ce6a0f54b19e"
       }
+    }
   }
-}
 }
