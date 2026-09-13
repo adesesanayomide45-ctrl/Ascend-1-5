@@ -264,32 +264,63 @@ export default function App() {
   );
 
   const unsubscribeEarnedReward = rewardedAd.addAdEventListener(
-    RewardedAdEventType.EARNED_REWARD,
-    async () => {
-      if (!user?.uid) return;
+  RewardedAdEventType.EARNED_REWARD,
+  async () => {
+    if (!user?.uid) return;
 
-      if (adsWatchedToday >= 20) return;
+    try {
+      const todayDate = new Date().toISOString().slice(0, 10);
 
-      try {
-        await updateDoc(doc(db, 'users', user.uid), {
-          points: increment(5),
-        });
+      const userRef = doc(db, 'users', user.uid);
+      const userSnapshot = await getDoc(userRef);
 
-        setPoints((prev) => prev + 5);
-        setAdsWatchedToday((prev) => prev + 1);
+      if (!userSnapshot.exists()) return;
 
+      const userData = userSnapshot.data();
+
+      const savedAdDate = userData.rewardedAdDate || '';
+      const savedAdsWatched = Number(
+        userData.adsWatchedToday || 0
+      );
+
+      // Reset the counter when a new day starts
+      const currentAdsWatched =
+        savedAdDate === todayDate
+          ? savedAdsWatched
+          : 0;
+
+      if (currentAdsWatched >= 20) {
         Alert.alert(
-          'Reward earned! 🎉',
-          'You received +5 Ascend Points!'
+          'Daily limit reached',
+          'You have reached the maximum of 20 rewarded ads today.'
         );
-      } catch (error) {
-        Alert.alert(
-          'Reward error',
-          'Your points could not be added. Please try again.'
-        );
+        return;
       }
+
+      const newAdsWatched = currentAdsWatched + 1;
+
+      await updateDoc(userRef, {
+        points: increment(5),
+        adsWatchedToday: newAdsWatched,
+        rewardedAdDate: todayDate,
+      });
+
+      setPoints((prev) => prev + 5);
+      setAdsWatchedToday(newAdsWatched);
+      setRewardedAdDate(todayDate);
+
+      Alert.alert(
+        'Reward earned! 🎉',
+        'You received +5 Ascend Points!'
+      );
+    } catch (error) {
+      Alert.alert(
+        'Reward error',
+        'Your points could not be added. Please try again.'
+      );
     }
-  );
+  }
+);
 
   const unsubscribeClosed = rewardedAd.addAdEventListener(
     RewardedAdEventType.CLOSED,
