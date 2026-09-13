@@ -248,6 +248,34 @@ export default function App() {
 
   return () => clearInterval(interval);
 }, []);
+
+  useEffect(() => {
+  mobileAds()
+    .initialize()
+    .then(() => {
+      rewardedAd.load();
+    });
+
+  const unsubscribeLoaded = rewardedAd.addAdEventListener(
+    RewardedAdEventType.LOADED,
+    () => {
+      setRewardedAdLoaded(true);
+    }
+  );
+
+  const unsubscribeClosed = rewardedAd.addAdEventListener(
+    RewardedAdEventType.CLOSED,
+    () => {
+      setRewardedAdLoaded(false);
+      rewardedAd.load();
+    }
+  );
+
+  return () => {
+    unsubscribeLoaded();
+    unsubscribeClosed();
+  };
+}, []);
   
   useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
