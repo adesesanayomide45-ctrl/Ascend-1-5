@@ -375,6 +375,20 @@ console.log('Expo Push Token:', notificationToken);
         const currentPoints = Number(userData.points || 0);
         const lastLogin = userData.lastLoginDate;
 
+        const savedRewardedAdDate = userData.rewardedAdDate || '';
+
+const savedAdsWatched = Number(
+  userData.adsWatchedToday || 0
+);
+
+const currentAdsWatched =
+  savedRewardedAdDate === todayDate
+    ? savedAdsWatched
+    : 0;
+
+setAdsWatchedToday(currentAdsWatched);
+setRewardedAdDate(todayDate);
+
         let newPoints = currentPoints;
 
         if (!lastLogin) {
