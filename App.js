@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Switch, Image, Alert, Modal , ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Notifications from 'expo-notifications';
+import mobileAds, { RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { auth, db, storage } from './firebaseConfig';
 import { VideoView, useVideoPlayer } from 'expo-video';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
