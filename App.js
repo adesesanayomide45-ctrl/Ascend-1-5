@@ -192,6 +192,11 @@ export default function App() {
   
   const [points, setPoints] = useState(0);
   const [lastLoginDate, setLastLoginDate] = useState(null);
+
+  const [rewardedAdLoaded, setRewardedAdLoaded] = useState(false);
+  const [adsWatchedToday, setAdsWatchedToday] = useState(0);
+  const [rewardedAdDate, setRewardedAdDate] = useState('');
+  
   const [darkMode, setDarkMode] = useState(false);
   
   const [draft, setDraft] = useState('');
