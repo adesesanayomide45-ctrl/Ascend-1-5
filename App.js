@@ -1072,6 +1072,42 @@ useEffect(() => {
       Alert.alert('Post failed', error.message);
     }
   };
+
+  const watchRewardedAd = () => {
+    Alert.alert(
+      'Watch an Ad',
+      'Watch a short ad to earn +5 Ascend Points.',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Watch',
+          onPress: () => {
+            if (!rewardedAdLoaded) {
+              Alert.alert(
+                'Ad not ready',
+                'Please try again in a moment.'
+              );
+              return;
+            }
+
+            if (adsWatchedToday >= 20) {
+              Alert.alert(
+                'Daily limit reached',
+                'You have reached the maximum of 20 rewarded ads today.'
+              );
+              return;
+            }
+
+            rewardedAd.show();
+          },
+        },
+      ]
+    );
+  };
+  
   const addFeeling = () => setDraft((d) => (d ? d + ' 😊' : 'Feeling good 😊'));
 
   const reportPerson = (name) => {
