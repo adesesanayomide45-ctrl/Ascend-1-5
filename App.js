@@ -526,6 +526,7 @@ setRewardedAdDate(todayDate);
         return { chatId: d.id, uid: otherUid, name: data.memberNames[otherUid] };
       });
       setRealFriends(list);
+      setFriends(list.map((friend) => friend.name));
     });
     return () => unsubscribe();
   }, [user?.uid]);
