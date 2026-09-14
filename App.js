@@ -83,11 +83,6 @@ Ascend is owned and operated by TEAM MIDEON.
 
 By creating an account, you agree to these terms.`;const BLOCKED_WORDS = ['fuck', 'shit', 'bitch', 'asshole']; // basic placeholder filter — real hate-speech/slur detection needs a dedicated moderation service later
 
-const FRIEND_INFO = {
-  Ada: { age: 24, location: 'Lagos, Nigeria', bio: 'Coffee, code, repeat.', rank: 'Silver II' },
-  Marco: { age: 27, location: 'São Paulo, Brazil', bio: 'Videos and vibes.', rank: 'Gold I' },
-  Zainab: { age: 22, location: 'Nairobi, Kenya', bio: 'Climbing the ranks 🏆', rank: 'Rookie III' },
-};
 
 function getBotReply(q) {
   const t = q.toLowerCase();
