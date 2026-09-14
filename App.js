@@ -1762,7 +1762,7 @@ const sendAiMessage = () => {
   try {
     const updatedProfile = {
       bio: editBio.trim(),
-      age: newAge,
+      age: newAge ? Number(newAge) : null,
       gender: editGender.trim(),
       location: editLocation.trim(),
     };
