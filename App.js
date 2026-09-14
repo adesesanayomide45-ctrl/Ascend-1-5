@@ -225,10 +225,10 @@ export default function App() {
   const [editName, setEditName] = useState('');
   const [editNameVisible, setEditNameVisible] = useState(false);
   const [editProfileVisible, setEditProfileVisible] = useState(false);
-const [editBio, setEditBio] = useState('');
-const [editAge, setEditAge] = useState('');
-const [editGender, setEditGender] = useState('');
-const [editLocation, setEditLocation] = useState('');
+  const [editBio, setEditBio] = useState('');
+  const [editAge, setEditAge] = useState('');
+  const [editGender, setEditGender] = useState('');
+  const [editLocation, setEditLocation] = useState('');
 
   const bg = darkMode ? '#141119' : '#f0f2ee';
   const cardBg = darkMode ? '#1c1f16' : '#ffffff';
@@ -1186,20 +1186,42 @@ useEffect(() => {
   const addFeeling = () => setDraft((d) => (d ? d + ' 😊' : 'Feeling good 😊'));
 
   const reportPerson = (name) => {
-    setProfileMenuFor(null);
-    Alert.alert(
-      `Report ${name}?`,
-      'If this account is found to have truly violated our Terms and Conditions, it may face serious consequences, including suspension or a permanent ban. The account will also lose 60 points, and you will be credited with 15.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Report', onPress: () => {
-            setPoints((p) => p + 15);
-            Alert.alert('Report submitted', `${name}'s account has been flagged for review. (Demo: +15 pts credited for this simulated valid report.)`);
+  setProfileMenuFor(null);
+
+  Alert.alert(
+    `Report ${name}?`,
+    'This account will be reported for review if you believe it has violated Ascend’s Terms and Conditions.',
+    [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Report',
+        onPress: async () => {
+          if (!user?.uid) return;
+
+          try {
+            await addDoc(collection(db, 'reports'), {
+              reportedName: name,
+              reportedByUid: user.uid,
+              reportedByName: user.name || 'User',
+              status: 'pending',
+              createdAt: serverTimestamp(),
+            });
+
+            Alert.alert(
+              'Report submitted',
+              `${name}'s account has been reported and will be reviewed.`
+            );
+          } catch (error) {
+            Alert.alert(
+              'Error',
+              'Your report could not be submitted. Please try again.'
+            );
           }
-        }
-      ]
-    );
-  };
+        },
+      },
+    ]
+  );
+};
 
   const blockPerson = (name) => {
     setProfileMenuFor(null);
