@@ -3358,13 +3358,38 @@ if (!user) {
 
           <Text style={{ color: text, fontWeight: '700', marginTop: 20, marginBottom: 8 }}>Friends</Text>
           {realFriends.map((f) => (
-            <TouchableOpacity key={f} style={[styles.card, { backgroundColor: cardBg, borderColor: border, flexDirection: 'row', alignItems: 'center' }]} onPress={() => openProfile(f)}>
-              <View style={{ width: 34, height: 34, borderRadius: 17, backgroundColor: bg, alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
-                <Text style={{ color: accent, fontWeight: '700' }}>{f.charAt(0)}</Text>
-              </View>
-              <Text style={{ color: text }}>{f}</Text>
-            </TouchableOpacity>
-          ))}
+  <TouchableOpacity
+    key={f.uid}
+    style={[
+      styles.card,
+      {
+        backgroundColor: cardBg,
+        borderColor: border,
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+    ]}
+    onPress={() => openProfile(f.name)}
+  >
+    <View
+      style={{
+        width: 34,
+        height: 34,
+        borderRadius: 17,
+        backgroundColor: bg,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 10,
+      }}
+    >
+      <Text style={{ color: accent, fontWeight: '700' }}>
+        {f.name?.charAt(0)?.toUpperCase() || '?'}
+      </Text>
+    </View>
+
+    <Text style={{ color: text }}>{f.name}</Text>
+  </TouchableOpacity>
+))}
 
           <TouchableOpacity style={[styles.button, { backgroundColor: accent, marginTop: 20 }]} onPress={() => setScreen('settings')}>
             <Text style={styles.buttonText}>⚙️ Settings</Text>
