@@ -3980,6 +3980,13 @@ if (!user) {
         {viewProfileData.bio}
       </Text>
     )}
+{(!!viewProfileData.age || !!viewProfileData.gender) && (
+  <Text style={{ color: subtext, fontSize: 12.5, marginTop: 5 }}>
+    {viewProfileData.age ? `${viewProfileData.age} years old` : ''}
+    {viewProfileData.age && viewProfileData.gender ? ' • ' : ''}
+    {viewProfileData.gender || ''}
+  </Text>
+)}
   </>
 )}
             </View>
