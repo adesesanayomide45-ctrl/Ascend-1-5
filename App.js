@@ -2248,14 +2248,44 @@ if (!user) {
               </View>
               <Text style={{ color: subtext, fontSize: 11, marginTop: 4 }}>Your story</Text>
             </View>
-            {friends.map((f) => (
-              <TouchableOpacity key={f} style={{ alignItems: 'center', marginRight: 12 }} onPress={() => openProfile(f)}>
-                <View style={{ width: 54, height: 54, borderRadius: 27, backgroundColor: accent, alignItems: 'center', justifyContent: 'center' }}>
-                  <Text style={{ color: '#fff', fontWeight: '700', fontSize: 18 }}>{f.charAt(0)}</Text>
-                </View>
-                <Text style={{ color: subtext, fontSize: 11, marginTop: 4 }}>{f}</Text>
-              </TouchableOpacity>
-            ))}
+            {realFriends.map((f) => (
+  <TouchableOpacity
+    key={f.uid}
+    style={{ alignItems: 'center', marginRight: 12 }}
+    onPress={() => openProfile(f.name)}
+  >
+    <View
+      style={{
+        width: 54,
+        height: 54,
+        borderRadius: 27,
+        backgroundColor: accent,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Text
+        style={{
+          color: '#fff',
+          fontWeight: '700',
+          fontSize: 18,
+        }}
+      >
+        {f.name?.charAt(0)?.toUpperCase() || '?'}
+      </Text>
+    </View>
+
+    <Text
+      style={{
+        color: subtext,
+        fontSize: 11,
+        marginTop: 4,
+      }}
+    >
+      {f.name}
+    </Text>
+  </TouchableOpacity>
+))}
           </ScrollView>
 
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: border }]}>
