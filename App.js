@@ -1746,6 +1746,42 @@ const sendAiMessage = () => {
   }
 };
 
+  const saveProfile = async () => {
+  if (!user?.uid) {
+    Alert.alert('Error', 'Please log in again and try.');
+    return;
+  }
+
+  const newAge = editAge.trim();
+
+  if (newAge && !/^\d+$/.test(newAge)) {
+    Alert.alert('Invalid age', 'Please enter a valid age.');
+    return;
+  }
+
+  try {
+    const updatedProfile = {
+      bio: editBio.trim(),
+      age: newAge,
+      gender: editGender.trim(),
+      location: editLocation.trim(),
+    };
+
+    await updateDoc(doc(db, 'users', user.uid), updatedProfile);
+
+    setUser((prev) => ({
+      ...prev,
+      ...updatedProfile,
+    }));
+
+    setEditProfileVisible(false);
+
+    Alert.alert('Success', 'Your profile has been updated.');
+  } catch (error) {
+    Alert.alert('Error', error.message);
+  }
+};
+
   const requestResetCode = async () => {
   if (!user?.email) {
     Alert.alert('Email needed', 'Please log in with your email first.');
