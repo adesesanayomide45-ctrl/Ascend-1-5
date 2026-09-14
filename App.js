@@ -3732,6 +3732,151 @@ if (!user) {
   </ScrollView>
 )}
 
+<Modal
+  visible={editProfileVisible}
+  transparent
+  animationType="slide"
+  onRequestClose={() => setEditProfileVisible(false)}
+>
+  <View
+    style={{
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      justifyContent: 'flex-end',
+    }}
+  >
+    <View
+      style={{
+        backgroundColor: cardBg,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 20,
+        maxHeight: '85%',
+      }}
+    >
+      <Text
+        style={{
+          color: text,
+          fontSize: 20,
+          fontWeight: '700',
+          marginBottom: 16,
+        }}
+      >
+        Edit Profile
+      </Text>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={{ color: subtext, marginBottom: 5 }}>
+          Bio
+        </Text>
+
+        <TextInput
+          value={editBio}
+          onChangeText={setEditBio}
+          placeholder="Tell people about yourself"
+          placeholderTextColor={subtext}
+          multiline
+          style={[
+            styles.input,
+            {
+              borderColor: border,
+              color: text,
+              backgroundColor: bg,
+              minHeight: 80,
+              textAlignVertical: 'top',
+            },
+          ]}
+        />
+
+        <Text style={{ color: subtext, marginBottom: 5 }}>
+          Age
+        </Text>
+
+        <TextInput
+          value={editAge}
+          onChangeText={setEditAge}
+          placeholder="Your age"
+          placeholderTextColor={subtext}
+          keyboardType="number-pad"
+          style={[
+            styles.input,
+            {
+              borderColor: border,
+              color: text,
+              backgroundColor: bg,
+            },
+          ]}
+        />
+
+        <Text style={{ color: subtext, marginBottom: 5 }}>
+          Gender
+        </Text>
+
+        <TextInput
+          value={editGender}
+          onChangeText={setEditGender}
+          placeholder="Male, Female, Other..."
+          placeholderTextColor={subtext}
+          style={[
+            styles.input,
+            {
+              borderColor: border,
+              color: text,
+              backgroundColor: bg,
+            },
+          ]}
+        />
+
+        <Text style={{ color: subtext, marginBottom: 5 }}>
+          Location
+        </Text>
+
+        <TextInput
+          value={editLocation}
+          onChangeText={setEditLocation}
+          placeholder="Where are you from?"
+          placeholderTextColor={subtext}
+          style={[
+            styles.input,
+            {
+              borderColor: border,
+              color: text,
+              backgroundColor: bg,
+            },
+          ]}
+        />
+
+        <TouchableOpacity
+          onPress={saveProfile}
+          style={[
+            styles.button,
+            {
+              backgroundColor: accent,
+              marginTop: 10,
+            },
+          ]}
+        >
+          <Text style={styles.buttonText}>
+            Save Profile
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => setEditProfileVisible(false)}
+          style={{
+            alignItems: 'center',
+            paddingVertical: 12,
+          }}
+        >
+          <Text style={{ color: subtext, fontWeight: '700' }}>
+            Cancel
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
+  </View>
+</Modal>
+
       <Modal visible={!!profileMenuFor} transparent animationType="fade" onRequestClose={() => setProfileMenuFor(null)}>
         <TouchableOpacity style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'flex-end' }} activeOpacity={1} onPress={() => setProfileMenuFor(null)}>
           <View style={{ backgroundColor: cardBg, borderTopLeftRadius: 16, borderTopRightRadius: 16, padding: 20 }}>
