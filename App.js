@@ -3257,6 +3257,30 @@ if (!user) {
     Change Profile Picture
   </Text>
 </TouchableOpacity>
+
+      <TouchableOpacity
+  onPress={() => {
+    setEditBio(user.bio || '');
+    setEditAge(user.age ? String(user.age) : '');
+    setEditGender(user.gender || '');
+    setEditLocation(user.location || '');
+    setEditProfileVisible(true);
+  }}
+  style={{
+    marginTop: 8,
+    backgroundColor: cardBg,
+    borderWidth: 1,
+    borderColor: border,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+  }}
+>
+  <Text style={{ color: text, fontWeight: '700' }}>
+    Edit Profile
+  </Text>
+</TouchableOpacity>
+      
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 8 }}>
   <Text style={{ color: text, fontSize: 19, fontWeight: '700' }}>
     {user.name}
