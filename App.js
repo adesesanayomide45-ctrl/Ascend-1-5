@@ -3305,6 +3305,35 @@ if (!user) {
   )}
 </View>
             {!!user.location && <Text style={{ color: subtext, fontSize: 12.5 }}>{user.location}</Text>}
+
+              {!!user.bio && (
+  <Text
+    style={{
+      color: text,
+      fontSize: 13,
+      textAlign: 'center',
+      marginTop: 8,
+      paddingHorizontal: 20,
+    }}
+  >
+    {user.bio}
+  </Text>
+)}
+
+{(!!user.age || !!user.gender) && (
+  <Text
+    style={{
+      color: subtext,
+      fontSize: 12.5,
+      marginTop: 5,
+    }}
+  >
+    {user.age ? `${user.age} years old` : ''}
+    {user.age && user.gender ? ' • ' : ''}
+    {user.gender || ''}
+  </Text>
+)}
+
             <View style={{ backgroundColor: accent, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 3, marginTop: 6 }}>
               <Text style={{ color: '#fff', fontWeight: '700', fontSize: 12.5 }}>{rank.stage} {rank.label} · {points} pts</Text>
             </View>
