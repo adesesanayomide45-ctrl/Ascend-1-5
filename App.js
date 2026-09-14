@@ -229,6 +229,11 @@ export default function App() {
 
   const [editName, setEditName] = useState('');
   const [editNameVisible, setEditNameVisible] = useState(false);
+  const [editProfileVisible, setEditProfileVisible] = useState(false);
+const [editBio, setEditBio] = useState('');
+const [editAge, setEditAge] = useState('');
+const [editGender, setEditGender] = useState('');
+const [editLocation, setEditLocation] = useState('');
 
   const bg = darkMode ? '#141119' : '#f0f2ee';
   const cardBg = darkMode ? '#1c1f16' : '#ffffff';
