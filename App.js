@@ -3347,7 +3347,7 @@ if (!user) {
               <Text style={{ color: subtext, fontSize: 12 }}>Posts</Text>
             </View>
             <View style={{ alignItems: 'center' }}>
-              <Text style={{ color: text, fontWeight: '700', fontSize: 16 }}>{friends.length}</Text>
+              <Text style={{ color: text, fontWeight: '700', fontSize: 16 }}>{realFriends.length}</Text>
               <Text style={{ color: subtext, fontSize: 12 }}>Friends</Text>
             </View>
             <View style={{ alignItems: 'center' }}>
