@@ -251,8 +251,11 @@ export default function App() {
 }, []);
 
   useEffect(() => {
-  return () => {};
-}, []);
+  mobileAds()
+    .initialize()
+    .then(() => {
+      rewardedAd.load();
+    });
 
   const unsubscribeLoaded = rewardedAd.addAdEventListener(
     RewardedAdEventType.LOADED,
