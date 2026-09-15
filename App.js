@@ -1110,7 +1110,7 @@ useEffect(() => {
 
   const addPost = async () => {
     if (!draft.trim() && !draftMedia) return;
-    if (BLOCKED_WORDS.some((w) => draft.toLowerCase().includes(w))) {
+    if (BLOCKED_WORDS.some((w) => draft.toLowerCase().replace(/[^a-z]/g, '').includes(w))) {
       Alert.alert('Post blocked', 'Your post contains language that violates our content policy. Please edit it before posting.');
       return;
     }
