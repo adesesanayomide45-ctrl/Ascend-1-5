@@ -91,7 +91,6 @@ function getBotReply(q) {
   if (t.includes('ban') || t.includes('punish')) return "If an account is found to have truly violated our terms, it can face serious punishment, including suspension or a permanent ban — on top of the usual point penalty.";
   if (t.includes('terms') || t.includes('rule')) return TERMS_TEXT;
   if (t.includes('reel') || t.includes('video')) return "Tap the Reels tab to watch videos people have posted. You can attach your own with the 📎 Photo / Video button on the Feed screen.";
-  if (t.includes('voice')) return "Tap the 🎤 button in a chat to send a voice note. Right now it's a placeholder — real audio recording is coming in a future update.";
   if (t.includes('otp') || t.includes('code')) return "When you sign up or reset your password, Ascend sends a one-time code to your email or phone to verify it's really you.";
   if (t.includes('age')) return "Ascend asks for your age when you sign up, as part of keeping the community safe.";
   if (t.includes('where') || t.includes('location') || t.includes('from')) return "You can add where you're from when you sign up, and view it on other people's profiles by tapping their name or photo.";
