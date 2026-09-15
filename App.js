@@ -81,7 +81,9 @@ Ascend reserves the right to take action against accounts that violate these ter
 6. Ownership
 Ascend is owned and operated by TEAM MIDEON.
 
-By creating an account, you agree to these terms.`;const BLOCKED_WORDS = ['fuck', 'shit', 'bitch', 'asshole']; // basic placeholder filter — real hate-speech/slur detection needs a dedicated moderation service later
+By creating an account, you agree to these terms.`;
+
+const BLOCKED_WORDS = ['bitch', 'asshole'];
 
 
 function getBotReply(q) {
