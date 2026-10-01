@@ -254,6 +254,7 @@ export default function App() {
   return () => {};
 }, []);
 
+  useEffect(() => {
   const unsubscribeLoaded = rewardedAd.addAdEventListener(
     RewardedAdEventType.LOADED,
     () => {
