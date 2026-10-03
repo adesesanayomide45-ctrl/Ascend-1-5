@@ -14,7 +14,7 @@
     "android": {
       "package": "com.adesesanayomide.ascend15",
       "adaptiveIcon": {
-        "foregroundImage": "./icon.png",
+        "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundColor": "#E6F4FE"
       }
     },
