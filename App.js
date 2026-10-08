@@ -254,7 +254,8 @@ export default function App() {
   return () => {};
 }, []);
 
-  useEffect(() => {
+  /*
+useEffect(() => {
   const unsubscribeLoaded = rewardedAd.addAdEventListener(
     RewardedAdEventType.LOADED,
     () => {
@@ -335,6 +336,7 @@ export default function App() {
     unsubscribeClosed();
   };
 }, [user, adsWatchedToday]);
+*/
   
   useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
