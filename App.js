@@ -15,12 +15,9 @@ const REWARDED_AD_UNIT_ID =
     ? TestIds.REWARDED
     : 'ca-app-pub-8423402489636119/9451311119';
 
-let rewardedAd;
-try {
-  rewardedAd = RewardedAd.createForAdRequest(REWARDED_AD_UNIT_ID);
-} catch (e) {
-  rewardedAd = { addAdEventListener: () => () => {}, load: () => {}, show: () => {} };
-}
+const rewardedAd = RewardedAd.createForAdRequest(
+  REWARDED_AD_UNIT_ID
+);
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
