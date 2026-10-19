@@ -361,8 +361,12 @@ useEffect(() => {
 
       const currentEmail = (firebaseUser.email || '').toLowerCase();
 
-      const { data: notificationToken } =
-  await Notifications.getExpoPushTokenAsync();
+      let notificationToken = null;
+try {
+  notificationToken = (await Notifications.getExpoPushTokenAsync()).data;
+} catch (e) {
+  console.log('No push token:', e);
+}
 
 console.log('Expo Push Token:', notificationToken);
 
