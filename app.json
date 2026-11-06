@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "Ascend",
+    "slug": "ascend-15",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.adesesanayomide.ascend15"
+    },
+    "android": {
+      "package": "com.adesesanayomide.ascend15",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-foreground.png",
+        "backgroundImage": "./assets/adaptive-background.png",
+        "monochromeImage": "./assets/adaptive-monochrome.png"
+      },
+      "permissions": [
+        "android.permission.POST_NOTIFICATIONS"
+      ]
+    },
+    "plugins": [
+      "expo-video",
+      "expo-notifications",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Ascend needs access to your photos and videos so you can attach them to posts."
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-8423402489636119~5144024117",
+          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
+        }
+      ]
+    ],
+    "description": "Social Media app",
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ec6f3830-f62b-4584-a560-ce6a0f54b19e"
+      }
+    }
+  }
+}
